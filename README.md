@@ -191,9 +191,10 @@ Manual homework QA:
 
 The repository is configured for **GitHub Pages** and **Vercel**.
 
+- **Live demo (Vercel):** https://react-homework-10-forms-validation.vercel.app/
+- **Repository:** https://github.com/andrii-dolzhenko/react-homework-10-forms-validation-atlasroute
 - GitHub Pages deploys from `main` through `.github/workflows/deploy-pages.yml`.
 - Vercel uses `vercel.json` to preserve SPA routing on direct route reloads.
-- Final live demo links will be added after the submission Pull Request is merged and the production deployments are verified.
 
 ---
 
