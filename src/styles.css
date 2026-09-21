@@ -1405,7 +1405,7 @@ p { line-height: 1.72; }
   background: rgba(244,250,252,.72);
 }
 .gallery-empty strong { font-size: 1.25rem; }
-.gallery-empty p { max-width: 620px; margin: 8px auto 0; color: #607681; }
+.gallery-empty p { max-width: 680px; margin: 8px auto 0; color: #607681; }
 .gallery-modal__footer > div { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
 
 /* About Lottie artwork has different native whitespace; normalize visual size inside one canvas. */
@@ -2816,7 +2816,7 @@ p { line-height: 1.72; }
 }
 
 
-/* HW06 final: all About animations use the same 180×180 px box. */
+/* About animations use the same 180×180 px box. */
 .concept-card__animation-frame {
   width: 180px !important;
   height: 180px !important;
@@ -2845,7 +2845,7 @@ p { line-height: 1.72; }
   }
 }
 
-/* ===== HW06 official delta: Contact page + interaction refinements ===== */
+/* ===== Contact page + interaction refinements ===== */
 .global-search--focused {
   border: 2px solid transparent;
   padding: 1px;
@@ -2886,7 +2886,7 @@ p { line-height: 1.72; }
   color: #607681;
   font-size: 1.05rem;
 }
-/* Contact hero Lottie animation supplied for HW06. */
+/* Contact hero Lottie animation. */
 .contact-hero__animation {
   min-height: 250px;
   display: grid;
@@ -3982,7 +3982,7 @@ html[data-theme='dark'] {
   text-shadow: none;
 }
 
-/* ===== HW07 Route Focus refinement =====
+/* ===== Route Focus refinement =====
    Keep the existing Natural Earth projection, but make the locator card feel
    native to AtlasRoute in both themes. Small countries/territories receive a
    local inset without changing the main regional map. */
@@ -4360,7 +4360,7 @@ html[data-theme='dark'] {
   }
 }
 
-/* Redux-managed Saved Countries / My Atlas controls. */
+/* Redux-managed Saved controls. */
 .country-card {
   position: relative;
 }
@@ -4514,7 +4514,7 @@ html[data-theme='dark'] {
   }
 }
 
-/* ===== HW07 Phase 7: My Atlas / Saved Countries ===== */
+/* ===== Saved Countries ===== */
 .saved-page {
   padding-block: 54px 96px;
 }
@@ -4919,7 +4919,7 @@ html[data-theme='dark'] {
   }
 }
 
-/* My Atlas Header utility and live Redux counter. */
+/* Saved Header utility and live Redux counter. */
 .saved-countries-link {
   position: relative;
   width: 42px;
@@ -5067,7 +5067,7 @@ html[data-theme='dark'] {
   }
 }
 
-/* HW07 final Route Focus seam fix: the local locator remains readable even
+/* Route Focus seam fix: the local locator remains readable even
    when Natural Earth does not include a polygon for a micro-territory. */
 .route-map-card__local-locator {
   pointer-events: none;
@@ -6564,5 +6564,6984 @@ html[data-theme='dark'] {
 @media (prefers-reduced-motion: reduce) {
   .insight-skeleton {
     animation: none;
+  }
+}
+
+/* ===== Forms & Validation: trip planning ===== */
+.trip-inline-cta-wrap {
+  padding: 0 0 58px;
+}
+
+.trip-inline-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 84px;
+  padding: 18px 22px;
+  border: 2px solid transparent;
+  border-radius: 22px;
+  background:
+    linear-gradient(rgba(255,255,255,.96), rgba(255,255,255,.96)) padding-box,
+    linear-gradient(110deg, #57d7d0, #74bff3, #f0c887, #e3a1b1, #57d7d0) border-box;
+  background-size: 100% 100%, 240% 100%;
+  background-position: 0 0, 100% 0;
+  box-shadow: 0 14px 38px rgba(32, 111, 145, .08);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.trip-inline-cta--attention {
+  animation: trip-cta-attention 1.7s ease-out 1;
+}
+
+@keyframes trip-cta-attention {
+  0% {
+    background-position: 0 0, 100% 0;
+    box-shadow: 0 10px 28px rgba(32, 111, 145, .08);
+  }
+  45% {
+    background-position: 0 0, 0 0;
+    box-shadow: 0 14px 42px rgba(71, 177, 218, .22), 0 0 0 5px rgba(97, 198, 235, .08);
+  }
+  100% {
+    background-position: 0 0, 16% 0;
+    box-shadow: 0 14px 38px rgba(32, 111, 145, .08);
+  }
+}
+
+.trip-inline-cta:hover,
+.trip-inline-cta:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 46px rgba(32, 111, 145, .14);
+  outline: 0;
+}
+
+.trip-inline-cta span:first-child {
+  display: grid;
+  gap: 2px;
+}
+
+.trip-inline-cta small {
+  color: #6a818b;
+  font-size: .78rem;
+}
+
+.trip-inline-cta strong {
+  color: #123d4d;
+  font-size: 1.05rem;
+}
+
+.trip-inline-cta__action {
+  flex: none;
+  color: #1286b8;
+  font-size: .86rem;
+  font-weight: 850;
+}
+
+.trip-planning-teaser {
+  margin-bottom: 70px;
+  padding: 28px 30px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  border: 1px solid rgba(21, 61, 77, .1);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(89, 190, 228, .12), transparent 33%),
+    rgba(255,255,255,.93);
+  box-shadow: 0 20px 56px rgba(33, 79, 96, .08);
+  scroll-margin-top: 100px;
+}
+
+.trip-planning-teaser__icon,
+.trip-form__icon,
+.travel-essentials__heading-icon,
+.trip-plan-panel__heading > span,
+.trip-summary-card__heading > span {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 18px;
+  background: #e3f5fc;
+  color: #168dbe;
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.trip-planning-teaser__copy .eyebrow {
+  margin-bottom: 8px;
+}
+
+.trip-planning-teaser__copy h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.85rem, 3vw, 2.8rem);
+}
+
+.trip-planning-teaser__copy > p:not(.eyebrow) {
+  max-width: 820px;
+  margin-bottom: 16px;
+  color: #607681;
+  line-height: 1.55;
+}
+
+.trip-planning-teaser__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 18px;
+}
+
+.trip-planning-teaser__features span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #476674;
+  font-size: .78rem;
+  font-weight: 750;
+}
+
+.trip-planning-teaser__features i {
+  color: #168dbe;
+  font-style: normal;
+}
+
+.trip-planning-teaser__button {
+  min-width: 220px;
+}
+
+.trip-planner-state {
+  padding-block: 80px;
+}
+
+.trip-planner-page,
+.trip-plan-page {
+  padding-bottom: 90px;
+}
+
+.trip-planner-hero,
+.trip-plan-hero {
+  position: relative;
+  min-height: 410px;
+  margin-top: 24px;
+  overflow: hidden;
+  border-radius: 34px;
+  color: #fff;
+  box-shadow: 0 22px 70px rgba(33, 69, 84, .12);
+}
+
+.trip-planner-hero > img,
+.trip-plan-hero > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trip-planner-hero--flag > div:first-child,
+.trip-plan-hero--flag > div:first-child {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #dbeef4, #f9fcfd);
+  color: #0d759f;
+  font-size: 8rem;
+}
+
+.trip-planner-hero__shade,
+.trip-plan-hero__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(4, 27, 37, .66), rgba(4, 27, 37, .16) 62%, rgba(4, 27, 37, .06)),
+    linear-gradient(0deg, rgba(4, 27, 37, .44), transparent 58%);
+}
+
+.trip-planner-hero__copy,
+.trip-plan-hero__copy {
+  position: absolute;
+  z-index: 2;
+  left: 42px;
+  right: 42px;
+  bottom: 48px;
+}
+
+.trip-planner-hero__copy h1,
+.trip-plan-hero__copy h1 {
+  margin-bottom: 10px;
+  font-size: clamp(3.2rem, 6vw, 5.4rem);
+}
+
+.trip-planner-hero__copy > p:not(.eyebrow),
+.trip-plan-hero__copy > p:not(.eyebrow) {
+  max-width: 760px;
+  margin-bottom: 0;
+  color: rgba(255,255,255,.88);
+  font-size: 1.04rem;
+}
+
+.trip-planner-stepper {
+  padding-block: 32px 26px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+}
+
+.trip-planner-stepper > b {
+  width: 82px;
+  height: 2px;
+  border-radius: 999px;
+  background: #d8e7ed;
+}
+
+.trip-step {
+  display: grid;
+  grid-template-columns: 38px auto;
+  column-gap: 10px;
+  align-items: center;
+  color: #78909a;
+}
+
+.trip-step i {
+  grid-row: 1 / 3;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(21, 61, 77, .12);
+  border-radius: 50%;
+  background: #fff;
+  color: #72909d;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.trip-step strong {
+  font-size: .86rem;
+}
+
+.trip-step small {
+  font-size: .68rem;
+}
+
+.trip-step--active {
+  color: #0f678d;
+}
+
+.trip-step--active i {
+  border-color: #4db8e4;
+  background: #198ec3;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(39, 147, 194, .2);
+}
+
+.trip-planner-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  align-items: start;
+  gap: 24px;
+}
+
+.trip-planner-content__main {
+  min-width: 0;
+}
+
+.trip-form,
+.trip-summary-card,
+.travel-essentials,
+.trip-plan-panel {
+  border: 1px solid rgba(21, 61, 77, .1);
+  background: rgba(255,255,255,.93);
+  box-shadow: 0 18px 52px rgba(33, 79, 96, .07);
+}
+
+.trip-form {
+  padding: clamp(24px, 4vw, 38px);
+  border-radius: 30px;
+}
+
+.trip-form__heading,
+.travel-essentials__heading,
+.trip-plan-panel__heading,
+.trip-summary-card__heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.trip-form__heading {
+  margin-bottom: 30px;
+}
+
+.trip-form__heading .eyebrow {
+  margin-bottom: 6px;
+}
+
+.trip-form__heading h2,
+.travel-essentials__heading h2,
+.trip-summary-card__heading h2,
+.trip-plan-panel__heading h2 {
+  margin-bottom: 6px;
+}
+
+.trip-form__heading h2 {
+  font-size: clamp(2rem, 3.3vw, 3.15rem);
+}
+
+.trip-form__heading p:not(.eyebrow),
+.travel-essentials__heading p,
+.trip-summary-card__heading p,
+.trip-plan-panel__heading p {
+  margin-bottom: 0;
+  color: #69808b;
+  line-height: 1.45;
+  font-size: .86rem;
+}
+
+.trip-form__grid {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.trip-form__grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.trip-form__grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.trip-field {
+  position: relative;
+  min-width: 0;
+}
+
+.trip-field > label,
+.trip-style-fieldset legend {
+  display: block;
+  margin-bottom: 8px;
+  color: #123c4d;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.trip-field > label span,
+.trip-style-fieldset legend span {
+  color: #7d939d;
+  font-weight: 600;
+}
+
+.trip-field__control,
+.trip-field__locked,
+.trip-budget-input,
+.trip-budget-input input,
+.trip-budget-input select {
+  width: 100%;
+  min-height: 50px;
+  border-radius: 14px;
+  color: #123c4d;
+}
+
+.trip-field__control,
+.trip-budget-input {
+  border: 1px solid rgba(21, 61, 77, .12);
+  background: #fbfdfe;
+}
+
+.trip-field__control {
+  padding: 12px 14px;
+  outline: 0;
+  resize: vertical;
+  transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.trip-field__control:focus,
+.trip-budget-input:focus-within {
+  border-color: #59bbe3;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(83, 190, 229, .16);
+}
+
+.trip-field__control--error,
+.trip-field__control--error:focus {
+  border-color: #df6f6f;
+  box-shadow: 0 0 0 3px rgba(223, 111, 111, .12);
+}
+
+.trip-field__locked {
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(21, 61, 77, .1);
+  background: #f1f7f9;
+}
+
+.trip-field__locked strong {
+  flex: 1;
+  min-width: 0;
+}
+
+.trip-field > small,
+.trip-field__counter {
+  display: block;
+  margin-top: 6px;
+  color: #82969f;
+  font-size: .67rem;
+  line-height: 1.35;
+}
+
+.trip-field__counter {
+  text-align: right;
+}
+
+.trip-field__error {
+  margin: 6px 0 0;
+  color: #c85c5c;
+  font-size: .7rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.trip-budget-input {
+  display: grid;
+  grid-template-columns: 1fr 92px;
+  overflow: hidden;
+}
+
+.trip-budget-input input,
+.trip-budget-input select {
+  min-width: 0;
+  min-height: 48px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  outline: 0;
+}
+
+.trip-budget-input input {
+  padding: 11px 14px;
+}
+
+.trip-budget-input select {
+  padding: 0 12px;
+  border-left: 1px solid rgba(21, 61, 77, .1);
+  color: #4d6a77;
+}
+
+.trip-budget-conversion {
+  margin-top: 10px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 2px;
+  border-radius: 14px;
+  background: #eaf8fd;
+}
+
+.trip-budget-conversion small {
+  color: #2b8cb5;
+  font-size: .63rem;
+  font-weight: 850;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.trip-budget-conversion strong {
+  color: #123c4d;
+  font-size: 1.15rem;
+}
+
+.trip-budget-conversion span {
+  color: #78909a;
+  font-size: .64rem;
+}
+
+.trip-style-fieldset {
+  min-width: 0;
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+
+.trip-style-options {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.trip-style-option {
+  min-height: 48px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(21, 61, 77, .12);
+  border-radius: 14px;
+  background: #fbfdfe;
+  color: #496773;
+  cursor: pointer;
+  font-size: .76rem;
+  font-weight: 750;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+}
+
+.trip-style-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.trip-style-option:hover {
+  transform: translateY(-1px);
+  border-color: rgba(66, 166, 213, .34);
+}
+
+.trip-style-option--selected {
+  border-color: #58bbe4;
+  background: #eaf8fd;
+  color: #087eaf;
+  box-shadow: inset 0 0 0 1px rgba(88, 187, 228, .15);
+}
+
+.trip-style-option:has(input:focus-visible) {
+  outline: 3px solid rgba(83, 190, 229, .28);
+  outline-offset: 2px;
+}
+
+.trip-form__actions,
+.trip-calendar-modal__actions {
+  margin-top: 30px;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid rgba(21, 61, 77, .09);
+}
+
+.trip-form button,
+.trip-modal button,
+.trip-plan-actions button {
+  cursor: pointer;
+}
+
+.trip-form__privacy-note {
+  margin-top: 8px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  border-radius: 14px;
+  background: #f1f8fa;
+  color: #65808c;
+  font-size: .75rem;
+  line-height: 1.45;
+}
+
+.trip-form__privacy-note strong {
+  flex: none;
+  color: #245668;
+}
+
+.travel-essentials {
+  position: sticky;
+  top: 98px;
+  padding: 24px;
+  border-radius: 28px;
+  display: grid;
+  gap: 12px;
+}
+
+.travel-essentials__heading {
+  margin-bottom: 4px;
+}
+
+.travel-essentials__heading h2 {
+  font-size: 1.6rem;
+}
+
+.travel-essential-card {
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: start;
+  border-radius: 18px;
+  background: #f3f9fb;
+}
+
+.travel-essential-card--currency {
+  background: #edf9f5;
+}
+
+.travel-essential-card--climate {
+  background: #fff8eb;
+}
+
+.travel-essential-card--advice {
+  background: #f5f4fd;
+}
+
+.travel-essential-card__icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,.72);
+  color: #158ebf;
+  font-weight: 900;
+}
+
+.travel-essential-card--currency .travel-essential-card__icon {
+  color: #1f9a6d;
+}
+
+.travel-essential-card--climate .travel-essential-card__icon {
+  color: #e2952f;
+}
+
+.travel-essential-card--advice .travel-essential-card__icon {
+  color: #7767d9;
+}
+
+.travel-essential-card small,
+.travel-essential-card strong,
+.travel-essential-card span {
+  display: block;
+}
+
+.travel-essential-card small {
+  margin-bottom: 3px;
+  color: #6f8792;
+  font-size: .64rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.travel-essential-card strong {
+  color: #153d4d;
+  line-height: 1.25;
+  font-size: .88rem;
+}
+
+.travel-essential-card span {
+  margin-top: 2px;
+  color: #55727f;
+  font-size: .7rem;
+}
+
+.travel-essential-card p {
+  margin: 5px 0 0;
+  color: #718893;
+  font-size: .68rem;
+  line-height: 1.45;
+}
+
+.trip-step-two-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 24px;
+  align-items: start;
+}
+
+.trip-summary-card {
+  position: sticky;
+  top: 98px;
+  padding: 24px;
+  border-radius: 28px;
+}
+
+.trip-summary-card__heading {
+  margin-bottom: 18px;
+}
+
+.trip-summary-card__heading h2 {
+  font-size: 1.55rem;
+}
+
+.trip-summary-card dl {
+  margin: 0;
+}
+
+.trip-summary-card dl > div {
+  padding: 12px 0;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 12px;
+  border-top: 1px solid rgba(21, 61, 77, .09);
+}
+
+.trip-summary-card dt {
+  color: #758c96;
+  font-size: .7rem;
+}
+
+.trip-summary-card dd {
+  margin: 0;
+  color: #173e4e;
+  font-size: .76rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.trip-summary-card dd small {
+  display: block;
+  margin-top: 2px;
+  color: #80949d;
+  font-size: .65rem;
+  font-weight: 600;
+}
+
+.trip-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  background: rgba(4, 28, 40, .56);
+  backdrop-filter: blur(6px);
+}
+
+.trip-modal {
+  position: relative;
+  width: min(560px, 100%);
+  padding: 34px;
+  border: 1px solid rgba(21, 61, 77, .12);
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 34px 100px rgba(7, 38, 52, .28);
+}
+
+.trip-modal h2 {
+  margin-bottom: 8px;
+  font-size: 2.3rem;
+}
+
+.trip-modal > p:not(.trip-modal__status) {
+  margin-bottom: 22px;
+  color: #657e89;
+  line-height: 1.55;
+}
+
+.trip-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 12px;
+  background: #f1f7f9;
+  color: #1c4b5e;
+  font-size: 1.45rem;
+}
+
+.trip-modal__hero-icon,
+.trip-success-modal__icon {
+  width: 68px;
+  height: 68px;
+  margin-bottom: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 24px;
+  background: #e5f6fc;
+  color: #168dbe;
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.trip-success-modal {
+  text-align: center;
+}
+
+.trip-success-modal__icon {
+  margin-inline: auto;
+  border-radius: 50%;
+  background: #e7f8ef;
+  color: #1d9d69;
+}
+
+.trip-success-modal__primary,
+.trip-success-modal__secondary {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.trip-share-modal__preview,
+.trip-calendar-modal__summary {
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid rgba(21, 61, 77, .09);
+  border-radius: 18px;
+  background: #f6fafc;
+}
+
+.trip-share-modal__preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trip-share-modal__preview > span {
+  font-size: 2rem;
+}
+
+.trip-share-modal__preview strong,
+.trip-share-modal__preview small,
+.trip-calendar-modal__summary strong,
+.trip-calendar-modal__summary span,
+.trip-calendar-modal__summary small {
+  display: block;
+}
+
+.trip-share-modal__preview small,
+.trip-calendar-modal__summary span,
+.trip-calendar-modal__summary small {
+  margin-top: 3px;
+  color: #6d8590;
+  font-size: .72rem;
+}
+
+.trip-share-modal__options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.trip-share-modal__options button {
+  min-height: 150px;
+  padding: 18px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
+  border: 1px solid rgba(21, 61, 77, .1);
+  border-radius: 18px;
+  background: #fbfdfe;
+  text-align: center;
+}
+
+.trip-share-modal__options button:hover,
+.trip-calendar-option:hover {
+  border-color: rgba(66, 166, 213, .36);
+  background: #f3fbfe;
+}
+
+.trip-share-modal__options button > span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e4f5fc;
+  color: #178dbd;
+  font-size: 1.2rem;
+}
+
+.trip-share-modal__options small {
+  max-width: 190px;
+  color: #758b95;
+  font-size: .68rem;
+  line-height: 1.4;
+}
+
+.trip-modal__status {
+  min-height: 44px;
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #eef9f4;
+  color: #277d62;
+  font-size: .72rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.trip-modal__status:empty {
+  visibility: hidden;
+}
+
+.trip-modal__cancel {
+  width: 100%;
+}
+
+.trip-calendar-modal__summary {
+  display: grid;
+  gap: 3px;
+}
+
+.trip-calendar-option {
+  margin-top: 10px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: auto 42px 1fr;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid rgba(21, 61, 77, .1);
+  border-radius: 16px;
+  background: #fbfdfe;
+  cursor: pointer;
+}
+
+.trip-calendar-option--selected {
+  border-color: #55b9e8;
+  background: #edf9fd;
+  box-shadow: inset 0 0 0 1px rgba(85,185,232,.12);
+}
+
+.trip-calendar-option > span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #e4f5fc;
+  color: #168dbe;
+  font-weight: 850;
+}
+
+.trip-calendar-option strong,
+.trip-calendar-option small {
+  display: block;
+}
+
+.trip-calendar-option small {
+  margin-top: 2px;
+  color: #738a94;
+  font-size: .68rem;
+}
+
+.saved-tabs {
+  margin-top: 34px;
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid rgba(21, 61, 77, .1);
+}
+
+.saved-tab {
+  position: relative;
+  padding: 13px 14px 15px;
+  border: 0;
+  background: transparent;
+  color: #637d88;
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.saved-tab span {
+  margin-left: 5px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #eaf4f8;
+  font-size: .68rem;
+}
+
+.saved-tab--active {
+  color: #0e759f;
+}
+
+.saved-tab--active::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 999px;
+  background: #2a9fd1;
+}
+
+.saved-trips-empty {
+  min-height: 360px;
+  padding: 52px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  border: 1px dashed rgba(42,111,139,.22);
+  border-radius: 30px;
+  background: rgba(255,255,255,.72);
+}
+
+.saved-trips-empty > span {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  background: #e6f6fc;
+  color: #168dbe;
+  font-size: 1.6rem;
+}
+
+.saved-trips-empty h2 {
+  margin: 18px 0 8px;
+  font-size: 2rem;
+}
+
+.saved-trips-empty p {
+  max-width: 560px;
+  color: #607681;
+}
+
+.saved-trip-list {
+  display: grid;
+  gap: 16px;
+}
+
+.saved-trip-card {
+  min-height: 250px;
+  display: grid;
+  grid-template-columns: minmax(260px, .55fr) minmax(0, 1.45fr);
+  overflow: hidden;
+  border: 1px solid rgba(21, 61, 77, .1);
+  border-radius: 26px;
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 18px 52px rgba(33, 79, 96, .07);
+}
+
+.saved-trip-card__visual {
+  min-height: 250px;
+  background: #d7e7ec;
+}
+
+.saved-trip-card__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.saved-trip-card__visual--flag {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg,#e6f3f7,#fdfefe);
+}
+
+.saved-trip-card__visual--flag span {
+  font-size: 5rem;
+}
+
+.saved-trip-card__body {
+  padding: 24px;
+  display: grid;
+  align-content: center;
+  gap: 16px;
+}
+
+.saved-trip-card__topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.saved-trip-card__topline .eyebrow {
+  margin-bottom: 5px;
+}
+
+.saved-trip-card__topline h3 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -.04em;
+}
+
+.saved-trip-card__topline > small {
+  color: #82969f;
+  font-size: .66rem;
+}
+
+.saved-trip-card__facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.saved-trip-card__facts > span {
+  min-width: 0;
+  padding-right: 10px;
+  border-right: 1px solid rgba(21, 61, 77, .08);
+}
+
+.saved-trip-card__facts > span:last-child {
+  border-right: 0;
+}
+
+.saved-trip-card__facts small,
+.saved-trip-card__facts strong,
+.saved-trip-card__facts i {
+  display: block;
+}
+
+.saved-trip-card__facts small {
+  color: #82969f;
+  font-size: .63rem;
+}
+
+.saved-trip-card__facts strong {
+  margin-top: 3px;
+  color: #173e4e;
+  font-size: .76rem;
+}
+
+.saved-trip-card__facts i {
+  margin-top: 2px;
+  color: #8799a2;
+  font-size: .62rem;
+  font-style: normal;
+}
+
+.saved-trip-card__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.trip-plan-page__back {
+  padding-top: 28px;
+}
+
+.trip-plan-page__back a {
+  color: #1b7ca8;
+  font-size: .82rem;
+  font-weight: 750;
+}
+
+.trip-plan-hero {
+  min-height: 390px;
+  margin-top: 18px;
+}
+
+.trip-plan-hero__copy {
+  bottom: 104px;
+}
+
+.trip-plan-hero__copy > strong {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.trip-plan-hero__facts {
+  position: absolute;
+  z-index: 2;
+  left: 42px;
+  right: 42px;
+  bottom: 26px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 220px));
+  gap: 10px;
+}
+
+.trip-plan-hero__facts > span {
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 14px;
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(6px);
+}
+
+.trip-plan-hero__facts small,
+.trip-plan-hero__facts strong,
+.trip-plan-hero__facts i {
+  display: block;
+}
+
+.trip-plan-hero__facts small {
+  font-size: .62rem;
+  opacity: .74;
+}
+
+.trip-plan-hero__facts strong {
+  margin-top: 2px;
+  font-size: .78rem;
+}
+
+.trip-plan-hero__facts i {
+  margin-top: 1px;
+  font-size: .62rem;
+  font-style: normal;
+  opacity: .78;
+}
+
+.trip-plan-actions {
+  padding-block: 16px 22px;
+  display: flex;
+  gap: 10px;
+}
+
+.trip-plan-actions__edit {
+  margin-left: auto;
+}
+
+.trip-plan-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.trip-plan-grid__main,
+.trip-plan-grid__aside {
+  display: grid;
+  gap: 18px;
+}
+
+.trip-plan-grid__aside .travel-essentials {
+  position: static;
+}
+
+.trip-plan-panel {
+  padding: 24px;
+  border-radius: 26px;
+}
+
+.trip-plan-panel__heading {
+  margin-bottom: 18px;
+}
+
+.trip-plan-panel__heading > span {
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  font-size: 1.1rem;
+}
+
+.trip-plan-panel__heading h2 {
+  font-size: 1.55rem;
+}
+
+.trip-plan-overview {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 18px;
+}
+
+.trip-plan-overview > div {
+  padding: 12px 0;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 10px;
+  border-top: 1px solid rgba(21, 61, 77, .09);
+}
+
+.trip-plan-overview dt {
+  color: #7c919b;
+  font-size: .7rem;
+}
+
+.trip-plan-overview dd {
+  margin: 0;
+  color: #173e4e;
+  font-size: .76rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.trip-plan-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.trip-plan-tags span {
+  padding: 9px 12px;
+  border: 1px solid rgba(21, 61, 77, .1);
+  border-radius: 12px;
+  background: #f6fafc;
+  color: #2e657b;
+  font-size: .73rem;
+  font-weight: 750;
+}
+
+.trip-plan-copy {
+  margin: 0;
+  color: #607681;
+  line-height: 1.62;
+}
+
+.trip-plan-missing {
+  min-height: 70vh;
+  padding-block: 100px;
+}
+
+.trip-plan-missing h1 {
+  max-width: 850px;
+}
+
+.trip-plan-missing > p:not(.eyebrow) {
+  max-width: 620px;
+  color: #607681;
+}
+
+[data-theme='dark'] .trip-inline-cta {
+  background:
+    linear-gradient(#08293a, #08293a) padding-box,
+    linear-gradient(110deg, #57d7d0, #74bff3, #f0c887, #e3a1b1, #57d7d0) border-box;
+}
+
+[data-theme='dark'] .trip-inline-cta small,
+[data-theme='dark'] .trip-planning-teaser__copy > p:not(.eyebrow),
+[data-theme='dark'] .trip-field > small,
+[data-theme='dark'] .trip-field__counter,
+[data-theme='dark'] .trip-form__heading p:not(.eyebrow),
+[data-theme='dark'] .travel-essentials__heading p,
+[data-theme='dark'] .trip-summary-card__heading p,
+[data-theme='dark'] .trip-plan-panel__heading p,
+[data-theme='dark'] .trip-plan-copy,
+[data-theme='dark'] .saved-trip-card__facts i,
+[data-theme='dark'] .saved-trip-card__topline > small {
+  color: #8eabb8;
+}
+
+[data-theme='dark'] .trip-inline-cta strong,
+[data-theme='dark'] .trip-form__heading h2,
+[data-theme='dark'] .trip-field > label,
+[data-theme='dark'] .trip-style-fieldset legend,
+[data-theme='dark'] .trip-budget-conversion strong,
+[data-theme='dark'] .travel-essential-card strong,
+[data-theme='dark'] .trip-summary-card dd,
+[data-theme='dark'] .saved-trip-card__topline h3,
+[data-theme='dark'] .saved-trip-card__facts strong,
+[data-theme='dark'] .trip-plan-overview dd,
+[data-theme='dark'] .trip-modal h2 {
+  color: #eef9fd;
+}
+
+[data-theme='dark'] .trip-planning-teaser,
+[data-theme='dark'] .trip-form,
+[data-theme='dark'] .travel-essentials,
+[data-theme='dark'] .trip-summary-card,
+[data-theme='dark'] .saved-trip-card,
+[data-theme='dark'] .trip-plan-panel {
+  border-color: rgba(132, 191, 216, .14);
+  background: rgba(7, 31, 47, .92);
+  box-shadow: 0 18px 52px rgba(0, 10, 18, .18);
+}
+
+[data-theme='dark'] .trip-field__control,
+[data-theme='dark'] .trip-budget-input,
+[data-theme='dark'] .trip-style-option,
+[data-theme='dark'] .trip-field__locked,
+[data-theme='dark'] .trip-share-modal__options button,
+[data-theme='dark'] .trip-calendar-option,
+[data-theme='dark'] .trip-share-modal__preview,
+[data-theme='dark'] .trip-calendar-modal__summary,
+[data-theme='dark'] .trip-plan-tags span,
+[data-theme='dark'] .saved-trips-empty {
+  border-color: rgba(132, 191, 216, .14);
+  background: #0b2e40;
+  color: #dff4fc;
+}
+
+[data-theme='dark'] .trip-field__control:focus,
+[data-theme='dark'] .trip-budget-input:focus-within {
+  background: #0c3346;
+}
+
+[data-theme='dark'] .trip-budget-input input,
+[data-theme='dark'] .trip-budget-input select,
+[data-theme='dark'] .trip-field__control {
+  color: #e9f8fd;
+}
+
+[data-theme='dark'] .trip-budget-input select {
+  border-color: rgba(132, 191, 216, .14);
+}
+
+[data-theme='dark'] .trip-style-option--selected,
+[data-theme='dark'] .trip-budget-conversion,
+[data-theme='dark'] .trip-form__privacy-note,
+[data-theme='dark'] .travel-essential-card,
+[data-theme='dark'] .trip-modal__status {
+  background: #103b50;
+}
+
+[data-theme='dark'] .travel-essential-card--currency { background: #103d38; }
+[data-theme='dark'] .travel-essential-card--climate { background: #3a3525; }
+[data-theme='dark'] .travel-essential-card--advice { background: #2d2d49; }
+
+[data-theme='dark'] .travel-essential-card p,
+[data-theme='dark'] .travel-essential-card span,
+[data-theme='dark'] .travel-essential-card small,
+[data-theme='dark'] .trip-summary-card dt,
+[data-theme='dark'] .trip-summary-card dd small,
+[data-theme='dark'] .trip-plan-overview dt,
+[data-theme='dark'] .trip-share-modal__preview small,
+[data-theme='dark'] .trip-calendar-modal__summary span,
+[data-theme='dark'] .trip-calendar-modal__summary small,
+[data-theme='dark'] .trip-calendar-option small,
+[data-theme='dark'] .trip-share-modal__options small {
+  color: #91adba;
+}
+
+[data-theme='dark'] .trip-modal {
+  border-color: rgba(132, 191, 216, .16);
+  background: #08293a;
+  color: #eef9fd;
+}
+
+[data-theme='dark'] .trip-modal > p:not(.trip-modal__status) {
+  color: #91adba;
+}
+
+[data-theme='dark'] .trip-modal__close {
+  background: #10384c;
+  color: #dff4fc;
+}
+
+[data-theme='dark'] .saved-tab {
+  color: #8faab7;
+}
+
+[data-theme='dark'] .saved-tab--active {
+  color: #6bd0f4;
+}
+
+@media (max-width: 1120px) {
+  .trip-planner-content {
+    grid-template-columns: 1fr;
+  }
+
+  .travel-essentials {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .travel-essentials__heading {
+    grid-column: 1 / -1;
+  }
+
+  .trip-step-two-layout,
+  .trip-plan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-summary-card {
+    position: static;
+  }
+
+  .saved-trip-card__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .saved-trip-card__facts > span {
+    border-right: 0;
+  }
+}
+
+@media (max-width: 820px) {
+  .trip-planning-teaser {
+    grid-template-columns: auto 1fr;
+  }
+
+  .trip-planning-teaser__button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .trip-form__grid--three,
+  .trip-form__grid--two,
+  .trip-style-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .saved-trip-card {
+    grid-template-columns: 1fr;
+  }
+
+  .saved-trip-card__visual {
+    min-height: 220px;
+    max-height: 300px;
+  }
+
+  .trip-plan-overview {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .trip-inline-cta-wrap {
+    padding-bottom: 42px;
+  }
+
+  .trip-inline-cta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .trip-planning-teaser {
+    margin-bottom: 48px;
+    padding: 22px;
+    grid-template-columns: 1fr;
+  }
+
+  .trip-planning-teaser__icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .trip-planning-teaser__features {
+    gap: 8px 13px;
+  }
+
+  .trip-planner-hero,
+  .trip-plan-hero {
+    min-height: 390px;
+    border-radius: 26px;
+  }
+
+  .trip-planner-hero__copy,
+  .trip-plan-hero__copy {
+    left: 22px;
+    right: 22px;
+    bottom: 34px;
+  }
+
+  .trip-planner-hero__copy h1,
+  .trip-plan-hero__copy h1 {
+    font-size: 3.15rem;
+  }
+
+  .trip-planner-stepper {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .trip-planner-stepper > b {
+    width: 30px;
+  }
+
+  .trip-step {
+    grid-template-columns: 34px auto;
+  }
+
+  .trip-step i {
+    width: 34px;
+    height: 34px;
+  }
+
+  .trip-step small {
+    display: none;
+  }
+
+  .trip-form {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .trip-form__heading {
+    align-items: flex-start;
+  }
+
+  .trip-form__grid--three,
+  .trip-form__grid--two,
+  .trip-style-options,
+  .travel-essentials,
+  .trip-share-modal__options,
+  .saved-trip-card__facts {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-form__actions,
+  .trip-calendar-modal__actions,
+  .trip-plan-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .trip-form__actions .primary-button,
+  .trip-form__actions .secondary-button,
+  .trip-calendar-modal__actions .primary-button,
+  .trip-calendar-modal__actions .secondary-button,
+  .trip-plan-actions .primary-button,
+  .trip-plan-actions .secondary-button {
+    width: 100%;
+  }
+
+  .trip-plan-actions__edit {
+    margin-left: 0;
+  }
+
+  .trip-modal-backdrop {
+    padding: 12px;
+  }
+
+  .trip-modal {
+    padding: 26px 20px 20px;
+    border-radius: 24px;
+  }
+
+  .trip-modal h2 {
+    font-size: 2rem;
+  }
+
+  .saved-tabs {
+    overflow-x: auto;
+  }
+
+  .saved-trip-card__body {
+    padding: 20px;
+  }
+
+  .saved-trip-card__topline {
+    flex-direction: column;
+  }
+
+  .trip-plan-hero {
+    min-height: 500px;
+  }
+
+  .trip-plan-hero__copy {
+    bottom: 178px;
+  }
+
+  .trip-plan-hero__facts {
+    left: 22px;
+    right: 22px;
+    bottom: 20px;
+    grid-template-columns: 1fr;
+  }
+
+  .trip-plan-hero__facts > span {
+    padding: 8px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-inline-cta--attention {
+    animation: none;
+  }
+
+  .trip-inline-cta,
+  .trip-style-option {
+    transition: none;
+  }
+}
+
+
+/* ===== HW10 UI polish: unified travel motion, spacing and layouts ===== */
+.details-page .country-insights {
+  padding-bottom: 70px;
+}
+
+.trip-inline-cta-wrap {
+  padding: 0;
+  margin-bottom: 70px;
+}
+
+.details-page .gallery-section {
+  padding-block: 0 70px;
+}
+
+.trip-planning-teaser {
+  margin-bottom: 70px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.trip-planning-teaser__features .trip-ui-icon {
+  color: #168dbe;
+}
+
+.travel-animated-icon {
+  position: relative;
+  display: block;
+  flex: none;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #e3f5fc;
+}
+
+.travel-animated-icon__canvas {
+  position: absolute;
+  inset: 0 auto auto 0;
+  pointer-events: none;
+}
+
+.travel-animated-icon__canvas > div,
+.travel-animated-icon__canvas svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.trip-ui-icon {
+  display: block;
+  flex: none;
+}
+
+.trip-inline-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px auto;
+  align-items: center;
+  gap: 22px;
+  min-height: 94px;
+  padding: 18px 22px 18px 26px;
+  background:
+    radial-gradient(circle at 76% 18%, rgba(100, 206, 239, .18), transparent 28%) padding-box,
+    linear-gradient(115deg, rgba(250,254,255,.98), rgba(237,249,252,.98) 58%, rgba(255,248,232,.96)) padding-box,
+    linear-gradient(110deg, #57d7d0, #74bff3, #f0c887, #e3a1b1, #57d7d0) border-box;
+}
+
+.trip-inline-cta__copy {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.trip-inline-cta__track {
+  position: relative;
+  width: 280px;
+  height: 58px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,255,255,.18), rgba(255,255,255,.5), rgba(255,255,255,.14));
+}
+
+.trip-inline-cta__road {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 11px;
+  height: 2px;
+  border-radius: 999px;
+  background: repeating-linear-gradient(90deg, rgba(35, 126, 163, .25) 0 14px, transparent 14px 24px);
+}
+
+.trip-inline-cta__car {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: 96px;
+  height: 56px;
+  animation: trip-car-drive 6.4s linear infinite;
+  will-change: transform;
+}
+
+.trip-inline-cta__car-crop {
+  display: block;
+  width: 96px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.trip-inline-cta__car-crop > div {
+  width: 100% !important;
+  height: 100% !important;
+  transform: scale(3.05);
+  transform-origin: 46% 82%;
+}
+
+@keyframes trip-car-drive {
+  0%, 9% { transform: translateX(-112px); }
+  84%, 100% { transform: translateX(286px); }
+}
+
+.trip-inline-cta__action {
+  min-width: 116px;
+  text-align: right;
+}
+
+.trip-planner-stepper {
+  justify-content: center;
+}
+
+.trip-planner-content--step-two {
+  grid-template-columns: 1fr;
+}
+
+.trip-step-two-layout {
+  grid-template-columns: minmax(0, 1.5fr) minmax(330px, .5fr);
+  width: 100%;
+}
+
+.trip-summary-card {
+  position: static;
+}
+
+.trip-form--traveler .trip-field {
+  padding-bottom: 22px;
+}
+
+.trip-form--traveler .trip-field__error {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+.travel-essential-card {
+  border: 1px solid transparent;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.travel-essential-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(64, 164, 207, .18);
+  box-shadow: 0 12px 26px rgba(31, 92, 117, .09);
+}
+
+.trip-plan-actions .primary-button,
+.trip-plan-actions .secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.trip-plan-notes {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.trip-plan-notes .trip-plan-copy {
+  max-width: 980px;
+}
+
+[data-theme='dark'] .travel-animated-icon {
+  background: #103b50;
+}
+
+[data-theme='dark'] .trip-inline-cta {
+  background:
+    radial-gradient(circle at 76% 18%, rgba(95, 201, 239, .16), transparent 30%) padding-box,
+    linear-gradient(115deg, rgba(7,39,56,.98), rgba(8,47,64,.98) 58%, rgba(43,49,40,.96)) padding-box,
+    linear-gradient(110deg, #57d7d0, #74bff3, #f0c887, #e3a1b1, #57d7d0) border-box;
+}
+
+[data-theme='dark'] .trip-inline-cta__track {
+  background: linear-gradient(90deg, rgba(97, 201, 235, .03), rgba(97, 201, 235, .1), rgba(240, 200, 135, .05));
+}
+
+[data-theme='dark'] .trip-inline-cta__road {
+  background: repeating-linear-gradient(90deg, rgba(126, 207, 236, .28) 0 14px, transparent 14px 24px);
+}
+
+[data-theme='dark'] .travel-essential-card:hover {
+  border-color: rgba(113, 201, 236, .2);
+  box-shadow: 0 12px 26px rgba(0, 8, 14, .2);
+}
+
+@media (max-width: 1120px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) 220px auto;
+  }
+
+  .trip-inline-cta__track {
+    width: 220px;
+  }
+
+  .trip-inline-cta__car {
+    animation-name: trip-car-drive-tablet;
+  }
+
+  @keyframes trip-car-drive-tablet {
+    0%, 9% { transform: translateX(-112px); }
+    84%, 100% { transform: translateX(226px); }
+  }
+}
+
+@media (max-width: 820px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .trip-inline-cta__track {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .trip-inline-cta__car {
+    animation-name: trip-car-drive-fluid;
+  }
+
+  @keyframes trip-car-drive-fluid {
+    0%, 9% { left: -108px; transform: translateX(0); }
+    84%, 100% { left: 100%; transform: translateX(4px); }
+  }
+
+  .trip-planning-teaser {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .details-page .country-insights { padding-bottom: 48px; }
+  .details-page .gallery-section { padding-bottom: 48px; }
+  .trip-planning-teaser { margin-bottom: 48px; }
+
+  .trip-inline-cta-wrap {
+    padding: 0;
+    margin-bottom: 48px;
+  }
+
+  .trip-inline-cta {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .trip-inline-cta__track {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .trip-inline-cta__action {
+    min-width: 0;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-inline-cta__car {
+    left: auto;
+    right: 10px;
+    animation: none;
+    transform: none;
+  }
+
+  .travel-essential-card {
+    transition: none;
+  }
+
+  .travel-essential-card:hover {
+    transform: none;
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .trip-plan-page__back,
+  .trip-plan-actions,
+  .trip-modal-backdrop,
+  .route-progress {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .trip-plan-page {
+    padding: 0;
+  }
+
+  .trip-plan-hero,
+  .trip-plan-panel,
+  .travel-essentials {
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  .trip-plan-grid {
+    display: block;
+  }
+
+  .trip-plan-grid__main,
+  .trip-plan-grid__aside {
+    display: block;
+  }
+
+  .trip-plan-panel,
+  .travel-essentials {
+    margin-top: 16px;
+  }
+}
+
+/* ===== HW10 polish pass 2: stable planning UX and custom route motion ===== */
+.trip-planner-page,
+.trip-plan-page {
+  background:
+    radial-gradient(circle at 3% 26%, rgba(90, 192, 228, .08), transparent 24rem),
+    radial-gradient(circle at 97% 62%, rgba(239, 190, 116, .07), transparent 25rem);
+}
+
+.trip-form__icon,
+.travel-essentials__heading-icon,
+.trip-summary-card__icon,
+.trip-plan-panel__icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 18px;
+  background: #e3f5fc;
+  color: #168dbe;
+  line-height: 0;
+}
+
+.trip-plan-panel__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+}
+
+.trip-form__icon .trip-ui-icon,
+.travel-essentials__heading-icon .trip-ui-icon,
+.trip-summary-card__icon .trip-ui-icon,
+.trip-plan-panel__icon .trip-ui-icon,
+.travel-essential-card__icon .trip-ui-icon {
+  display: block;
+  margin: auto;
+}
+
+.trip-inline-cta {
+  grid-template-columns: minmax(250px, 1fr) 340px auto;
+  gap: 24px;
+  overflow: hidden;
+}
+
+.trip-inline-cta__route {
+  position: relative;
+  width: 340px;
+  height: 54px;
+  overflow: hidden;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 28% 20%, rgba(92, 193, 226, .12), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,.08));
+}
+
+.trip-inline-cta__route-line {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: repeating-linear-gradient(90deg, rgba(25, 135, 181, .28) 0 12px, transparent 12px 22px);
+}
+
+.trip-inline-cta__route-dot {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translateY(-50%);
+  border: 2px solid #71c9e8;
+  border-radius: 50%;
+  background: #f8fdff;
+  box-shadow: 0 0 0 4px rgba(89, 190, 228, .08);
+}
+
+.trip-inline-cta__route-dot--start { left: 15px; }
+.trip-inline-cta__route-dot--end { right: 15px; }
+
+.trip-inline-cta__vehicle {
+  position: absolute;
+  left: -62px;
+  top: 11px;
+  z-index: 2;
+  width: 56px;
+  height: 30px;
+  color: #2eafd9;
+  filter: drop-shadow(0 5px 7px rgba(19, 79, 102, .16));
+  animation: trip-route-drive 6.2s linear infinite;
+  will-change: left;
+}
+
+.trip-inline-cta__vehicle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes trip-route-drive {
+  0%, 9% { left: -62px; }
+  84%, 100% { left: calc(100% + 6px); }
+}
+
+.trip-budget-hint {
+  margin-top: 6px !important;
+  color: #718893 !important;
+}
+
+.travel-essentials {
+  position: static;
+}
+
+.travel-essential-card {
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+}
+
+.travel-essential-card__icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  align-self: start;
+  line-height: 0;
+}
+
+.trip-step-two-layout {
+  align-items: stretch;
+  grid-template-columns: minmax(0, 1.4fr) minmax(340px, .6fr);
+}
+
+.trip-summary-card {
+  align-self: stretch;
+  overflow: hidden;
+  padding: 0;
+}
+
+.trip-summary-card__visual {
+  position: relative;
+  min-height: 190px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #e6f3f7, #fdfefe);
+}
+
+.trip-summary-card__visual img {
+  width: 100%;
+  height: 100%;
+  min-height: 190px;
+  object-fit: cover;
+}
+
+.trip-summary-card__visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 52%, rgba(7, 34, 45, .22));
+}
+
+.trip-summary-card__visual--flag {
+  display: grid;
+  place-items: center;
+}
+
+.trip-summary-card__visual--flag > span {
+  font-size: 4.6rem;
+}
+
+.trip-summary-card__content {
+  padding: 22px;
+}
+
+.trip-summary-card__heading {
+  margin-bottom: 16px;
+}
+
+.trip-plan-notes {
+  width: 100%;
+  grid-column: auto;
+}
+
+.saved-trip-card {
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.saved-trip-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(61, 163, 207, .18);
+  box-shadow: 0 22px 60px rgba(28, 81, 103, .11);
+}
+
+.saved-trip-card__visual {
+  position: relative;
+}
+
+.saved-trip-card__visual-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 62%, rgba(6, 37, 49, .08)),
+    linear-gradient(0deg, rgba(6, 37, 49, .12), transparent 48%);
+}
+
+.saved-trip-card__meta-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.saved-trip-card__meta-actions > small {
+  color: #82969f;
+  font-size: .66rem;
+}
+
+.saved-trip-card__delete {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border: 1px solid rgba(21, 61, 77, .11);
+  border-radius: 12px;
+  background: rgba(255,255,255,.75);
+  color: #78909a;
+  cursor: pointer;
+  transition: color .18s ease, border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.saved-trip-card__delete:hover,
+.saved-trip-card__delete:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(194, 82, 82, .28);
+  background: #fff4f4;
+  color: #c45252;
+  outline: none;
+}
+
+.trip-duplicate-modal,
+.trip-delete-modal {
+  max-width: 620px;
+}
+
+.trip-modal__hero-icon--warning {
+  color: #d9902f;
+  background: #fff5df;
+}
+
+.trip-modal__hero-icon--danger {
+  color: #c45252;
+  background: #fff0f0;
+}
+
+.trip-duplicate-modal__actions,
+.trip-delete-modal__actions {
+  margin-top: 22px;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.trip-danger-button {
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid #c45252;
+  border-radius: 14px;
+  background: #c45252;
+  color: #fff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease;
+}
+
+.trip-danger-button:hover,
+.trip-danger-button:focus-visible {
+  transform: translateY(-1px);
+  background: #ad4141;
+  outline: none;
+}
+
+[data-theme='dark'] .trip-planner-page,
+[data-theme='dark'] .trip-plan-page {
+  background:
+    radial-gradient(circle at 3% 26%, rgba(80, 181, 220, .07), transparent 24rem),
+    radial-gradient(circle at 97% 62%, rgba(217, 167, 92, .06), transparent 25rem);
+}
+
+[data-theme='dark'] .trip-form__icon,
+[data-theme='dark'] .travel-essentials__heading-icon,
+[data-theme='dark'] .trip-summary-card__icon,
+[data-theme='dark'] .trip-plan-panel__icon {
+  background: #103b50;
+  color: #65c9ed;
+}
+
+[data-theme='dark'] .trip-inline-cta__route {
+  background:
+    radial-gradient(circle at 28% 20%, rgba(92, 193, 226, .08), transparent 28%),
+    linear-gradient(180deg, rgba(100, 205, 239, .06), rgba(255,255,255,.015));
+}
+
+[data-theme='dark'] .trip-inline-cta__route-line {
+  background: repeating-linear-gradient(90deg, rgba(115, 205, 238, .3) 0 12px, transparent 12px 22px);
+}
+
+[data-theme='dark'] .trip-inline-cta__route-dot {
+  background: #0a2d3d;
+}
+
+[data-theme='dark'] .trip-summary-card__visual {
+  background: linear-gradient(145deg, #10384a, #0b2b3b);
+}
+
+[data-theme='dark'] .saved-trip-card__delete {
+  border-color: rgba(141, 191, 212, .15);
+  background: rgba(13, 52, 69, .78);
+  color: #8eb2c1;
+}
+
+[data-theme='dark'] .saved-trip-card__delete:hover,
+[data-theme='dark'] .saved-trip-card__delete:focus-visible {
+  border-color: rgba(232, 117, 117, .26);
+  background: rgba(100, 39, 44, .5);
+  color: #ffabab;
+}
+
+[data-theme='dark'] .trip-modal__hero-icon--warning {
+  background: #4a3a1f;
+  color: #f3c06a;
+}
+
+[data-theme='dark'] .trip-modal__hero-icon--danger {
+  background: #4b282d;
+  color: #ff9c9c;
+}
+
+@media (max-width: 1120px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(220px, 1fr) 260px auto;
+  }
+
+  .trip-inline-cta__route {
+    width: 260px;
+  }
+
+  .trip-step-two-layout {
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .trip-step-two-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-summary-card__visual,
+  .trip-summary-card__visual img {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 820px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .trip-inline-cta__route {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .trip-inline-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-inline-cta__route {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .trip-duplicate-modal__actions,
+  .trip-delete-modal__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .trip-duplicate-modal__actions .primary-button,
+  .trip-duplicate-modal__actions .secondary-button,
+  .trip-delete-modal__actions .secondary-button,
+  .trip-danger-button {
+    width: 100%;
+  }
+
+  .saved-trip-card__meta-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-inline-cta__vehicle {
+    left: calc(100% - 68px);
+    animation: none;
+  }
+
+  .saved-trip-card,
+  .saved-trip-card__delete,
+  .trip-danger-button {
+    transition: none;
+  }
+
+  .saved-trip-card:hover,
+  .saved-trip-card__delete:hover,
+  .trip-danger-button:hover {
+    transform: none;
+  }
+}
+
+.trip-inline-cta__action {
+  min-width: 142px;
+  min-height: 44px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #66cbea, #42b8e4);
+  color: #07364a;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(43, 160, 205, .16);
+}
+
+.trip-summary-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.trip-summary-card__content {
+  flex: 1;
+}
+
+[data-theme='dark'] .trip-inline-cta__action {
+  background: linear-gradient(135deg, #69cff0, #45b7df);
+  color: #052d3e;
+}
+
+@media (max-width: 700px) {
+  .trip-inline-cta__action {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* ===== HW10 polish pass 3: seamless Lottie route + saved-plan awareness ===== */
+.trip-inline-cta {
+  grid-template-columns: minmax(250px, 1fr) 340px auto;
+  align-items: center;
+}
+
+.trip-inline-cta__actions {
+  display: grid;
+  justify-items: end;
+  gap: 7px;
+}
+
+.trip-inline-cta__saved-status,
+.trip-planning-teaser__saved-status {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 2px;
+  padding: 5px 9px;
+  border: 1px solid rgba(26, 155, 142, .16);
+  border-radius: 999px;
+  background: rgba(62, 195, 177, .09);
+  color: #197e74;
+  font-size: .67rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: .015em;
+}
+
+.trip-inline-cta__saved-link {
+  color: #36758d;
+  font-size: .72rem;
+  font-weight: 800;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+.trip-inline-cta__saved-link:hover,
+.trip-inline-cta__saved-link:focus-visible {
+  color: #0b83b4;
+  text-decoration: underline;
+  outline: none;
+}
+
+.trip-road-animation {
+  position: relative;
+  width: 340px;
+  height: 64px;
+  display: block;
+  justify-self: center;
+  overflow: hidden;
+  border: 1px solid rgba(44, 147, 188, .1);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #eaf8fb 0%, #dff2f5 56%, #d5e9e7 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.28);
+  isolation: isolate;
+}
+
+.trip-road-animation__scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+.trip-road-animation__segment {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.trip-road-animation__segment > div {
+  position: absolute;
+  left: 0;
+  bottom: -18px;
+  width: 170px !important;
+  height: 100px !important;
+}
+
+.trip-road-animation__segment svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.trip-road-animation__seam {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 8px);
+  width: 16px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(232,248,249,.24) 42%, rgba(232,248,249,.24) 58%, transparent);
+  filter: blur(1px);
+}
+
+.trip-road-animation::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(246,253,255,.16), transparent 14%, transparent 86%, rgba(246,253,255,.16)),
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 45%, rgba(17,82,94,.04));
+}
+
+.trip-road-animation__vehicle {
+  position: absolute;
+  z-index: 3;
+  top: 7px;
+  left: -96px;
+  width: 90px;
+  height: 54px;
+  filter: drop-shadow(0 5px 7px rgba(17, 65, 78, .18));
+  animation: trip-lottie-car-drive 8s linear infinite;
+  will-change: left;
+}
+
+.trip-road-animation__vehicle > div,
+.trip-road-animation__vehicle svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@keyframes trip-lottie-car-drive {
+  0%, 6% { left: -96px; }
+  88%, 100% { left: calc(100% + 6px); }
+}
+
+.trip-planning-teaser__saved-status {
+  margin: 4px 0 10px;
+}
+
+.trip-planning-teaser__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.trip-planning-teaser__actions .secondary-button,
+.trip-planning-teaser__actions .primary-button {
+  white-space: nowrap;
+}
+
+/* Use animated travel artwork only for the larger semantic section icons. */
+.travel-animated-icon.trip-form__icon,
+.travel-animated-icon.travel-essentials__heading-icon,
+.travel-animated-icon.trip-summary-card__icon,
+.travel-animated-icon.trip-plan-panel__icon {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Keep the four utility icons optically centered inside Travel essentials. */
+.travel-essential-card {
+  align-items: center;
+}
+
+.travel-essential-card__icon {
+  align-self: center;
+  display: grid;
+  place-items: center;
+}
+
+.travel-essential-card__icon .trip-ui-icon {
+  margin: 0;
+  transform: none;
+}
+
+.trip-plan-overview__budget {
+  border-bottom: 1px solid rgba(21, 61, 77, .09);
+}
+
+.trip-plan-budget-divider {
+  padding-inline: 4px;
+  color: #9aabb2;
+  font-weight: 500;
+}
+
+[data-theme='dark'] .trip-road-animation {
+  border-color: rgba(111, 196, 224, .12);
+  background: linear-gradient(180deg, #12384a 0%, #0d3040 58%, #16383a 100%);
+  box-shadow: inset 0 0 0 1px rgba(148,215,237,.04);
+}
+
+[data-theme='dark'] .trip-road-animation::after {
+  background:
+    linear-gradient(90deg, rgba(4,30,42,.2), transparent 13%, transparent 87%, rgba(4,30,42,.2)),
+    linear-gradient(180deg, rgba(5,31,43,.24), rgba(3,28,38,.34));
+  mix-blend-mode: multiply;
+}
+
+[data-theme='dark'] .trip-road-animation__scene {
+  filter: brightness(.68) saturate(.8) contrast(1.06) hue-rotate(4deg);
+}
+
+[data-theme='dark'] .trip-road-animation__vehicle {
+  filter: brightness(.92) saturate(.92) drop-shadow(0 5px 8px rgba(0, 8, 12, .38));
+}
+
+[data-theme='dark'] .trip-road-animation__seam {
+  background: linear-gradient(90deg, transparent, rgba(15,52,64,.16) 42%, rgba(15,52,64,.16) 58%, transparent);
+}
+
+[data-theme='dark'] .trip-inline-cta__saved-status,
+[data-theme='dark'] .trip-planning-teaser__saved-status {
+  border-color: rgba(84, 213, 194, .16);
+  background: rgba(50, 164, 149, .12);
+  color: #76d9cb;
+}
+
+[data-theme='dark'] .trip-inline-cta__saved-link {
+  color: #82cbe7;
+}
+
+[data-theme='dark'] .trip-plan-overview__budget {
+  border-bottom-color: rgba(132, 191, 216, .12);
+}
+
+@media (max-width: 1120px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(220px, 1fr) 260px auto;
+  }
+
+  .trip-road-animation {
+    width: 260px;
+    height: 58px;
+  }
+
+  .trip-road-animation__segment > div {
+    bottom: -12px;
+    width: 130px !important;
+    height: 76px !important;
+  }
+
+  .trip-road-animation__vehicle {
+    top: 6px;
+    width: 78px;
+    height: 47px;
+  }
+}
+
+@media (max-width: 820px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .trip-road-animation {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: min(100%, 520px);
+  }
+
+  .trip-road-animation__segment > div {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1.7;
+    bottom: -35%;
+  }
+
+  .trip-inline-cta__actions {
+    justify-items: end;
+  }
+
+  .trip-planning-teaser__actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .trip-inline-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-road-animation {
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+    max-width: none;
+    height: 62px;
+  }
+
+  .trip-inline-cta__actions {
+    width: 100%;
+    justify-items: stretch;
+  }
+
+  .trip-inline-cta__saved-link {
+    text-align: center;
+  }
+
+  .trip-inline-cta__action {
+    width: 100%;
+  }
+
+  .trip-planning-teaser__actions,
+  .trip-planning-teaser__actions .secondary-button,
+  .trip-planning-teaser__actions .primary-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-road-animation__vehicle {
+    left: calc(50% - 45px);
+    animation: none;
+  }
+}
+
+/* =============================================
+   HW10 polish v4 — atmospheric trip-page decor
+   ============================================= */
+.trip-planner-page,
+.trip-plan-page,
+.saved-page--trips {
+  position: relative;
+  isolation: isolate;
+}
+
+.trip-planner-page > :not(.trip-page-decor),
+.trip-plan-page > :not(.trip-page-decor),
+.saved-page--trips > :not(.trip-page-decor) {
+  position: relative;
+  z-index: 1;
+}
+
+.trip-page-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.trip-page-decor__plane {
+  position: absolute;
+  display: block;
+  opacity: 0.085;
+  filter: drop-shadow(0 18px 28px rgb(16 111 150 / 0.08));
+}
+
+.trip-page-decor__plane--primary {
+  width: clamp(112px, 10vw, 172px);
+  height: auto;
+}
+
+.trip-page-decor__plane--secondary {
+  width: clamp(88px, 8vw, 132px);
+  height: auto;
+  opacity: 0.07;
+}
+
+.trip-page-decor__route {
+  position: absolute;
+  width: 280px;
+  height: 120px;
+  border: 2px dashed rgb(54 169 225 / 0.18);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  opacity: 0.5;
+  transform: rotate(-10deg);
+}
+
+.trip-page-decor--planner .trip-page-decor__plane--primary {
+  top: 7.5rem;
+  right: max(2.5rem, calc((100vw - 1200px) / 2 - 5rem));
+  transform: rotate(-8deg);
+}
+
+.trip-page-decor--planner .trip-page-decor__plane--secondary {
+  top: 50rem;
+  left: max(1.25rem, calc((100vw - 1200px) / 2 - 4rem));
+  transform: rotate(12deg);
+}
+
+.trip-page-decor--planner .trip-page-decor__route--one {
+  top: 5.4rem;
+  right: max(-5rem, calc((100vw - 1200px) / 2 - 10rem));
+}
+
+.trip-page-decor--planner .trip-page-decor__route--two {
+  top: 45rem;
+  left: max(-6rem, calc((100vw - 1200px) / 2 - 10rem));
+  transform: rotate(170deg);
+}
+
+.trip-page-decor--details .trip-page-decor__plane--primary {
+  top: 15rem;
+  right: max(1.5rem, calc((100vw - 1200px) / 2 - 4.5rem));
+  transform: rotate(-4deg);
+}
+
+.trip-page-decor--details .trip-page-decor__plane--secondary {
+  bottom: 10rem;
+  left: max(1rem, calc((100vw - 1200px) / 2 - 4rem));
+  transform: rotate(16deg);
+}
+
+.trip-page-decor--details .trip-page-decor__route--one {
+  top: 12rem;
+  right: max(-5rem, calc((100vw - 1200px) / 2 - 10rem));
+}
+
+.trip-page-decor--saved .trip-page-decor__plane--primary {
+  top: 10.5rem;
+  right: -1.5rem;
+  transform: rotate(-10deg);
+}
+
+.trip-page-decor--saved .trip-page-decor__plane--secondary {
+  bottom: 3rem;
+  left: -0.75rem;
+  transform: rotate(14deg);
+}
+
+.trip-page-decor--saved .trip-page-decor__route--one {
+  top: 8rem;
+  right: -8rem;
+}
+
+[data-theme='dark'] .trip-page-decor__plane {
+  opacity: 0.12;
+  filter: brightness(1.25) saturate(0.9) drop-shadow(0 18px 34px rgb(65 203 255 / 0.08));
+}
+
+[data-theme='dark'] .trip-page-decor__plane--secondary {
+  opacity: 0.09;
+}
+
+[data-theme='dark'] .trip-page-decor__route {
+  border-color: rgb(89 187 227 / 0.21);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  opacity: 0.38;
+}
+
+@media (max-width: 980px) {
+  .trip-page-decor__plane--primary {
+    width: 104px;
+  }
+
+  .trip-page-decor__plane--secondary {
+    width: 78px;
+  }
+
+  .trip-page-decor--planner .trip-page-decor__plane--primary,
+  .trip-page-decor--details .trip-page-decor__plane--primary {
+    right: -1.5rem;
+  }
+
+  .trip-page-decor--planner .trip-page-decor__plane--secondary,
+  .trip-page-decor--details .trip-page-decor__plane--secondary {
+    left: -1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .trip-page-decor__plane--secondary,
+  .trip-page-decor__route {
+    display: none;
+  }
+
+  .trip-page-decor__plane--primary {
+    width: 82px;
+    opacity: 0.055;
+  }
+
+  [data-theme='dark'] .trip-page-decor__plane--primary {
+    opacity: 0.075;
+  }
+
+  .trip-page-decor--planner .trip-page-decor__plane--primary {
+    top: 10.5rem;
+    right: -1rem;
+  }
+
+  .trip-page-decor--details .trip-page-decor__plane--primary {
+    top: 17rem;
+    right: -1rem;
+  }
+
+  .trip-page-decor--saved .trip-page-decor__plane--primary {
+    top: 13rem;
+    right: -1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-page-decor,
+  .trip-page-decor * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =============================================
+   HW10 polish v5 — flight CTA motion accent
+   ============================================= */
+.trip-inline-cta {
+  grid-template-columns: minmax(250px, 1fr) 340px auto;
+  column-gap: 28px;
+}
+
+.trip-inline-cta__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+}
+
+.trip-inline-cta__saved-link {
+  flex: none;
+  white-space: nowrap;
+}
+
+.trip-flight-animation {
+  position: relative;
+  width: 340px;
+  height: 72px;
+  display: block;
+  justify-self: center;
+  overflow: hidden;
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.trip-flight-animation__trail {
+  position: absolute;
+  z-index: 0;
+  left: 10px;
+  right: 10px;
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+  opacity: .42;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(55, 176, 221, .62) 0 10px,
+    transparent 10px 18px
+  );
+}
+
+.trip-flight-animation__plane {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: -104px;
+  width: 96px;
+  height: 72px;
+  transform: translateY(-50%);
+  animation: trip-plane-fly-across 6.2s cubic-bezier(.45,.05,.55,.95) infinite;
+  will-change: left;
+}
+
+.trip-flight-animation__lottie {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 126px;
+  height: 126px;
+  transform: translate(-50%, -50%) scale(1.06);
+  filter: drop-shadow(0 7px 8px rgba(17, 79, 105, .18));
+}
+
+.trip-flight-animation__lottie > div,
+.trip-flight-animation__lottie svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@keyframes trip-plane-fly-across {
+  0%, 8% { left: -104px; }
+  82%, 100% { left: calc(100% + 8px); }
+}
+
+[data-theme='dark'] .trip-flight-animation__trail {
+  opacity: .54;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(106, 210, 239, .74) 0 10px,
+    transparent 10px 18px
+  );
+}
+
+[data-theme='dark'] .trip-flight-animation__lottie {
+  filter: brightness(1.18) saturate(1.08) drop-shadow(0 7px 10px rgba(0, 10, 18, .46));
+}
+
+@media (max-width: 1120px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(220px, 1fr) 260px auto;
+    column-gap: 22px;
+  }
+
+  .trip-flight-animation {
+    width: 260px;
+    height: 66px;
+  }
+
+  .trip-flight-animation__plane {
+    width: 88px;
+    height: 66px;
+    left: -96px;
+  }
+
+  .trip-flight-animation__lottie {
+    width: 116px;
+    height: 116px;
+  }
+
+  @keyframes trip-plane-fly-across {
+    0%, 8% { left: -96px; }
+    82%, 100% { left: calc(100% + 8px); }
+  }
+}
+
+@media (max-width: 820px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 18px;
+    row-gap: 14px;
+  }
+
+  .trip-flight-animation {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: min(100%, 520px);
+    height: 64px;
+    justify-self: center;
+  }
+
+  .trip-inline-cta__actions {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 700px) {
+  .trip-inline-cta {
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+  }
+
+  .trip-flight-animation {
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+    max-width: none;
+    height: 60px;
+  }
+
+  .trip-inline-cta__actions {
+    width: 100%;
+    display: grid;
+    justify-items: stretch;
+    gap: 12px;
+  }
+
+  .trip-inline-cta__saved-link {
+    text-align: center;
+  }
+
+  .trip-inline-cta__action {
+    width: 100%;
+  }
+
+  .trip-flight-animation__plane {
+    width: 82px;
+    height: 60px;
+    left: -90px;
+  }
+
+  .trip-flight-animation__lottie {
+    width: 106px;
+    height: 106px;
+  }
+
+  @keyframes trip-plane-fly-across {
+    0%, 8% { left: -90px; }
+    82%, 100% { left: calc(100% + 8px); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flight-animation__plane {
+    left: 72%;
+    animation: none;
+  }
+
+  .trip-flight-animation__trail {
+    opacity: .28;
+  }
+}
+
+/* =============================================
+   HW10 polish v6 — final trip-planning visual pass
+   ============================================= */
+
+/* Inline CTA: longer, seamless flight path + stacked actions */
+.trip-inline-cta {
+  grid-template-columns: minmax(240px, .75fr) minmax(560px, 680px) 220px;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.trip-inline-cta__actions {
+  width: 220px;
+  display: grid;
+  justify-items: stretch;
+  gap: 12px;
+}
+
+.trip-inline-cta__saved-link,
+.trip-inline-cta__action {
+  width: 100%;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.trip-flight-animation {
+  width: 100%;
+  max-width: 620px;
+  height: 82px;
+  overflow: hidden;
+}
+
+.trip-flight-animation__trail {
+  left: 2%;
+  right: 2%;
+  top: 50%;
+  height: 38px;
+  transform: translateY(-45%) rotate(-1deg);
+  opacity: .48;
+  background: none;
+  border-top: 2px dashed rgba(55, 176, 221, .54);
+  border-radius: 50% 50% 0 0;
+}
+
+.trip-flight-animation__plane {
+  top: 50%;
+  left: -150px;
+  width: 118px;
+  height: 82px;
+  transform: translateY(-50%);
+  animation: trip-plane-fly-across-v6 7.4s linear infinite;
+}
+
+.trip-flight-animation__lottie {
+  width: 156px;
+  height: 156px;
+  transform: translate(-50%, -50%) scale(1.02);
+}
+
+@keyframes trip-plane-fly-across-v6 {
+  0% { left: -150px; }
+  88% { left: calc(100% + 42px); }
+  100% { left: calc(100% + 42px); }
+}
+
+[data-theme='dark'] .trip-flight-animation::before,
+.trip-flight-animation::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  width: 58px;
+  pointer-events: none;
+}
+
+.trip-flight-animation::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(241, 250, 253, .98), rgba(241, 250, 253, 0));
+}
+
+.trip-flight-animation::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(241, 250, 253, .98), rgba(241, 250, 253, 0));
+}
+
+[data-theme='dark'] .trip-flight-animation::before {
+  background: linear-gradient(90deg, rgba(8, 31, 43, .98), rgba(8, 31, 43, 0));
+}
+
+[data-theme='dark'] .trip-flight-animation::after {
+  background: linear-gradient(270deg, rgba(8, 31, 43, .98), rgba(8, 31, 43, 0));
+}
+
+.trip-flight-animation__trail {
+  border-top-color: rgba(111, 211, 240, .66);
+}
+
+/* Trip planning teaser: passport animation above actions */
+.trip-planning-teaser {
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 34px;
+  align-items: stretch;
+}
+
+.trip-planning-teaser__visual {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: minmax(130px, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  justify-items: stretch;
+}
+
+.trip-passport-animation {
+  width: 190px;
+  height: 150px;
+  display: block;
+  justify-self: center;
+  overflow: hidden;
+  pointer-events: none;
+  filter: drop-shadow(0 14px 20px rgba(38, 105, 135, .14));
+}
+
+.trip-passport-animation > div,
+.trip-passport-animation svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.trip-planning-teaser__actions {
+  width: 100%;
+  display: grid;
+  gap: 12px;
+}
+
+.trip-planning-teaser__actions .secondary-button,
+.trip-planning-teaser__actions .primary-button {
+  width: 100%;
+  min-height: 52px;
+  justify-content: center;
+}
+
+[data-theme='dark'] .trip-passport-animation {
+  filter: brightness(1.1) saturate(.95) drop-shadow(0 16px 24px rgba(0, 8, 14, .42));
+}
+
+/* Trip styles: 8 options = clean 4 × 2 desktop grid */
+.trip-style-options {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Travel essentials: true optical centering */
+.travel-essential-card {
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.travel-essential-card__icon {
+  width: 48px;
+  height: 48px;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  line-height: 0;
+}
+
+.travel-essential-card__icon .trip-ui-icon {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  display: block;
+}
+
+/* Decorative aircraft: visible in page gutters, routes curve around content */
+.trip-page-decor__plane {
+  opacity: .15;
+  filter: drop-shadow(0 16px 26px rgb(23 125 165 / .08));
+}
+
+.trip-page-decor__plane--primary {
+  width: clamp(150px, 12vw, 210px);
+}
+
+.trip-page-decor__plane--secondary {
+  width: clamp(110px, 9vw, 160px);
+  opacity: .11;
+}
+
+.trip-page-decor__route {
+  width: 460px;
+  height: 210px;
+  border-width: 2px;
+  border-color: rgb(54 169 225 / .30);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  opacity: .72;
+}
+
+.trip-page-decor--planner .trip-page-decor__plane--primary {
+  top: 30rem;
+  right: .35rem;
+  transform: rotate(-8deg);
+}
+
+.trip-page-decor--planner .trip-page-decor__plane--secondary {
+  top: 57rem;
+  left: .15rem;
+  transform: rotate(13deg);
+}
+
+.trip-page-decor--planner .trip-page-decor__route--one {
+  top: 25rem;
+  right: -11rem;
+  transform: rotate(-12deg);
+}
+
+.trip-page-decor--planner .trip-page-decor__route--two {
+  top: 51rem;
+  left: -12rem;
+  transform: rotate(165deg);
+}
+
+.trip-page-decor--details .trip-page-decor__plane--primary {
+  top: 29rem;
+  right: .3rem;
+  transform: rotate(-5deg);
+}
+
+.trip-page-decor--details .trip-page-decor__plane--secondary {
+  bottom: 12rem;
+  left: .2rem;
+  transform: rotate(14deg);
+}
+
+.trip-page-decor--details .trip-page-decor__route--one {
+  top: 24rem;
+  right: -11rem;
+  transform: rotate(-12deg);
+}
+
+.trip-page-decor--details .trip-page-decor__route--two {
+  bottom: 6rem;
+  left: -12rem;
+  transform: rotate(164deg);
+}
+
+.trip-page-decor--saved .trip-page-decor__plane--primary {
+  top: 20rem;
+  right: .2rem;
+  transform: rotate(-9deg);
+}
+
+.trip-page-decor--saved .trip-page-decor__plane--secondary {
+  top: 55rem;
+  left: .1rem;
+  transform: rotate(12deg);
+}
+
+.trip-page-decor--saved .trip-page-decor__route--one {
+  top: 14rem;
+  right: -12rem;
+  transform: rotate(-10deg);
+}
+
+.trip-page-decor--saved .trip-page-decor__route--two {
+  top: 49rem;
+  left: -12rem;
+  transform: rotate(166deg);
+}
+
+[data-theme='dark'] .trip-page-decor__plane {
+  opacity: .19;
+  filter: brightness(1.3) saturate(.9) drop-shadow(0 18px 34px rgb(65 203 255 / .10));
+}
+
+[data-theme='dark'] .trip-page-decor__plane--secondary {
+  opacity: .14;
+}
+
+[data-theme='dark'] .trip-page-decor__route {
+  border-color: rgb(89 187 227 / .30);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  opacity: .58;
+}
+
+/* Modal system: one visual language for duplicate/delete/success/share/calendar */
+.trip-modal-backdrop {
+  background: rgba(4, 25, 36, .62);
+  backdrop-filter: blur(8px);
+}
+
+.trip-modal {
+  width: min(540px, 100%);
+  padding: 32px;
+  border-radius: 26px;
+  box-shadow: 0 30px 90px rgba(7, 38, 52, .30);
+}
+
+.trip-modal h2 {
+  margin-bottom: 10px;
+  font-size: clamp(1.7rem, 2.4vw, 2.15rem);
+  line-height: 1.02;
+}
+
+.trip-modal > p:not(.trip-modal__status):not(.eyebrow) {
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+.trip-modal__hero-icon,
+.trip-success-modal__icon {
+  margin-bottom: 16px;
+}
+
+.trip-duplicate-modal__actions {
+  display: grid;
+  gap: 12px;
+}
+
+.trip-duplicate-modal__secondary-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.trip-duplicate-modal__primary {
+  width: 100%;
+  justify-content: center;
+}
+
+.trip-delete-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.trip-success-modal .eyebrow {
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.trip-success-modal__primary,
+.trip-success-modal__secondary {
+  min-height: 50px;
+  justify-content: center;
+}
+
+.trip-share-modal,
+.trip-calendar-modal {
+  width: min(600px, 100%);
+}
+
+/* Responsive */
+@media (max-width: 1240px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(240px, 1fr) minmax(380px, 440px) 210px;
+  }
+
+  .trip-flight-animation {
+    max-width: 440px;
+  }
+
+  .trip-page-decor__plane--primary {
+    width: 140px;
+  }
+
+  .trip-page-decor__plane--secondary {
+    width: 105px;
+  }
+
+  .trip-page-decor__route {
+    width: 360px;
+    height: 170px;
+  }
+}
+
+@media (max-width: 980px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) 210px;
+    row-gap: 14px;
+  }
+
+  .trip-flight-animation {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: min(100%, 720px);
+    max-width: 720px;
+    justify-self: center;
+  }
+
+  .trip-inline-cta__actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .trip-planning-teaser {
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 24px;
+  }
+
+  .trip-passport-animation {
+    width: 150px;
+    height: 130px;
+  }
+
+  .trip-page-decor__plane {
+    opacity: .10;
+  }
+
+  .trip-page-decor__route {
+    opacity: .42;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-inline-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-inline-cta__actions {
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+  }
+
+  .trip-flight-animation {
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+    max-width: none;
+    height: 68px;
+  }
+
+  .trip-flight-animation__plane {
+    width: 96px;
+    height: 68px;
+    left: -126px;
+  }
+
+  .trip-flight-animation__lottie {
+    width: 132px;
+    height: 132px;
+  }
+
+  @keyframes trip-plane-fly-across-v6 {
+    0% { left: -126px; }
+    88% { left: calc(100% + 30px); }
+    100% { left: calc(100% + 30px); }
+  }
+
+  .trip-planning-teaser {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-planning-teaser__visual {
+    grid-template-rows: auto auto;
+  }
+
+  .trip-passport-animation {
+    width: 145px;
+    height: 120px;
+  }
+
+  .trip-style-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trip-duplicate-modal__secondary-actions,
+  .trip-delete-modal__actions {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .trip-page-decor__plane--secondary,
+  .trip-page-decor__route--two {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .trip-flight-animation {
+    height: 62px;
+  }
+
+  .trip-flight-animation__plane {
+    width: 88px;
+    height: 62px;
+    left: -116px;
+  }
+
+  .trip-flight-animation__lottie {
+    width: 120px;
+    height: 120px;
+  }
+
+  .trip-page-decor__plane--primary {
+    width: 78px;
+    opacity: .07;
+  }
+
+  [data-theme='dark'] .trip-page-decor__plane--primary {
+    opacity: .10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flight-animation__plane {
+    left: 70%;
+    animation: none;
+  }
+
+  .trip-passport-animation > div {
+    animation: none !important;
+  }
+}
+
+/* =============================================
+   HW10 polish v7 — approved final interaction fixes
+   ============================================= */
+
+/* Flight CTA: transparent track, no dashed route, no visible clipping edge. */
+.trip-inline-cta {
+  grid-template-columns: minmax(290px, 1fr) minmax(620px, 820px) 220px;
+  column-gap: 24px;
+  align-items: stretch;
+}
+
+.trip-inline-cta__copy {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.trip-inline-cta__saved-status {
+  margin: 0 0 18px;
+  align-self: flex-start;
+  transform: translateY(-5px);
+}
+
+.trip-inline-cta__actions {
+  align-self: center;
+  width: 220px;
+  gap: 14px;
+}
+
+.trip-inline-cta__saved-link,
+.trip-inline-cta__action {
+  font-size: .9rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-decoration: none !important;
+}
+
+.trip-inline-cta__saved-link:hover,
+.trip-inline-cta__saved-link:focus-visible,
+.trip-inline-cta__saved-link:visited {
+  text-decoration: none !important;
+}
+
+.trip-flight-animation {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  height: 86px;
+  overflow: hidden;
+  isolation: isolate;
+  pointer-events: none;
+  background: transparent !important;
+}
+
+.trip-flight-animation::before,
+.trip-flight-animation::after,
+.trip-flight-animation__trail {
+  display: none !important;
+  content: none !important;
+}
+
+.trip-flight-animation__plane {
+  top: 50%;
+  left: -190px;
+  width: 132px;
+  height: 86px;
+  transform: translateY(-50%);
+  animation: trip-plane-fly-across-v7 8.6s linear infinite;
+  will-change: left;
+}
+
+.trip-flight-animation__lottie {
+  width: 172px;
+  height: 172px;
+  transform: translate(-50%, -50%);
+  background: transparent !important;
+  filter: drop-shadow(0 8px 10px rgba(17, 79, 105, .14));
+}
+
+.trip-flight-animation__lottie > div,
+.trip-flight-animation__lottie svg {
+  background: transparent !important;
+}
+
+@keyframes trip-plane-fly-across-v7 {
+  0%, 7% { left: -190px; opacity: 0; }
+  14% { opacity: 1; }
+  82% { opacity: 1; }
+  90%, 100% { left: calc(100% + 84px); opacity: 0; }
+}
+
+[data-theme='dark'] .trip-flight-animation__lottie {
+  filter: brightness(1.14) saturate(1.04) drop-shadow(0 8px 12px rgba(0, 8, 14, .40));
+}
+
+/* Trip-planning teaser: features land on the same bottom line as actions. */
+.trip-planning-teaser {
+  align-items: stretch;
+}
+
+.trip-planning-teaser__copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+.trip-planning-teaser__features {
+  margin-top: auto;
+  padding-top: 28px;
+  align-items: center;
+}
+
+.trip-planning-teaser__visual {
+  grid-template-rows: minmax(205px, 1fr) auto;
+  align-self: stretch;
+  align-items: end;
+}
+
+.trip-passport-animation {
+  width: 228px;
+  height: 180px;
+  justify-self: center;
+  align-self: center;
+  overflow: visible;
+  background: transparent;
+}
+
+.trip-planning-teaser__actions {
+  align-self: end;
+  gap: 14px;
+}
+
+/* Travel essentials: explicit full-height icon slot for true vertical centering. */
+.travel-essential-card {
+  grid-template-columns: 58px minmax(0, 1fr);
+  column-gap: 16px;
+  align-items: stretch;
+}
+
+.travel-essential-card__icon-slot {
+  width: 58px;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+}
+
+.travel-essential-card__icon {
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  line-height: 0;
+}
+
+.travel-essential-card__icon .trip-ui-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  margin: 0;
+  transform: none;
+}
+
+/* No decorative aircraft/applications on trip-page backgrounds. */
+.trip-page-decor {
+  display: none !important;
+}
+
+/* Modal system: portal to body + viewport-fixed overlay above every page stacking context. */
+.trip-modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  min-width: 100vw;
+  min-height: 100dvh;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  background: rgba(4, 25, 36, .64);
+  backdrop-filter: blur(8px);
+}
+
+.trip-modal {
+  position: relative;
+  z-index: 1;
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.trip-duplicate-modal__date-card {
+  margin: -4px 0 20px;
+  padding: 14px 16px;
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(31, 103, 132, .12);
+  border-radius: 16px;
+  background: #f3f9fb;
+}
+
+.trip-duplicate-modal__date-card small {
+  color: #748c97;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.trip-duplicate-modal__date-card strong {
+  color: #173e4e;
+  font-size: .92rem;
+}
+
+[data-theme='dark'] .trip-duplicate-modal__date-card {
+  border-color: rgba(102, 205, 239, .15);
+  background: rgba(20, 60, 77, .54);
+}
+
+[data-theme='dark'] .trip-duplicate-modal__date-card strong {
+  color: #edfaff;
+}
+
+@media (max-width: 1240px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(250px, 1fr) minmax(400px, 540px) 210px;
+    column-gap: 20px;
+  }
+
+  .trip-flight-animation {
+    max-width: 540px;
+  }
+}
+
+@media (max-width: 980px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) 210px;
+    row-gap: 16px;
+  }
+
+  .trip-flight-animation {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: min(100%, 720px);
+    max-width: 720px;
+    height: 76px;
+    justify-self: center;
+  }
+
+  .trip-inline-cta__actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .trip-passport-animation {
+    width: 205px;
+    height: 164px;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-inline-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-inline-cta__saved-status {
+    transform: none;
+    margin-bottom: 14px;
+  }
+
+  .trip-flight-animation {
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+    max-width: none;
+    height: 68px;
+  }
+
+  .trip-flight-animation__plane {
+    width: 102px;
+    height: 68px;
+    left: -148px;
+  }
+
+  .trip-flight-animation__lottie {
+    width: 138px;
+    height: 138px;
+  }
+
+  @keyframes trip-plane-fly-across-v7 {
+    0%, 7% { left: -148px; opacity: 0; }
+    15% { opacity: 1; }
+    81% { opacity: 1; }
+    90%, 100% { left: calc(100% + 48px); opacity: 0; }
+  }
+
+  .trip-planning-teaser__visual {
+    grid-template-rows: auto auto;
+  }
+
+  .trip-passport-animation {
+    width: 190px;
+    height: 150px;
+    margin-inline: auto;
+  }
+
+  .trip-planning-teaser__features {
+    margin-top: 26px;
+    padding-top: 0;
+  }
+
+  .trip-modal-backdrop {
+    padding: 16px;
+  }
+
+  .trip-modal {
+    max-height: calc(100dvh - 32px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flight-animation__plane {
+    left: 70%;
+    animation: none !important;
+  }
+}
+
+.trip-duplicate-modal__date-card {
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.trip-duplicate-modal__date-card > span {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.trip-duplicate-modal__date-card > span + span {
+  padding-left: 12px;
+  border-left: 1px solid rgba(31, 103, 132, .12);
+}
+
+[data-theme='dark'] .trip-duplicate-modal__date-card > span + span {
+  border-left-color: rgba(102, 205, 239, .15);
+}
+
+@media (max-width: 520px) {
+  .trip-duplicate-modal__date-card {
+    grid-template-columns: 1fr;
+  }
+
+  .trip-duplicate-modal__date-card > span + span {
+    padding-top: 10px;
+    padding-left: 0;
+    border-top: 1px solid rgba(31, 103, 132, .12);
+    border-left: 0;
+  }
+}
+
+/* =============================================
+   HW10 polish v8 — alignment + seamless motion pass
+   ============================================= */
+
+/* Inline CTA: one-row actions, saved badge aligned with the action row. */
+.trip-inline-cta {
+  grid-template-columns: minmax(300px, 1fr) minmax(460px, 820px) max-content;
+  column-gap: 28px;
+  align-items: center;
+}
+
+.trip-inline-cta__copy {
+  align-self: center;
+}
+
+.trip-inline-cta--saved {
+  align-items: start;
+}
+
+.trip-inline-cta--saved .trip-inline-cta__copy,
+.trip-inline-cta--saved .trip-inline-cta__actions {
+  align-self: start;
+}
+
+.trip-inline-cta__saved-status {
+  margin: 0 0 16px;
+  transform: none;
+}
+
+.trip-inline-cta__actions {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.trip-inline-cta__saved-link,
+.trip-inline-cta__action {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  text-decoration: none !important;
+}
+
+/* Flight track: no route line and no visible clipping boundary.
+   The aircraft resets only while fully outside. Edge overlays hide the crop without CSS masks. */
+.trip-flight-animation {
+  max-width: 820px;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+.trip-flight-animation::before,
+.trip-flight-animation::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 96px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.trip-flight-animation::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(238, 249, 251, .98) 0%, rgba(238, 249, 251, 0) 100%);
+}
+
+.trip-flight-animation::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(238, 249, 251, .98) 0%, rgba(238, 249, 251, 0) 100%);
+}
+
+[data-theme='dark'] .trip-flight-animation::before {
+  background: linear-gradient(90deg, rgba(10, 38, 52, .98) 0%, rgba(10, 38, 52, 0) 100%);
+}
+
+[data-theme='dark'] .trip-flight-animation::after {
+  background: linear-gradient(270deg, rgba(10, 38, 52, .98) 0%, rgba(10, 38, 52, 0) 100%);
+}
+
+.trip-flight-animation__plane {
+  left: -210px;
+  animation: trip-plane-fly-across-v8 9.2s linear infinite;
+}
+
+@keyframes trip-plane-fly-across-v8 {
+  0% { left: -210px; }
+  88% { left: calc(100% + 210px); }
+  100% { left: calc(100% + 210px); }
+}
+
+/* Large planning teaser: feature row center aligns with the primary CTA center. */
+.trip-planning-teaser__features {
+  margin-top: auto;
+  margin-bottom: 13px;
+  padding-top: 28px;
+  align-items: center;
+}
+
+.trip-planning-teaser__visual {
+  display: grid;
+  grid-template-columns: minmax(190px, 220px) minmax(230px, 260px);
+  grid-template-rows: minmax(205px, 1fr) auto;
+  justify-content: end;
+  align-items: end;
+  column-gap: 16px;
+}
+
+.trip-planning-teaser__passport-slot {
+  grid-column: 2;
+  grid-row: 1;
+  width: 260px;
+  min-height: 205px;
+  display: grid;
+  place-items: end center;
+  justify-self: end;
+}
+
+.trip-passport-animation {
+  width: 250px;
+  height: 198px;
+  margin: 0;
+  justify-self: center;
+  align-self: end;
+}
+
+.trip-planning-teaser__actions {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  width: auto;
+  display: grid;
+  grid-template-columns: minmax(190px, 220px) minmax(230px, 260px);
+  gap: 16px;
+  justify-content: end;
+  align-items: stretch;
+}
+
+.trip-planning-teaser__actions .secondary-button,
+.trip-planning-teaser__actions .primary-button {
+  width: 100%;
+  min-height: 52px;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trip-planning-teaser__actions > :only-child {
+  grid-column: 2;
+}
+
+/* Travel essentials: icon circle and glyph are centered in the whole card, not the text line. */
+.travel-essential-card {
+  position: relative;
+  grid-template-columns: 64px minmax(0, 1fr) !important;
+  column-gap: 18px !important;
+  align-items: center !important;
+}
+
+.travel-essential-card__icon-slot {
+  width: 64px !important;
+  height: 100% !important;
+  min-height: 64px;
+  align-self: stretch !important;
+  justify-self: center !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+.travel-essential-card__icon {
+  width: 52px !important;
+  height: 52px !important;
+  margin: 0 !important;
+  place-self: center !important;
+  display: grid !important;
+  place-items: center !important;
+  line-height: 0 !important;
+}
+
+.travel-essential-card__icon .trip-ui-icon,
+.travel-essential-card__icon svg {
+  width: 22px !important;
+  height: 22px !important;
+  margin: 0 !important;
+  display: block !important;
+  transform: none !important;
+}
+
+.travel-essential-card > div:last-child {
+  align-self: center;
+}
+
+@media (max-width: 1240px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(260px, 1fr) minmax(340px, 1fr) max-content;
+    column-gap: 20px;
+  }
+
+  .trip-planning-teaser__visual {
+    grid-template-columns: minmax(170px, 200px) minmax(210px, 240px);
+  }
+
+  .trip-planning-teaser__passport-slot {
+    width: 240px;
+  }
+
+  .trip-planning-teaser__actions {
+    grid-template-columns: minmax(170px, 200px) minmax(210px, 240px);
+  }
+}
+
+@media (max-width: 980px) {
+  .trip-inline-cta {
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+  }
+
+  .trip-inline-cta--saved .trip-inline-cta__copy,
+  .trip-inline-cta--saved .trip-inline-cta__actions,
+  .trip-inline-cta__copy,
+  .trip-inline-cta__actions {
+    align-self: auto;
+  }
+
+  .trip-flight-animation {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    max-width: 720px;
+    justify-self: center;
+  }
+
+  .trip-inline-cta__actions {
+    grid-column: 1;
+    grid-row: auto;
+    justify-content: flex-start;
+  }
+
+  .trip-planning-teaser__visual {
+    grid-template-columns: minmax(160px, 190px) minmax(200px, 230px);
+  }
+
+  .trip-planning-teaser__passport-slot {
+    width: 230px;
+  }
+
+  .trip-planning-teaser__actions {
+    grid-template-columns: minmax(160px, 190px) minmax(200px, 230px);
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-inline-cta__actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .trip-inline-cta__actions > :only-child {
+    grid-column: 1 / -1;
+  }
+
+  .trip-planning-teaser__features {
+    margin-bottom: 0;
+  }
+
+  .trip-planning-teaser__visual {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    justify-items: stretch;
+  }
+
+  .trip-planning-teaser__passport-slot {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    min-height: 168px;
+    place-items: center;
+  }
+
+  .trip-passport-animation {
+    width: 210px;
+    height: 164px;
+  }
+
+  .trip-planning-teaser__actions {
+    grid-column: 1;
+    grid-row: 2;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .trip-planning-teaser__actions > :only-child {
+    grid-column: 1;
+  }
+
+  .trip-planning-teaser__actions .secondary-button,
+  .trip-planning-teaser__actions .primary-button {
+    grid-column: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flight-animation__plane {
+    left: 70%;
+    animation: none !important;
+  }
+}
+
+/* =============================================
+   HW10 polish v9 — final CTA, live time and contrast pass
+   ============================================= */
+
+/* Inline flight CTA: transparent animation lane with no visible edge treatment. */
+.trip-inline-cta {
+  grid-template-columns: minmax(300px, 1fr) minmax(460px, 820px) max-content;
+  column-gap: 28px;
+  align-items: center;
+}
+
+.trip-inline-cta__copy {
+  min-width: 0;
+  text-align: left;
+  align-items: flex-start;
+  justify-items: start;
+}
+
+.trip-inline-cta--saved {
+  align-items: start;
+}
+
+.trip-inline-cta--saved .trip-inline-cta__copy,
+.trip-inline-cta--saved .trip-inline-cta__actions {
+  align-self: start;
+}
+
+.trip-inline-cta__saved-status {
+  margin: 0 0 16px;
+  transform: none;
+  align-self: flex-start;
+}
+
+.trip-inline-cta__actions {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 10px;
+  align-self: center;
+}
+
+.trip-inline-cta--saved .trip-inline-cta__actions {
+  align-self: start;
+}
+
+.trip-inline-cta__saved-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0;
+  color: #1a789f;
+  font-size: .9rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+
+.trip-inline-cta__saved-link:hover,
+.trip-inline-cta__saved-link:focus-visible,
+.trip-inline-cta__saved-link:visited {
+  color: #126a8e;
+  text-decoration: underline !important;
+}
+
+.trip-inline-cta__action {
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 50px;
+  padding: 0 22px;
+  font-size: .9rem;
+  white-space: nowrap;
+}
+
+.trip-flight-animation {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  height: 86px;
+  overflow: visible;
+  isolation: isolate;
+  pointer-events: none;
+  background: transparent !important;
+}
+
+.trip-flight-animation::before,
+.trip-flight-animation::after,
+.trip-flight-animation__trail {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+.trip-flight-animation__plane {
+  top: 50%;
+  left: -220px;
+  width: 132px;
+  height: 86px;
+  transform: translateY(-50%);
+  animation: trip-plane-fly-across-v9 9.4s linear infinite;
+  will-change: left;
+}
+
+@keyframes trip-plane-fly-across-v9 {
+  0%, 8% { left: -240px; opacity: 0; }
+  14% { left: -118px; opacity: 1; }
+  84% { left: calc(100% + 18px); opacity: 1; }
+  90%, 100% { left: calc(100% + 150px); opacity: 0; }
+}
+
+[data-theme='dark'] .trip-inline-cta__saved-link {
+  color: #78d5f3;
+}
+
+[data-theme='dark'] .trip-inline-cta__saved-link:hover,
+[data-theme='dark'] .trip-inline-cta__saved-link:focus-visible,
+[data-theme='dark'] .trip-inline-cta__saved-link:visited {
+  color: #a5e7fb;
+}
+
+/* The passport scene has its own dark asset whose pale backing becomes AtlasRoute blue. */
+[data-theme='dark'] .trip-passport-animation {
+  background: transparent !important;
+  filter: drop-shadow(0 16px 24px rgba(0, 8, 14, .42));
+}
+
+/* Travel essentials: absolute optical centering and stronger dark-mode glyph contrast. */
+.travel-essential-card {
+  grid-template-columns: 64px minmax(0, 1fr) !important;
+  column-gap: 18px !important;
+  align-items: stretch !important;
+}
+
+.travel-essential-card__icon-slot {
+  position: relative;
+  width: 64px !important;
+  min-height: 64px;
+  height: 100% !important;
+  align-self: stretch !important;
+  justify-self: center !important;
+}
+
+.travel-essential-card__icon {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 52px !important;
+  height: 52px !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  display: block !important;
+  border-radius: 50%;
+  line-height: 0 !important;
+}
+
+.travel-essential-card__icon .trip-ui-icon,
+.travel-essential-card__icon svg {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 22px !important;
+  height: 22px !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  display: block !important;
+}
+
+.travel-essential-card > div:last-child {
+  align-self: center;
+}
+
+[data-theme='dark'] .travel-essential-card__icon {
+  border: 1px solid rgba(255,255,255,.09);
+  background: rgba(255,255,255,.11);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+[data-theme='dark'] .travel-essential-card--currency .travel-essential-card__icon {
+  color: #5ce6ae;
+}
+
+[data-theme='dark'] .travel-essential-card:not(.travel-essential-card--currency):not(.travel-essential-card--climate):not(.travel-essential-card--advice) .travel-essential-card__icon {
+  color: #78d7f5;
+}
+
+[data-theme='dark'] .travel-essential-card--climate .travel-essential-card__icon {
+  color: #ffb84f;
+}
+
+[data-theme='dark'] .travel-essential-card--advice .travel-essential-card__icon {
+  color: #ab9cff;
+}
+
+@media (max-width: 1240px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(260px, 1fr) minmax(340px, 1fr) max-content;
+    column-gap: 20px;
+  }
+}
+
+@media (max-width: 980px) {
+  .trip-inline-cta {
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+  }
+
+  .trip-inline-cta--saved .trip-inline-cta__copy,
+  .trip-inline-cta--saved .trip-inline-cta__actions,
+  .trip-inline-cta__copy,
+  .trip-inline-cta__actions {
+    align-self: auto;
+  }
+
+  .trip-flight-animation {
+    grid-column: 1;
+    width: 100%;
+    max-width: 720px;
+    justify-self: center;
+  }
+
+  .trip-inline-cta__actions {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-flight-animation {
+    height: 68px;
+  }
+
+  .trip-flight-animation__plane {
+    width: 102px;
+    height: 68px;
+    left: -160px;
+  }
+
+  @keyframes trip-plane-fly-across-v9 {
+    0%, 8% { left: -180px; opacity: 0; }
+    14% { left: -92px; opacity: 1; }
+    84% { left: calc(100% + 10px); opacity: 1; }
+    90%, 100% { left: calc(100% + 110px); opacity: 0; }
+  }
+
+  .trip-inline-cta__actions {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flight-animation__plane {
+    left: 66%;
+    animation: none !important;
+  }
+}
+
+/* =============================================
+   HW10 polish v10 — final motion, type and overview cleanup
+   ============================================= */
+
+/* Inline planning CTA: symmetric outer padding and a flight lane that starts
+   after the copy and fades away before the action, never crossing either. */
+.trip-inline-cta {
+  padding-inline: 30px;
+}
+
+.trip-inline-cta__copy {
+  text-align: left;
+  justify-self: stretch;
+  align-items: flex-start;
+}
+
+.trip-flight-animation {
+  overflow: visible;
+  background: transparent !important;
+}
+
+.trip-flight-animation::before,
+.trip-flight-animation::after,
+.trip-flight-animation__trail {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+.trip-flight-animation__plane {
+  left: 22px;
+  opacity: 0;
+  animation: trip-plane-fly-contained-v10 9.6s linear infinite;
+}
+
+@keyframes trip-plane-fly-contained-v10 {
+  0%, 8% {
+    left: 22px;
+    opacity: 0;
+  }
+  16% {
+    left: 9%;
+    opacity: 1;
+  }
+  80% {
+    left: calc(91% - 132px);
+    opacity: 1;
+  }
+  92%, 100% {
+    left: calc(100% - 154px);
+    opacity: 0;
+  }
+}
+
+/* Form controls and placeholders use the same UI type system as the page. */
+.trip-field__control,
+.trip-budget-input input,
+.trip-budget-input select,
+textarea.trip-field__control {
+  font-family: inherit !important;
+  font-size: .88rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+
+.trip-field__control::placeholder,
+.trip-budget-input input::placeholder,
+textarea.trip-field__control::placeholder {
+  font-family: inherit !important;
+  font-size: .88rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: normal;
+  color: #7d9099;
+  opacity: 1;
+}
+
+[data-theme='dark'] .trip-field__control::placeholder,
+[data-theme='dark'] .trip-budget-input input::placeholder,
+[data-theme='dark'] textarea.trip-field__control::placeholder {
+  color: #91a8b3;
+  opacity: 1;
+}
+
+/* Trip overview ends cleanly after Total budget; Preferences owns trip style. */
+.trip-plan-overview__budget,
+[data-theme='dark'] .trip-plan-overview__budget {
+  border-bottom: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .trip-inline-cta {
+    padding-inline: 22px;
+  }
+
+  .trip-flight-animation__plane {
+    left: 16px;
+    animation-name: trip-plane-fly-contained-mobile-v10;
+  }
+
+  @keyframes trip-plane-fly-contained-mobile-v10 {
+    0%, 8% {
+      left: 16px;
+      opacity: 0;
+    }
+    16% {
+      left: 8%;
+      opacity: 1;
+    }
+    80% {
+      left: calc(92% - 102px);
+      opacity: 1;
+    }
+    92%, 100% {
+      left: calc(100% - 118px);
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flight-animation__plane {
+    left: 62%;
+    opacity: 1;
+    animation: none !important;
+  }
+}
+
+
+/* =============================================
+   HW10 polish v11 — CTA alignment and flight-lane refinement
+   ============================================= */
+
+/* Keep the copy and primary action on the same optical card inset. */
+.trip-inline-cta {
+  padding: 18px 30px !important;
+  grid-template-columns: minmax(300px, 1fr) minmax(420px, 760px) max-content;
+  column-gap: 30px;
+}
+
+.trip-inline-cta__copy {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-self: start;
+  text-align: left !important;
+}
+
+.trip-inline-cta__actions {
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-self: end;
+}
+
+/* Transparent lane: the plane becomes visible only after it clears the copy
+   and fades away before reaching the CTA. No gradients, masks or visible edge. */
+.trip-flight-animation {
+  width: calc(100% - 24px);
+  max-width: 760px;
+  height: 86px;
+  justify-self: center;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.trip-flight-animation::before,
+.trip-flight-animation::after,
+.trip-flight-animation__trail {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.trip-flight-animation__plane {
+  top: 50%;
+  left: -132px;
+  width: 132px;
+  height: 86px;
+  opacity: 0;
+  transform: translateY(-50%);
+  animation: trip-plane-fly-safe-v11 9.4s linear infinite !important;
+  will-change: left, opacity;
+}
+
+@keyframes trip-plane-fly-safe-v11 {
+  0%, 10% {
+    left: -132px;
+    opacity: 0;
+  }
+  17% {
+    left: 18px;
+    opacity: 1;
+  }
+  78% {
+    left: calc(100% - 156px);
+    opacity: 1;
+  }
+  86% {
+    left: calc(100% - 132px);
+    opacity: 0;
+  }
+  100% {
+    left: calc(100% + 12px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1240px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(260px, 1fr) minmax(320px, 1fr) max-content;
+    column-gap: 24px;
+  }
+
+  .trip-flight-animation {
+    width: calc(100% - 16px);
+  }
+}
+
+@media (max-width: 980px) {
+  .trip-inline-cta {
+    grid-template-columns: 1fr;
+    padding-inline: 30px !important;
+  }
+
+  .trip-flight-animation {
+    width: 100%;
+    max-width: 720px;
+  }
+
+  .trip-inline-cta__actions {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-inline-cta {
+    padding: 18px 22px !important;
+  }
+
+  .trip-flight-animation {
+    height: 68px;
+  }
+
+  .trip-flight-animation__plane {
+    left: -102px;
+    width: 102px;
+    height: 68px;
+    animation-name: trip-plane-fly-safe-mobile-v11 !important;
+  }
+
+  @keyframes trip-plane-fly-safe-mobile-v11 {
+    0%, 10% {
+      left: -102px;
+      opacity: 0;
+    }
+    17% {
+      left: 12px;
+      opacity: 1;
+    }
+    78% {
+      left: calc(100% - 122px);
+      opacity: 1;
+    }
+    86% {
+      left: calc(100% - 102px);
+      opacity: 0;
+    }
+    100% {
+      left: calc(100% + 8px);
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flight-animation__plane {
+    left: 58%;
+    opacity: 1;
+    animation: none !important;
+  }
+}
+
+/* =============================================
+   HW10 polish v12 — CTA inset, seamless flight entry, modal focus cleanup
+   ============================================= */
+
+/* Inline CTA: use the same compact card inset as the rest of AtlasRoute.
+   Explicitly reset the old space-between distribution from the original flex rule. */
+.trip-inline-cta {
+  padding: 18px 22px !important;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 760px) max-content;
+  column-gap: 30px;
+  justify-content: stretch !important;
+  justify-items: stretch;
+}
+
+.trip-inline-cta__copy {
+  grid-column: 1;
+  width: auto !important;
+  max-width: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-self: start !important;
+  align-self: center;
+  transform: none !important;
+  text-align: left !important;
+}
+
+.trip-inline-cta--saved .trip-inline-cta__copy {
+  align-self: center;
+}
+
+/* Restore the visually seamless v10-style appearance/disappearance:
+   the lane itself does not clip the aircraft; opacity reaches zero well inside
+   the lane before the Lottie can touch either boundary. Keep the established speed. */
+.trip-flight-animation {
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.trip-flight-animation__plane {
+  left: 0;
+  opacity: 0;
+  animation: trip-plane-fly-seamless-v12 9.4s linear infinite !important;
+  will-change: left, opacity;
+}
+
+@keyframes trip-plane-fly-seamless-v12 {
+  0%, 9% {
+    left: 2%;
+    opacity: 0;
+  }
+  17% {
+    left: 11%;
+    opacity: 1;
+  }
+  79% {
+    left: calc(89% - 132px);
+    opacity: 1;
+  }
+  88% {
+    left: calc(95% - 132px);
+    opacity: 0;
+  }
+  100% {
+    left: calc(98% - 132px);
+    opacity: 0;
+  }
+}
+
+/* Share/calendar option cards: mouse clicks must not leave the browser's thick
+   default outline. Keyboard users keep a compact, internal AtlasRoute focus ring. */
+.trip-share-modal__options button:focus,
+.trip-calendar-option:focus {
+  outline: none;
+}
+
+.trip-share-modal__options button:focus-visible,
+.trip-calendar-option:focus-visible {
+  outline: 2px solid rgba(82, 188, 232, .72);
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px rgba(82, 188, 232, .16);
+}
+
+[data-theme='dark'] .trip-share-modal__options button:focus-visible,
+[data-theme='dark'] .trip-calendar-option:focus-visible {
+  outline-color: rgba(119, 216, 247, .82);
+  box-shadow: inset 0 0 0 2px rgba(119, 216, 247, .14);
+}
+
+@media (max-width: 1240px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 1fr) max-content;
+    padding-inline: 22px !important;
+    column-gap: 24px;
+  }
+}
+
+@media (max-width: 980px) {
+  .trip-inline-cta {
+    grid-template-columns: 1fr;
+    padding-inline: 22px !important;
+  }
+
+  .trip-inline-cta__copy,
+  .trip-inline-cta--saved .trip-inline-cta__copy {
+    align-self: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-inline-cta {
+    padding: 18px !important;
+  }
+
+  .trip-flight-animation__plane {
+    left: 0;
+    animation-name: trip-plane-fly-seamless-mobile-v12 !important;
+  }
+
+  @keyframes trip-plane-fly-seamless-mobile-v12 {
+    0%, 9% {
+      left: 2%;
+      opacity: 0;
+    }
+    17% {
+      left: 10%;
+      opacity: 1;
+    }
+    79% {
+      left: calc(90% - 102px);
+      opacity: 1;
+    }
+    88% {
+      left: calc(96% - 102px);
+      opacity: 0;
+    }
+    100% {
+      left: calc(98% - 102px);
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flight-animation__plane {
+    left: 58%;
+    opacity: 1;
+    animation: none !important;
+  }
+}
+
+/* =============================================
+   HW10 polish v13 — closer flight start, compact responsive CTA actions,
+   and non-overlapping modal focus treatment
+   ============================================= */
+
+/* The flight lane already starts after the copy column. Keep the aircraft fully
+   transparent while it is outside the lane, then reveal it almost immediately
+   inside the lane so it feels closer to the text without ever crossing it. */
+.trip-flight-animation__plane {
+  animation-name: trip-plane-fly-seamless-v13 !important;
+}
+
+@keyframes trip-plane-fly-seamless-v13 {
+  0%, 8% {
+    left: -120px;
+    opacity: 0;
+  }
+  13% {
+    left: -24px;
+    opacity: 0;
+  }
+  17% {
+    left: 12px;
+    opacity: 1;
+  }
+  79% {
+    left: calc(89% - 132px);
+    opacity: 1;
+  }
+  88% {
+    left: calc(95% - 132px);
+    opacity: 0;
+  }
+  100% {
+    left: calc(98% - 132px);
+    opacity: 0;
+  }
+}
+
+/* Share/calendar option focus stays inside the card instead of drawing a second
+   outline over the rounded border after mouse interaction. */
+.trip-share-modal__options button:focus,
+.trip-calendar-option:focus {
+  outline: none !important;
+}
+
+.trip-share-modal__options button:focus:not(:focus-visible),
+.trip-calendar-option:focus:not(:focus-visible) {
+  box-shadow: none !important;
+}
+
+.trip-share-modal__options button:focus-visible,
+.trip-calendar-option:focus-visible {
+  outline: none !important;
+  box-shadow: inset 0 0 0 2px rgba(82, 188, 232, .72) !important;
+}
+
+[data-theme='dark'] .trip-share-modal__options button:focus-visible,
+[data-theme='dark'] .trip-calendar-option:focus-visible {
+  outline: none !important;
+  box-shadow: inset 0 0 0 2px rgba(119, 216, 247, .82) !important;
+}
+
+/* Tablet and mobile: keep the saved-plan link and the primary CTA in one row.
+   The row remains compact and wraps only as a last resort on extremely narrow
+   viewports. */
+@media (max-width: 980px) {
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 14px !important;
+    flex-wrap: nowrap;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-flight-animation__plane {
+    animation-name: trip-plane-fly-seamless-mobile-v13 !important;
+  }
+
+  @keyframes trip-plane-fly-seamless-mobile-v13 {
+    0%, 8% {
+      left: -92px;
+      opacity: 0;
+    }
+    13% {
+      left: -18px;
+      opacity: 0;
+    }
+    17% {
+      left: 8px;
+      opacity: 1;
+    }
+    79% {
+      left: calc(90% - 102px);
+      opacity: 1;
+    }
+    88% {
+      left: calc(96% - 102px);
+      opacity: 0;
+    }
+    100% {
+      left: calc(98% - 102px);
+      opacity: 0;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    gap: 10px !important;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    font-size: .8rem;
+  }
+
+  .trip-inline-cta__action {
+    padding-inline: 14px;
+  }
+}
+
+
+/* =============================================
+   HW10 polish v14 — responsive CTA + pointer-focus cleanup
+   ============================================= */
+
+/* Desktop flight starts a little closer to the copy while remaining inside
+   its own grid column, so long country names can wrap without collision. */
+.trip-flight-animation__plane {
+  animation-name: trip-plane-fly-seamless-v14 !important;
+}
+
+@keyframes trip-plane-fly-seamless-v14 {
+  0%, 8% {
+    left: -112px;
+    opacity: 0;
+  }
+  12% {
+    left: -20px;
+    opacity: 0;
+  }
+  16% {
+    left: 2px;
+    opacity: 1;
+  }
+  79% {
+    left: calc(89% - 132px);
+    opacity: 1;
+  }
+  88% {
+    left: calc(95% - 132px);
+    opacity: 0;
+  }
+  100% {
+    left: calc(98% - 132px);
+    opacity: 0;
+  }
+}
+
+/* Pointer activation should never leave a selected-looking border on modal
+   action cards. Keyboard focus-visible styling remains available. */
+.trip-share-modal__options button:focus:not(:focus-visible),
+.trip-calendar-option:focus:not(:focus-visible) {
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-color: rgba(21, 61, 77, .1) !important;
+}
+
+[data-theme='dark'] .trip-share-modal__options button:focus:not(:focus-visible),
+[data-theme='dark'] .trip-calendar-option:focus:not(:focus-visible) {
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-color: rgba(124, 193, 221, .18) !important;
+}
+
+/* Tablet/mobile CTA: keep both actions on one compact row and explicitly
+   override older 100%-width mobile rules that pushed the primary action out
+   of the card. */
+@media (max-width: 980px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto;
+    row-gap: 16px;
+    overflow: hidden;
+  }
+
+  .trip-inline-cta__copy {
+    grid-column: 1 !important;
+    grid-row: 1;
+    width: 100% !important;
+    min-width: 0;
+  }
+
+  .trip-flight-animation {
+    grid-column: 1 !important;
+    grid-row: 2;
+    width: min(100%, 560px) !important;
+    max-width: 560px !important;
+    justify-self: center !important;
+    margin: 0 !important;
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    grid-column: 1 !important;
+    grid-row: 3;
+    width: auto !important;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-self: start !important;
+    align-self: center !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 14px !important;
+    flex-wrap: nowrap !important;
+    overflow: visible;
+  }
+
+  .trip-inline-cta__saved-link {
+    flex: 0 1 auto !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: .86rem !important;
+    white-space: nowrap;
+  }
+
+  .trip-inline-cta__action {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 46px;
+    padding-inline: 18px !important;
+    font-size: .86rem !important;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-inline-cta {
+    row-gap: 14px;
+  }
+
+  .trip-flight-animation {
+    width: min(100%, 420px) !important;
+    max-width: 420px !important;
+  }
+
+  .trip-flight-animation__plane {
+    animation-name: trip-plane-fly-seamless-mobile-v14 !important;
+  }
+
+  @keyframes trip-plane-fly-seamless-mobile-v14 {
+    0%, 8% {
+      left: -88px;
+      opacity: 0;
+    }
+    12% {
+      left: -14px;
+      opacity: 0;
+    }
+    16% {
+      left: 0;
+      opacity: 1;
+    }
+    79% {
+      left: calc(90% - 102px);
+      opacity: 1;
+    }
+    88% {
+      left: calc(96% - 102px);
+      opacity: 0;
+    }
+    100% {
+      left: calc(98% - 102px);
+      opacity: 0;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    width: 100% !important;
+    gap: 10px !important;
+  }
+
+  .trip-inline-cta__saved-link {
+    font-size: .78rem !important;
+  }
+
+  .trip-inline-cta__action {
+    margin-left: auto !important;
+    min-height: 42px;
+    padding-inline: 12px !important;
+    font-size: .78rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    gap: 8px !important;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    font-size: .74rem !important;
+  }
+
+  .trip-inline-cta__action {
+    padding-inline: 10px !important;
+  }
+}
+
+/* =============================================
+   HW10 polish v15 — final responsive CTA alignment, wind streaks,
+   and stable passport rendering across theme changes
+   ============================================= */
+
+/* The plane keeps the established 9.4 s pace but becomes visible closer to the
+   beginning of its own lane. The lane remains independent from the country-name
+   column, so long names wrap safely without colliding with the aircraft. */
+.trip-flight-animation__plane {
+  animation-name: trip-plane-fly-seamless-v15 !important;
+}
+
+@keyframes trip-plane-fly-seamless-v15 {
+  0%, 7% {
+    left: -104px;
+    opacity: 0;
+  }
+  11% {
+    left: -18px;
+    opacity: 0;
+  }
+  15% {
+    left: 8px;
+    opacity: 1;
+  }
+  79% {
+    left: calc(89% - 132px);
+    opacity: 1;
+  }
+  88% {
+    left: calc(95% - 132px);
+    opacity: 0;
+  }
+  100% {
+    left: calc(98% - 132px);
+    opacity: 0;
+  }
+}
+
+/* Light directional streaks travel with the aircraft. They are deliberately
+   subtle and inherit the aircraft opacity, so they never expose the animation
+   boundary during the invisible reset. */
+.trip-flight-animation__wind {
+  position: absolute;
+  top: 50%;
+  left: -42px;
+  z-index: 0;
+  width: 36px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(74, 187, 230, .72);
+  transform: translateY(-50%);
+  box-shadow:
+    -14px -10px 0 -0.25px rgba(74, 187, 230, .5),
+    -7px 10px 0 -0.25px rgba(74, 187, 230, .42);
+}
+
+.trip-flight-animation__lottie {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme='dark'] .trip-flight-animation__wind {
+  background: rgba(91, 203, 242, .82);
+  box-shadow:
+    -14px -10px 0 -0.25px rgba(91, 203, 242, .58),
+    -7px 10px 0 -0.25px rgba(91, 203, 242, .5);
+}
+
+/* Keep both passport Lottie variants mounted. Theme changes now only switch
+   visibility, eliminating the cold-dark-load/remount race that could leave the
+   illustration blank until a second refresh. */
+.trip-passport-animation {
+  position: relative !important;
+  overflow: visible;
+}
+
+.trip-passport-animation__variant {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .18s ease;
+}
+
+.trip-passport-animation__variant > div,
+.trip-passport-animation__variant svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.trip-passport-animation__variant--light {
+  opacity: 1;
+  visibility: visible;
+}
+
+[data-theme='dark'] .trip-passport-animation__variant--light {
+  opacity: 0;
+  visibility: hidden;
+}
+
+[data-theme='dark'] .trip-passport-animation__variant--dark {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Tablet/mobile: copy uses the same left content edge as the card, while the
+   actions form their own centered row below the flight lane. */
+@media (max-width: 980px) {
+  .trip-inline-cta,
+  .trip-inline-cta--saved {
+    justify-items: stretch !important;
+  }
+
+  .trip-inline-cta__copy,
+  .trip-inline-cta--saved .trip-inline-cta__copy {
+    justify-self: stretch !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+
+  .trip-inline-cta__copy small,
+  .trip-inline-cta__copy strong,
+  .trip-inline-cta__saved-status {
+    text-align: left !important;
+    align-self: flex-start !important;
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    justify-self: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: auto !important;
+    max-width: 100% !important;
+    margin-inline: auto !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-flight-animation__plane {
+    animation-name: trip-plane-fly-seamless-mobile-v15 !important;
+  }
+
+  @keyframes trip-plane-fly-seamless-mobile-v15 {
+    0%, 7% {
+      left: -80px;
+      opacity: 0;
+    }
+    11% {
+      left: -12px;
+      opacity: 0;
+    }
+    15% {
+      left: 6px;
+      opacity: 1;
+    }
+    79% {
+      left: calc(90% - 102px);
+      opacity: 1;
+    }
+    88% {
+      left: calc(96% - 102px);
+      opacity: 0;
+    }
+    100% {
+      left: calc(98% - 102px);
+      opacity: 0;
+    }
+  }
+
+  .trip-flight-animation__wind {
+    left: -34px;
+    width: 29px;
+    box-shadow:
+      -11px -8px 0 -0.25px rgba(74, 187, 230, .5),
+      -6px 8px 0 -0.25px rgba(74, 187, 230, .42);
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin-inline: auto !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    gap: 9px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flight-animation__wind {
+    opacity: .7;
+  }
+}
+
+
+/* =============================================
+   HW10 polish v16 — responsive CTA geometry, passport centering,
+   clean flight icon, error-art spacing and stable hero-media loading
+   ============================================= */
+
+/* The CTA was still inheriting display:flex from the original implementation,
+   so the later grid templates never actually controlled tablet/mobile layout.
+   Make the intended grid real: copy uses the card's left edge, flight owns its
+   lane, and actions can be centered independently. */
+.trip-inline-cta {
+  display: grid !important;
+}
+
+.trip-inline-cta__copy,
+.trip-inline-cta--saved .trip-inline-cta__copy {
+  min-width: 0;
+  justify-self: stretch !important;
+  text-align: left !important;
+}
+
+/* v16 returns the aircraft to the approved clean version — no wind streaks. */
+.trip-flight-animation__wind {
+  display: none !important;
+}
+
+/* Passport artwork is centered over the complete action group instead of the
+   primary-button column only. The Lottie viewport itself keeps its established
+   size, while both mounted theme variants share exactly the same origin. */
+.trip-planning-teaser__passport-slot {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  justify-self: stretch !important;
+  place-items: end center !important;
+}
+
+.trip-passport-animation,
+.trip-passport-animation__variant,
+.trip-passport-animation__variant > div,
+.trip-passport-animation__variant svg {
+  transform: none !important;
+}
+
+.trip-passport-animation__variant {
+  overflow: hidden;
+}
+
+/* Country hero: never flash the flag while Pixabay media is still resolving.
+   Keep the hero footprint stable and show the existing AtlasRoute inline loader
+   until the selected image has both loaded and decoded. */
+.details-hero {
+  background: linear-gradient(145deg, #123d50, #1f617c);
+}
+
+.details-hero__image {
+  z-index: 0;
+  opacity: 0;
+  transition: opacity .24s ease;
+}
+
+.details-hero__image--loaded {
+  opacity: 1;
+}
+
+.details-hero__media-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: rgba(255,255,255,.9);
+  font-size: .82rem;
+  font-weight: 750;
+  letter-spacing: .01em;
+  background:
+    radial-gradient(circle at 72% 24%, rgba(99, 206, 231, .16), transparent 26%),
+    linear-gradient(145deg, rgba(18,61,80,.98), rgba(26,84,106,.98));
+}
+
+.details-hero__media-loader .inline-loader {
+  width: 54px !important;
+  height: 40px !important;
+}
+
+.details-hero__overlay {
+  z-index: 1;
+}
+
+@media (max-width: 980px) {
+  .trip-inline-cta__copy,
+  .trip-inline-cta--saved .trip-inline-cta__copy {
+    grid-column: 1 !important;
+    width: 100% !important;
+    justify-self: stretch !important;
+    align-self: stretch !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+  }
+
+  .trip-inline-cta__copy small,
+  .trip-inline-cta__copy strong,
+  .trip-inline-cta__saved-status {
+    width: fit-content;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: left !important;
+    justify-self: start !important;
+    align-self: flex-start !important;
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    justify-self: center !important;
+    justify-content: center !important;
+    margin-inline: auto !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-planning-teaser__passport-slot {
+    grid-column: 1 !important;
+  }
+
+  .details-hero__media-loader {
+    font-size: .78rem;
+  }
+}
+
+
+/* =============================================
+   HW10 polish v17 — canonical CTA geometry, passport restore,
+   modal status spacing and error-art caption clearance
+   ============================================= */
+
+/* One final CTA geometry. Earlier homework iterations accumulated several
+   responsive overrides; this block deliberately owns the finished layout. */
+.trip-inline-cta {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 440px) minmax(0, 1fr) !important;
+  grid-template-rows: auto !important;
+  align-items: center !important;
+  justify-items: stretch !important;
+  column-gap: 18px !important;
+  row-gap: 0 !important;
+  min-height: 108px;
+  padding: 18px !important;
+  overflow: hidden;
+}
+
+/* Copy always starts at the real left content edge of the card. Flex is used
+   here intentionally so inherited grid alignment from older versions cannot
+   re-center individual lines on tablet/mobile. */
+.trip-inline-cta__copy,
+.trip-inline-cta--saved .trip-inline-cta__copy {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  justify-self: stretch !important;
+  align-self: center !important;
+  text-align: left !important;
+}
+
+.trip-inline-cta__copy > *,
+.trip-inline-cta__copy small,
+.trip-inline-cta__copy strong,
+.trip-inline-cta__saved-status {
+  width: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  align-self: flex-start !important;
+  justify-self: auto !important;
+  text-align: left !important;
+}
+
+/* The flight lane is the true middle column of a symmetric three-column grid,
+   so the aircraft travels through the optical centre of the whole card. */
+.trip-flight-animation {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  margin: 0 !important;
+  justify-self: center !important;
+  align-self: center !important;
+  overflow: visible !important;
+}
+
+.trip-flight-animation__wind {
+  display: none !important;
+}
+
+.trip-inline-cta__actions,
+.trip-inline-cta--saved .trip-inline-cta__actions {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  width: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-self: end !important;
+  align-self: center !important;
+  align-items: flex-end !important;
+}
+
+/* Restore the approved teaser geometry: passport directly above the primary
+   action column on desktop/tablet; centered above the action stack on mobile. */
+.trip-planning-teaser__passport-slot {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  width: 260px !important;
+  min-height: 205px !important;
+  display: grid !important;
+  place-items: end center !important;
+  justify-self: end !important;
+  align-self: end !important;
+}
+
+/* Share status is a separate row, never visually attached to the Close button. */
+.trip-share-modal .trip-modal__status {
+  position: static !important;
+  display: grid !important;
+  place-items: center !important;
+  min-height: 44px !important;
+  margin: 14px 0 12px !important;
+  padding: 10px 12px !important;
+  line-height: 1.35 !important;
+}
+
+.trip-share-modal .trip-modal__cancel {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 1240px) and (min-width: 981px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 360px) minmax(0, 1fr) !important;
+    column-gap: 14px !important;
+  }
+
+  .trip-flight-animation {
+    max-width: 360px !important;
+  }
+
+  .trip-planning-teaser__passport-slot {
+    width: 240px !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .trip-inline-cta {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto 76px auto !important;
+    row-gap: 12px !important;
+    padding: 18px !important;
+  }
+
+  .trip-inline-cta__copy,
+  .trip-inline-cta--saved .trip-inline-cta__copy {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  .trip-flight-animation {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    width: min(72%, 420px) !important;
+    max-width: 420px !important;
+    height: 76px !important;
+    justify-self: center !important;
+    align-self: center !important;
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    justify-self: center !important;
+    gap: 12px !important;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    margin: 0 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .trip-planning-teaser__passport-slot {
+    width: 230px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip-inline-cta {
+    grid-template-rows: auto 68px auto !important;
+    row-gap: 10px !important;
+    padding: 16px !important;
+  }
+
+  .trip-flight-animation {
+    width: min(74%, 320px) !important;
+    max-width: 320px !important;
+    height: 68px !important;
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    gap: 10px !important;
+  }
+
+  .trip-planning-teaser__passport-slot {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
+    min-height: 168px !important;
+    place-items: center !important;
+    justify-self: stretch !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    font-size: .78rem !important;
+  }
+
+  .trip-inline-cta__action {
+    padding-inline: 12px !important;
+  }
+}
+
+/* =============================================
+   HW10 polish v18 — final CTA centering, passport placement and card stability
+   ============================================= */
+
+/* Inline CTA: decouple the aircraft from the content grid entirely.
+   Copy and actions own the edges; the flight lane is pinned to the physical
+   center of the card, so its vertical path cannot drift when responsive rules
+   or country-name length change. */
+.trip-inline-cta,
+.trip-inline-cta--saved {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  grid-template-rows: auto !important;
+  align-items: center !important;
+  column-gap: 28px !important;
+  min-height: 118px !important;
+  padding: 22px 30px !important;
+  overflow: hidden !important;
+}
+
+.trip-inline-cta__copy,
+.trip-inline-cta--saved .trip-inline-cta__copy {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  width: min(100%, 430px) !important;
+  max-width: 430px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  justify-self: start !important;
+  align-self: center !important;
+  text-align: left !important;
+}
+
+.trip-inline-cta__copy > *,
+.trip-inline-cta__copy small,
+.trip-inline-cta__copy strong,
+.trip-inline-cta__saved-status {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  align-self: flex-start !important;
+  text-align: left !important;
+}
+
+.trip-inline-cta__actions,
+.trip-inline-cta--saved .trip-inline-cta__actions {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-self: end !important;
+  align-self: center !important;
+  align-items: flex-end !important;
+}
+
+/* The flight lane always sits on the true geometric centre of the card. */
+.trip-inline-cta .trip-flight-animation {
+  position: absolute !important;
+  z-index: 1 !important;
+  top: 50% !important;
+  left: 50% !important;
+  grid-column: auto !important;
+  grid-row: auto !important;
+  width: clamp(300px, 31vw, 500px) !important;
+  max-width: 500px !important;
+  height: 86px !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  justify-self: auto !important;
+  align-self: auto !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+.trip-flight-animation__wind {
+  display: none !important;
+}
+
+/* Trip-planning teaser: restore the passport as one centred illustration
+   directly above the complete two-button action group. */
+.trip-planning-teaser__visual {
+  display: grid !important;
+  grid-template-columns: minmax(180px, 220px) minmax(230px, 260px) !important;
+  grid-template-rows: 198px auto !important;
+  justify-content: end !important;
+  align-items: end !important;
+  column-gap: 16px !important;
+  row-gap: 10px !important;
+}
+
+.trip-planning-teaser__passport-slot {
+  grid-column: 1 / -1 !important;
+  grid-row: 1 !important;
+  width: 250px !important;
+  height: 198px !important;
+  min-height: 198px !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  justify-self: center !important;
+  align-self: end !important;
+  overflow: visible !important;
+}
+
+.trip-planning-teaser__passport-slot .trip-passport-animation {
+  width: 250px !important;
+  height: 198px !important;
+  margin: 0 !important;
+  place-self: center !important;
+}
+
+.trip-planning-teaser__actions {
+  grid-column: 1 / -1 !important;
+  grid-row: 2 !important;
+  display: grid !important;
+  grid-template-columns: minmax(180px, 220px) minmax(230px, 260px) !important;
+  gap: 16px !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  justify-self: center !important;
+  justify-content: center !important;
+}
+
+/* Catalogue flag plaque: keep every country, including Albania, geometrically
+   centred and isolate it from the generic card-image hover transform. */
+.country-card__media--photo {
+  position: relative !important;
+  place-items: center !important;
+}
+
+.country-card__media--photo .flag-visual--overlay {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  transform-origin: center !important;
+}
+
+.country-card__media--photo .flag-visual--overlay img,
+.country-card:hover .country-card__media--photo .flag-visual--overlay img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  transform: none !important;
+}
+
+.country-card:hover .country-card__media--photo .flag-visual--overlay {
+  transform: translate(-50%, calc(-50% - 4px)) scale(1.02) !important;
+}
+
+@media (max-width: 1240px) and (min-width: 981px) {
+  .trip-inline-cta .trip-flight-animation {
+    width: min(36vw, 390px) !important;
+    max-width: 390px !important;
+  }
+
+  .trip-planning-teaser__visual,
+  .trip-planning-teaser__actions {
+    grid-template-columns: minmax(165px, 195px) minmax(205px, 235px) !important;
+  }
+
+  .trip-planning-teaser__passport-slot,
+  .trip-planning-teaser__passport-slot .trip-passport-animation {
+    width: 230px !important;
+    height: 182px !important;
+    min-height: 182px !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .trip-inline-cta,
+  .trip-inline-cta--saved {
+    display: block !important;
+    min-height: 282px !important;
+    padding: 24px 30px !important;
+  }
+
+  .trip-inline-cta__copy,
+  .trip-inline-cta--saved .trip-inline-cta__copy {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  .trip-inline-cta .trip-flight-animation {
+    top: 50% !important;
+    left: 50% !important;
+    width: min(46%, 340px) !important;
+    max-width: 340px !important;
+    height: 76px !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    position: absolute !important;
+    z-index: 2 !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: 22px !important;
+    width: max-content !important;
+    max-width: calc(100% - 60px) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    justify-self: auto !important;
+    gap: 12px !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  .trip-planning-teaser__visual {
+    grid-template-columns: minmax(160px, 190px) minmax(200px, 230px) !important;
+    grid-template-rows: 180px auto !important;
+  }
+
+  .trip-planning-teaser__actions {
+    grid-template-columns: minmax(160px, 190px) minmax(200px, 230px) !important;
+  }
+
+  .trip-planning-teaser__passport-slot,
+  .trip-planning-teaser__passport-slot .trip-passport-animation {
+    width: 220px !important;
+    height: 174px !important;
+    min-height: 174px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .trip-inline-cta,
+  .trip-inline-cta--saved {
+    min-height: 270px !important;
+    padding: 22px !important;
+  }
+
+  .trip-inline-cta .trip-flight-animation {
+    width: min(52%, 220px) !important;
+    max-width: 220px !important;
+    height: 68px !important;
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    bottom: 20px !important;
+    max-width: calc(100% - 44px) !important;
+    gap: 10px !important;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    font-size: .78rem !important;
+  }
+
+  .trip-inline-cta__action {
+    padding-inline: 12px !important;
+  }
+
+  .trip-planning-teaser__visual {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 170px auto !important;
+    justify-items: center !important;
+    width: 100% !important;
+  }
+
+  .trip-planning-teaser__passport-slot {
+    grid-column: 1 !important;
+    width: 210px !important;
+    height: 166px !important;
+    min-height: 166px !important;
+    justify-self: center !important;
+  }
+
+  .trip-planning-teaser__passport-slot .trip-passport-animation {
+    width: 210px !important;
+    height: 166px !important;
+    min-height: 166px !important;
+  }
+
+  .trip-planning-teaser__actions {
+    grid-column: 1 !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    gap: 8px !important;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    font-size: .73rem !important;
+  }
+
+  .trip-inline-cta__action {
+    padding-inline: 9px !important;
+  }
+}
+
+/* Keep the share confirmation visually separate from the Close action. */
+.trip-share-modal .trip-modal__status:not(:empty) {
+  margin-bottom: 18px !important;
+}
+
+/* =============================================
+   HW10 polish v19 — restore approved flight path and lift passport art
+   ============================================= */
+
+/* Restore the clean pre-wind-streak flight treatment from v14, but keep the
+   lane anchored to the physical centre of the CTA. The wider lane brings back
+   the longer desktop flight while preserving safe clearance from copy/actions. */
+.trip-inline-cta .trip-flight-animation {
+  top: 50% !important;
+  left: 50% !important;
+  width: min(44vw, 760px) !important;
+  max-width: 760px !important;
+  height: 86px !important;
+  transform: translate(-50%, -50%) !important;
+  overflow: visible !important;
+}
+
+.trip-flight-animation__plane {
+  top: 50% !important;
+  left: -112px !important;
+  width: 132px !important;
+  height: 86px !important;
+  transform: translateY(-50%) !important;
+  animation: trip-plane-fly-restored-v19 9.4s linear infinite !important;
+}
+
+/* The Lottie asset has extra vertical canvas below the aircraft. Raise the
+   artwork inside its lane so the visible plane itself travels through the
+   geometric middle of the card rather than below it. */
+.trip-flight-animation__lottie {
+  transform: translate(-50%, -61%) !important;
+}
+
+@keyframes trip-plane-fly-restored-v19 {
+  0%, 8% {
+    left: -112px;
+    opacity: 0;
+  }
+  12% {
+    left: -20px;
+    opacity: 0;
+  }
+  16% {
+    left: 2px;
+    opacity: 1;
+  }
+  79% {
+    left: calc(89% - 132px);
+    opacity: 1;
+  }
+  88% {
+    left: calc(95% - 132px);
+    opacity: 0;
+  }
+  100% {
+    left: calc(98% - 132px);
+    opacity: 0;
+  }
+}
+
+/* Desktop teaser: return the passport above the buttons, but lift it so the
+   top of the illustration starts on the same visual level as TRIP PLANNING. */
+@media (min-width: 981px) {
+  .trip-planning-teaser__passport-slot {
+    grid-column: 1 / -1 !important;
+    grid-row: 1 !important;
+    width: 250px !important;
+    height: 198px !important;
+    min-height: 198px !important;
+    justify-self: center !important;
+    align-self: start !important;
+    place-items: center !important;
+    transform: translateY(-62px) !important;
+  }
+
+  .trip-planning-teaser__passport-slot .trip-passport-animation {
+    width: 250px !important;
+    height: 198px !important;
+    margin: 0 !important;
+    place-self: center !important;
+  }
+}
+
+@media (max-width: 1240px) and (min-width: 981px) {
+  .trip-inline-cta .trip-flight-animation {
+    width: min(46vw, 620px) !important;
+    max-width: 620px !important;
+  }
+
+  .trip-planning-teaser__passport-slot {
+    width: 230px !important;
+    height: 182px !important;
+    min-height: 182px !important;
+    transform: translateY(-50px) !important;
+  }
+
+  .trip-planning-teaser__passport-slot .trip-passport-animation {
+    width: 230px !important;
+    height: 182px !important;
+  }
+}
+
+@media (max-width: 980px) {
+  /* Tablet/mobile keep the lane centered on the card while using the same
+     restored pre-wind flight timing. */
+  .trip-inline-cta .trip-flight-animation {
+    top: 50% !important;
+    left: 50% !important;
+    width: min(70%, 520px) !important;
+    max-width: 520px !important;
+    height: 76px !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .trip-flight-animation__plane {
+    left: -102px !important;
+    width: 102px !important;
+    height: 68px !important;
+    animation-name: trip-plane-fly-restored-mobile-v19 !important;
+  }
+
+  .trip-flight-animation__lottie {
+    transform: translate(-50%, -61%) !important;
+  }
+
+  @keyframes trip-plane-fly-restored-mobile-v19 {
+    0%, 8% {
+      left: -88px;
+      opacity: 0;
+    }
+    12% {
+      left: -14px;
+      opacity: 0;
+    }
+    16% {
+      left: 0;
+      opacity: 1;
+    }
+    79% {
+      left: calc(90% - 102px);
+      opacity: 1;
+    }
+    88% {
+      left: calc(96% - 102px);
+      opacity: 0;
+    }
+    100% {
+      left: calc(98% - 102px);
+      opacity: 0;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .trip-inline-cta .trip-flight-animation {
+    width: min(72%, 300px) !important;
+    max-width: 300px !important;
+    height: 68px !important;
+  }
+}
+
+/* =============================================
+   HW10 polish v20 — authoritative flight geometry, passport poster stability,
+   and resilient saved-trip photography
+   ============================================= */
+
+/* Small country CTA: keep copy/actions on the card edges, while the aircraft
+   owns a protected lane through the visual middle. This deliberately overrides
+   the accumulated v9–v19 geometry instead of stacking another grid variant. */
+.trip-inline-cta,
+.trip-inline-cta--saved {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 390px) minmax(0, 1fr) auto !important;
+  grid-template-rows: 1fr !important;
+  align-items: center !important;
+  min-height: 118px !important;
+  padding: 22px 30px !important;
+  column-gap: 28px !important;
+  overflow: hidden !important;
+}
+
+.trip-inline-cta__copy,
+.trip-inline-cta--saved .trip-inline-cta__copy {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  width: 100% !important;
+  max-width: 390px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  justify-self: start !important;
+  align-self: center !important;
+  text-align: left !important;
+  z-index: 2 !important;
+}
+
+.trip-inline-cta__copy > *,
+.trip-inline-cta__copy small,
+.trip-inline-cta__copy strong,
+.trip-inline-cta__saved-status {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  align-self: flex-start !important;
+  text-align: left !important;
+}
+
+.trip-inline-cta__actions,
+.trip-inline-cta--saved .trip-inline-cta__actions {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-self: end !important;
+  align-self: center !important;
+  align-items: flex-end !important;
+}
+
+/* Protected desktop flight lane. The real middle grid column is the route:
+   it begins after the copy and ends before the action group at every width. */
+.trip-inline-cta .trip-flight-animation {
+  position: relative !important;
+  z-index: 1 !important;
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 86px !important;
+  margin: 0 !important;
+  align-self: center !important;
+  justify-self: stretch !important;
+  transform: none !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+.trip-inline-cta .trip-flight-animation__plane {
+  position: absolute !important;
+  top: 50% !important;
+  left: 0 !important;
+  width: 132px !important;
+  height: 86px !important;
+  opacity: 0;
+  transform: translateY(-50%) !important;
+  animation: atlasroute-plane-v20 9.4s linear infinite !important;
+  will-change: margin-left, opacity !important;
+}
+
+.trip-inline-cta .trip-flight-animation__lottie {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 184px !important;
+  height: 184px !important;
+  transform: translate(-50%, -51%) !important;
+}
+
+@media (min-width: 1241px) {
+  .trip-inline-cta .trip-flight-animation__lottie {
+    width: 198px !important;
+    height: 198px !important;
+  }
+}
+
+/* Keep variable-length country names inside the copy-safe zone on the
+   desktop/tablet CTA. The aircraft may fade in left of its grid lane, so the
+   headline wraps before that visual lane instead of ever sitting underneath it. */
+@media (min-width: 981px) {
+  .trip-inline-cta__copy strong,
+  .trip-inline-cta--saved .trip-inline-cta__copy strong {
+    max-width: 170px !important;
+    overflow-wrap: anywhere;
+  }
+}
+
+.trip-flight-animation__wind,
+.trip-flight-animation::before,
+.trip-flight-animation::after,
+.trip-flight-animation__trail {
+  display: none !important;
+  content: none !important;
+}
+
+@keyframes atlasroute-plane-v20 {
+  0%, 8% {
+    margin-left: -280px;
+    opacity: 0;
+  }
+  13% {
+    margin-left: -196px;
+    opacity: 0;
+  }
+  18% {
+    margin-left: -140px;
+    opacity: 1;
+  }
+  76% {
+    margin-left: calc(100% - 160px);
+    opacity: 1;
+  }
+  84% {
+    margin-left: calc(100% - 132px);
+    opacity: 0;
+  }
+  100% {
+    margin-left: calc(100% + 22px);
+    opacity: 0;
+  }
+}
+
+/* The CTA is explicitly animated in this product demo. Keep the aircraft path
+   intact even on hosts that globally report reduced motion; the Lottie artwork
+   itself may still remain internally static. */
+@media (prefers-reduced-motion: reduce) {
+  .trip-inline-cta .trip-flight-animation__plane {
+    animation: atlasroute-plane-v20 9.4s linear infinite !important;
+  }
+}
+
+/* Passport teaser: the visual column starts at the exact same content top as
+   the TRIP PLANNING eyebrow. The square Lottie viewport prevents the lower
+   passport edges from being clipped. Its centre is tied to the primary CTA
+   column, not to the complete two-button group. */
+@media (min-width: 1241px) {
+  .trip-planning-teaser {
+    grid-template-columns: minmax(0, 1fr) 496px !important;
+    gap: 34px !important;
+    align-items: stretch !important;
+  }
+
+  .trip-planning-teaser__visual {
+    display: grid !important;
+    grid-template-columns: 220px 260px !important;
+    grid-template-rows: 230px minmax(0, 1fr) auto !important;
+    column-gap: 16px !important;
+    row-gap: 0 !important;
+    align-self: stretch !important;
+    align-items: start !important;
+    justify-content: end !important;
+    overflow: visible !important;
+  }
+
+  .trip-planning-teaser__passport-slot {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    width: 230px !important;
+    height: 230px !important;
+    min-height: 230px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-self: center !important;
+    align-self: start !important;
+    place-items: start center !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+
+  .trip-planning-teaser__actions {
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    display: grid !important;
+    grid-template-columns: 220px 260px !important;
+    gap: 16px !important;
+    width: max-content !important;
+    margin: 0 !important;
+    justify-self: end !important;
+    align-self: end !important;
+  }
+}
+
+@media (max-width: 1240px) and (min-width: 981px) {
+  .trip-inline-cta .trip-flight-animation {
+    left: auto !important;
+    right: auto !important;
+  }
+
+  .trip-planning-teaser__visual {
+    display: grid !important;
+    grid-template-columns: 180px 230px !important;
+    grid-template-rows: 210px minmax(0, 1fr) auto !important;
+    column-gap: 16px !important;
+    row-gap: 0 !important;
+    align-self: stretch !important;
+    align-items: start !important;
+    justify-content: end !important;
+    overflow: visible !important;
+  }
+
+  .trip-planning-teaser__passport-slot {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    width: 210px !important;
+    height: 210px !important;
+    min-height: 210px !important;
+    justify-self: center !important;
+    align-self: start !important;
+    place-items: start center !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+
+  .trip-planning-teaser__actions {
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    grid-template-columns: 180px 230px !important;
+    gap: 16px !important;
+    justify-self: end !important;
+    align-self: end !important;
+  }
+}
+
+.trip-planning-teaser__passport-slot .trip-passport-animation,
+.trip-passport-animation__variant,
+.trip-passport-animation__variant > div,
+.trip-passport-animation__variant svg {
+  overflow: visible !important;
+}
+
+@media (min-width: 1241px) {
+  .trip-planning-teaser__passport-slot .trip-passport-animation {
+    width: 230px !important;
+    height: 230px !important;
+    min-height: 230px !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 1240px) and (min-width: 981px) {
+  .trip-planning-teaser__passport-slot .trip-passport-animation {
+    width: 210px !important;
+    height: 210px !important;
+    min-height: 210px !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+}
+
+/* Tablet/mobile CTA: copy starts at the card content edge, aircraft flies
+   through a genuinely centred middle lane, and both actions are centred as one
+   group. Old margin-left:auto / width:100% rules are neutralised here. */
+@media (max-width: 980px) {
+  .trip-inline-cta,
+  .trip-inline-cta--saved {
+    display: block !important;
+    min-height: 282px !important;
+    padding: 24px 30px !important;
+  }
+
+  .trip-inline-cta__copy,
+  .trip-inline-cta--saved .trip-inline-cta__copy {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  .trip-inline-cta .trip-flight-animation {
+    position: absolute !important;
+    top: 50% !important;
+    left: 18% !important;
+    right: 18% !important;
+    width: auto !important;
+    max-width: none !important;
+    height: 76px !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .trip-inline-cta .trip-flight-animation__plane {
+    width: 108px !important;
+    height: 72px !important;
+    animation-name: atlasroute-plane-mobile-v20 !important;
+  }
+
+  .trip-inline-cta .trip-flight-animation__lottie {
+    width: 118px !important;
+    height: 118px !important;
+    transform: translate(-50%, -51%) !important;
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    position: absolute !important;
+    z-index: 2 !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: 22px !important;
+    width: max-content !important;
+    max-width: calc(100% - 60px) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    justify-self: auto !important;
+    gap: 12px !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+  }
+}
+
+@keyframes atlasroute-plane-mobile-v20 {
+  0%, 8% {
+    margin-left: -118px;
+    opacity: 0;
+  }
+  13% {
+    margin-left: -42px;
+    opacity: 0;
+  }
+  18% {
+    margin-left: 0;
+    opacity: 1;
+  }
+  76% {
+    margin-left: calc(100% - 136px);
+    opacity: 1;
+  }
+  84% {
+    margin-left: calc(100% - 108px);
+    opacity: 0;
+  }
+  100% {
+    margin-left: calc(100% + 18px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .trip-inline-cta,
+  .trip-inline-cta--saved {
+    min-height: 270px !important;
+    padding: 22px !important;
+  }
+
+  .trip-inline-cta .trip-flight-animation {
+    top: 50% !important;
+    left: 12% !important;
+    right: 12% !important;
+    height: 68px !important;
+  }
+
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    bottom: 20px !important;
+    max-width: calc(100% - 44px) !important;
+    gap: 10px !important;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    margin: 0 !important;
+    font-size: .78rem !important;
+  }
+
+  .trip-inline-cta__action {
+    padding-inline: 12px !important;
+  }
+
+  .trip-planning-teaser__passport-slot,
+  .trip-planning-teaser__passport-slot .trip-passport-animation {
+    width: 210px !important;
+    height: 210px !important;
+    min-height: 210px !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .trip-inline-cta__actions,
+  .trip-inline-cta--saved .trip-inline-cta__actions {
+    gap: 8px !important;
+  }
+
+  .trip-inline-cta__saved-link,
+  .trip-inline-cta__action {
+    font-size: .73rem !important;
+  }
+
+  .trip-inline-cta__action {
+    padding-inline: 9px !important;
+  }
+}
+
+/* Never expose a broken-image icon for a persisted Pixabay URL. Saved-plan
+   views keep the flag fallback underneath until a current image has loaded. */
+.saved-trip-card__visual {
+  position: relative;
+  overflow: hidden;
+}
+
+.saved-trip-card__visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .22s ease;
+}
+
+.saved-trip-card__visual img.saved-trip-card__image--loaded {
+  opacity: 1;
+}
+
+.saved-trip-card__visual-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 5rem;
+}
+
+.trip-plan-hero > img {
+  opacity: 0;
+  transition: opacity .24s ease;
+}
+
+.trip-plan-hero > img.trip-plan-hero__image--loaded {
+  opacity: 1;
+}
+
+.trip-plan-hero__media-fallback {
+  position: absolute !important;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  background: linear-gradient(145deg, #dbeef4, #f9fcfd) !important;
+  color: #0d759f !important;
+  font-size: 8rem !important;
+}
+
+[data-theme='dark'] .trip-plan-hero__media-fallback {
+  background: linear-gradient(145deg, #123d50, #1e566d) !important;
+  color: #7dd9f6 !important;
+}
+
+
+/* =============================================
+   HW10 polish v27 — preserve trip photography across SPA navigation
+   and keep responsive hero copy clear of fact cards
+   ============================================= */
+
+/* At tablet widths the country KPI grid becomes two rows while the hero copy
+   previously kept its desktop offset. Raise only that copy block so the
+   tagline cannot overlap the first KPI row. */
+@media (min-width: 641px) and (max-width: 900px) {
+  .details-hero__copy {
+    bottom: 205px;
+  }
+}
+
+/* Saved-trip mobile heroes also use a three-row fact stack. Keep the title/date
+   block above that stack without changing the hero, facts, actions or desktop. */
+@media (max-width: 700px) {
+  .trip-plan-hero__copy {
+    bottom: 258px;
   }
 }

@@ -2,14 +2,17 @@ import { memo } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router'
 import { selectSavedCount } from '../redux/savedCountriesSlice'
+import { selectTripPlanCount } from '../redux/tripPlansSlice'
 
 function SavedCountriesLink() {
-  const savedCount = useSelector(selectSavedCount)
+  const savedCountryCount = useSelector(selectSavedCount)
+  const tripPlanCount = useSelector(selectTripPlanCount)
+  const savedCount = savedCountryCount + tripPlanCount
   const countLabel = savedCount > 99 ? '99+' : savedCount
-  const savedLabel = savedCount === 1 ? 'saved country' : 'saved countries'
+  const savedLabel = savedCount === 1 ? 'saved item' : 'saved items'
   const ariaLabel = savedCount
-    ? `Open My Atlas, ${savedCount} ${savedLabel}`
-    : 'Open My Atlas, no saved countries'
+    ? `Open Saved, ${savedCount} ${savedLabel}`
+    : 'Open Saved, no saved items'
 
   return (
     <NavLink
@@ -18,7 +21,7 @@ function SavedCountriesLink() {
         `saved-countries-link${isActive ? ' saved-countries-link--active' : ''}`
       )}
       aria-label={ariaLabel}
-      title="My Atlas"
+      title="Saved"
     >
       <span className="saved-countries-link__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" focusable="false">
