@@ -7,6 +7,10 @@ import {
   DEFAULT_RECENTLY_VIEWED_STATE,
   normalizeRecentlyViewedCountries,
 } from './recentlyViewedSlice.js'
+import {
+  DEFAULT_TRIP_PLANS_STATE,
+  normalizeTripPlans,
+} from './tripPlansSlice.js'
 
 export const REDUX_STORAGE_KEY = 'atlasroute:redux:v1'
 export const LEGACY_PREFERENCES_STORAGE_KEY = 'atlasroute:preferences:v1'
@@ -21,6 +25,9 @@ const cloneDefaults = () => ({
   },
   recentlyViewed: {
     countries: [...DEFAULT_RECENTLY_VIEWED_STATE.countries],
+  },
+  tripPlans: {
+    plans: [...DEFAULT_TRIP_PLANS_STATE.plans],
   },
 })
 
@@ -46,6 +53,9 @@ export const normalizePersistedState = (value) => {
         value?.recentlyViewed?.countries,
       ),
     },
+    tripPlans: {
+      plans: normalizeTripPlans(value?.tripPlans?.plans),
+    },
   }
 }
 
@@ -59,6 +69,9 @@ const migrateLegacyPreferences = (legacyValue) => normalizePersistedState({
   },
   recentlyViewed: {
     countries: [],
+  },
+  tripPlans: {
+    plans: [],
   },
 })
 

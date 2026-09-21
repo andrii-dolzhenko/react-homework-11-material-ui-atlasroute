@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router'
 import CountryGallery from '../components/CountryGallery'
@@ -8,6 +8,9 @@ import SaveCountryButton from '../components/SaveCountryButton'
 import CountryDataError from '../components/CountryDataError'
 import CountryDataLoader from '../components/CountryDataLoader'
 import CountryInsights from '../components/CountryInsights'
+import InlineLoader from '../components/InlineLoader'
+import TripPlanningInlineCta from '../components/trip/TripPlanningInlineCta'
+import TripPlanningTeaser from '../components/trip/TripPlanningTeaser'
 import useCountryMedia from '../hooks/useCountryMedia'
 import { formatNumber, formatPopulation } from '../data/featured'
 import { addRecentlyViewed } from '../redux/recentlyViewedSlice'
@@ -18,6 +21,7 @@ import {
   selectCountryDetailError,
   selectCountryDetailStatus,
 } from '../redux/countriesSlice.js'
+import { selectTripPlansByCountry } from '../redux/tripPlansSlice.js'
 
 export default function CountryDetailsPage() {
   const dispatch = useDispatch()
@@ -25,7 +29,10 @@ export default function CountryDetailsPage() {
   const country = useSelector((state) => selectCountryByCode(state, code))
   const status = useSelector((state) => selectCountryDetailStatus(state, code))
   const error = useSelector((state) => selectCountryDetailError(state, code))
+  const tripPlans = useSelector((state) => selectTripPlansByCountry(state, code))
   const { images: mediaImages, loading: mediaLoading, error: mediaError } = useCountryMedia(country?.name)
+  const [heroImageLoaded, setHeroImageLoaded] = useState(false)
+  const [heroImageFailed, setHeroImageFailed] = useState(false)
 
   useEffect(() => {
     if (!country && status === COUNTRY_REQUEST_STATUS.idle) {
@@ -35,6 +42,24 @@ export default function CountryDetailsPage() {
 
   const dynamicHero = country?.heroImage || mediaImages[0]?.src || null
   const recentCardImage = country?.heroImage || mediaImages[0]?.preview || mediaImages[0]?.src || ''
+  const showHeroImage = Boolean(dynamicHero && !heroImageFailed)
+  const heroMediaPending = Boolean((showHeroImage && !heroImageLoaded) || (!dynamicHero && mediaLoading))
+  const showHeroFlag = Boolean(!mediaLoading && (!dynamicHero || heroImageFailed))
+
+  useEffect(() => {
+    setHeroImageLoaded(false)
+    setHeroImageFailed(false)
+  }, [dynamicHero])
+
+  const handleHeroImageLoad = async (event) => {
+    const image = event.currentTarget
+    try {
+      await image.decode?.()
+    } catch {
+      // The load event already confirms usable pixels; decode can reject in some browsers.
+    }
+    setHeroImageLoaded(true)
+  }
 
   useEffect(() => {
     if (!country) return
@@ -103,17 +128,26 @@ export default function CountryDetailsPage() {
 
   return (
     <article className="details-page">
-      <section className={`details-hero shell ${dynamicHero ? '' : 'details-hero--flag'}`}>
-        {dynamicHero ? (
+      <section className={`details-hero shell${showHeroFlag ? ' details-hero--flag' : ''}${heroMediaPending ? ' details-hero--media-loading' : ''}`}>
+        {showHeroImage && (
           <img
             src={dynamicHero}
             alt=""
-            className="details-hero__image"
+            className={`details-hero__image${heroImageLoaded ? ' details-hero__image--loaded' : ''}`}
             loading="eager"
             fetchPriority="high"
             decoding="async"
+            onLoad={handleHeroImageLoad}
+            onError={() => setHeroImageFailed(true)}
           />
-        ) : (
+        )}
+        {heroMediaPending && (
+          <div className="details-hero__media-loader" role="status" aria-live="polite">
+            <InlineLoader />
+            <span>Loading destination image…</span>
+          </div>
+        )}
+        {showHeroFlag && (
           <div className="details-hero__flag-visual">
             {country.flagUrl ? <img src={country.flagUrl} alt="" /> : <span>{country.flagEmoji}</span>}
           </div>
@@ -165,12 +199,16 @@ export default function CountryDetailsPage() {
 
       <CountryInsights country={country} />
 
+      <TripPlanningInlineCta country={country} tripPlans={tripPlans} />
+
       <CountryGallery
         country={country}
         images={mediaImages}
         loading={mediaLoading}
         error={mediaError}
       />
+
+      <TripPlanningTeaser country={country} countryImage={dynamicHero || ''} tripPlans={tripPlans} />
 
       <section className="shell border-section">
         <p className="eyebrow">Border countries</p>

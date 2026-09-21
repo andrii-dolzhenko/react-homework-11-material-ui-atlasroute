@@ -8,6 +8,8 @@ import HomePage from '../pages/HomePage'
 import NotFoundPage from '../pages/NotFoundPage'
 import RouteErrorPage from '../pages/RouteErrorPage'
 import SavedCountriesPage from '../pages/SavedCountriesPage'
+import TripPlanDetailsPage from '../pages/TripPlanDetailsPage'
+import TripPlannerPage from '../pages/TripPlannerPage'
 
 const pageLoader = async () => {
   await new Promise((resolve) => setTimeout(resolve, 160))
@@ -43,19 +45,34 @@ const routeDefinitions = [
           path: ':code',
           Component: CountryDetailsPage,
         },
+        {
+          path: ':code/plan',
+          Component: TripPlannerPage,
+        },
       ],
     },
   },
   {
     key: 'saved',
     path: '/saved',
-    label: 'My Atlas',
+    label: 'Saved',
     inNav: false,
     route: {
       path: 'saved',
       Component: SavedCountriesPage,
       errorElement: <RouteErrorPage />,
       hydrateFallbackElement: <PrimaryLoader label="Opening your atlas…" />,
+    },
+  },
+  {
+    key: 'saved-trip',
+    path: '/saved/trips/:planId',
+    inNav: false,
+    route: {
+      path: 'saved/trips/:planId',
+      Component: TripPlanDetailsPage,
+      errorElement: <RouteErrorPage />,
+      hydrateFallbackElement: <PrimaryLoader label="Opening saved trip…" />,
     },
   },
   {

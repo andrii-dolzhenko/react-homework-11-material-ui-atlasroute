@@ -1,14 +1,23 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useSearchParams } from 'react-router'
 import SavedCountriesGrid from '../components/SavedCountriesGrid'
 import SavedEmptyState from '../components/SavedEmptyState'
 import CountryDataError from '../components/CountryDataError'
 import CountryGridSkeleton from '../components/CountryGridSkeleton'
+import SavedTripPlans from '../components/trip/SavedTripPlans'
+import TripDeleteConfirmModal from '../components/trip/TripDeleteConfirmModal'
 import {
   clearSavedCountries,
   selectSavedCount,
   selectSavedCountryCodes,
 } from '../redux/savedCountriesSlice'
+import {
+  clearTripPlans,
+  deleteTripPlan,
+  selectTripPlanCount,
+  selectTripPlans,
+} from '../redux/tripPlansSlice'
 import {
   COUNTRY_REQUEST_STATUS,
   fetchCountries,
@@ -18,96 +27,159 @@ import {
 
 export default function SavedCountriesPage() {
   const dispatch = useDispatch()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [deleteTarget, setDeleteTarget] = useState(null)
+  const [clearTripsOpen, setClearTripsOpen] = useState(false)
   const countries = useSelector(selectCountries)
   const countriesStatus = useSelector(selectCountriesStatus)
   const savedCountryCodes = useSelector(selectSavedCountryCodes)
   const savedCount = useSelector(selectSavedCount)
+  const tripPlans = useSelector(selectTripPlans)
+  const tripPlanCount = useSelector(selectTripPlanCount)
+  const activeTab = searchParams.get('tab') === 'trips' ? 'trips' : 'countries'
+  const totalSaved = savedCount + tripPlanCount
 
   useEffect(() => {
-    if (savedCount > 0) dispatch(fetchCountries())
-  }, [dispatch, savedCount])
+    if (totalSaved > 0) dispatch(fetchCountries())
+  }, [dispatch, totalSaved])
 
-  const countryByCode = useMemo(
-    () => new Map(countries.flatMap((country) => [
-      [country.code, country],
-      [country.alpha2Code, country],
-    ])),
-    [countries],
-  )
+  const countryByCode = useMemo(() => new Map(countries.flatMap((country) => [
+    [country.code, country],
+    [country.alpha2Code, country],
+  ])), [countries])
 
   const savedCountries = useMemo(
-    () => savedCountryCodes
-      .map((code) => countryByCode.get(code))
-      .filter(Boolean),
+    () => savedCountryCodes.map((code) => countryByCode.get(code)).filter(Boolean),
     [countryByCode, savedCountryCodes],
   )
 
-  const destinationLabel = savedCount === 1 ? 'saved destination' : 'saved destinations'
-  const isLoading = savedCount > 0
+  const isLoading = totalSaved > 0
     && countries.length === 0
     && (countriesStatus === COUNTRY_REQUEST_STATUS.idle || countriesStatus === COUNTRY_REQUEST_STATUS.loading)
-  const isError = savedCount > 0
+  const isError = totalSaved > 0
     && countries.length === 0
     && countriesStatus === COUNTRY_REQUEST_STATUS.failed
 
+  const selectTab = (tab) => {
+    if (tab === 'trips') setSearchParams({ tab: 'trips' })
+    else setSearchParams({})
+  }
+
   return (
-    <div className="saved-page shell">
+    <div className={`saved-page shell${activeTab === 'trips' ? ' saved-page--trips' : ''}`}>
       <section className="saved-hero" aria-labelledby="saved-page-title">
         <div className="saved-hero__copy">
-          <p className="eyebrow">My Atlas</p>
-          <h1 id="saved-page-title">Countries worth coming back to.</h1>
+          <p className="eyebrow">Saved</p>
+          <h1 id="saved-page-title">Keep the routes you want to return to.</h1>
           <p>
-            Keep the places that catch your attention in one personal atlas.
-            Your saved routes stay available while you continue exploring.
+            Save countries while you explore, then turn inspiration into practical trip plans with dates,
+            budget, preferences and travel notes.
           </p>
         </div>
 
-        <div className="saved-hero__summary" aria-label={`${savedCount} ${destinationLabel}`}>
+        <div className="saved-hero__summary" aria-label={`${totalSaved} saved items`}>
           <span className="saved-hero__summary-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" focusable="false">
               <path d="M6.75 4.75A2.75 2.75 0 0 1 9.5 2h5A2.75 2.75 0 0 1 17.25 4.75V21L12 17.65 6.75 21V4.75Z"></path>
             </svg>
           </span>
-          <strong>{savedCount}</strong>
-          <span>{destinationLabel}</span>
+          <strong>{totalSaved}</strong>
+          <span>{totalSaved === 1 ? 'saved item' : 'saved items'}</span>
         </div>
       </section>
 
-      {savedCount === 0 ? (
-        <SavedEmptyState />
-      ) : (
-        <section className="saved-collection" aria-labelledby="saved-collection-title">
+      <div className="saved-tabs" role="tablist" aria-label="Saved content">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'countries'}
+          className={activeTab === 'countries' ? 'saved-tab saved-tab--active' : 'saved-tab'}
+          onClick={() => selectTab('countries')}
+        >
+          Countries <span>{savedCount}</span>
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'trips'}
+          className={activeTab === 'trips' ? 'saved-tab saved-tab--active' : 'saved-tab'}
+          onClick={() => selectTab('trips')}
+        >
+          Trip plans <span>{tripPlanCount}</span>
+        </button>
+      </div>
+
+      {isError && (
+        <CountryDataError
+          compact
+          title="Your saved items are safe."
+          message="We could not refresh the latest country information. Try the data request again without changing your saved content."
+          onRetry={() => dispatch(fetchCountries({ force: true }))}
+        />
+      )}
+
+      {activeTab === 'countries' && (
+        <section className="saved-collection" aria-labelledby="saved-countries-title">
           <div className="section-heading saved-collection__heading">
             <div>
-              <p className="eyebrow">Saved routes</p>
-              <h2 id="saved-collection-title">Your personal country collection</h2>
+              <p className="eyebrow">Saved countries</p>
+              <h2 id="saved-countries-title">Countries worth coming back to</h2>
             </div>
-
-            <button
-              className="saved-clear-button"
-              type="button"
-              onClick={() => dispatch(clearSavedCountries())}
-            >
-              Clear all
-            </button>
+            {savedCount > 0 && (
+              <button className="saved-clear-button" type="button" onClick={() => dispatch(clearSavedCountries())}>
+                Clear countries
+              </button>
+            )}
           </div>
 
-          {isLoading && <CountryGridSkeleton count={Math.min(savedCount, 9)} className="saved-country-grid" />}
-
-          {isError && (
-            <CountryDataError
-              compact
-              title="Your saved routes are safe."
-              message="We couldn’t refresh the country information right now. Try the data request again without changing your saved list."
-              onRetry={() => dispatch(fetchCountries({ force: true }))}
-            />
-          )}
-
-          {!isLoading && !isError && savedCountries.length > 0 && (
+          {savedCount === 0 ? (
+            <SavedEmptyState />
+          ) : isLoading ? (
+            <CountryGridSkeleton count={Math.min(savedCount, 9)} className="saved-country-grid" />
+          ) : !isError && savedCountries.length > 0 ? (
             <SavedCountriesGrid countries={savedCountries} />
+          ) : null}
+        </section>
+      )}
+
+      {activeTab === 'trips' && (
+        <section className="saved-collection" aria-labelledby="saved-trips-title">
+          <div className="section-heading saved-collection__heading">
+            <div>
+              <p className="eyebrow">Saved trip plans</p>
+              <h2 id="saved-trips-title">Your planned adventures</h2>
+            </div>
+            {tripPlanCount > 0 && (
+              <button className="saved-clear-button" type="button" onClick={() => setClearTripsOpen(true)}>
+                Clear trip plans
+              </button>
+            )}
+          </div>
+
+          {isLoading ? (
+            <CountryGridSkeleton count={Math.min(Math.max(tripPlanCount, 1), 3)} />
+          ) : (
+            <SavedTripPlans plans={tripPlans} countriesByCode={countryByCode} onDeletePlan={setDeleteTarget} />
           )}
         </section>
       )}
+
+      <TripDeleteConfirmModal
+        plan={deleteTarget}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={() => {
+          dispatch(deleteTripPlan(deleteTarget.id))
+          setDeleteTarget(null)
+        }}
+      />
+      <TripDeleteConfirmModal
+        clearAll={clearTripsOpen}
+        onClose={() => setClearTripsOpen(false)}
+        onConfirm={() => {
+          dispatch(clearTripPlans())
+          setClearTripsOpen(false)
+        }}
+      />
     </div>
   )
 }

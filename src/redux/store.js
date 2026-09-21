@@ -4,6 +4,7 @@ import countriesReducer from './countriesSlice'
 import countryInsightsReducer from './countryInsightsSlice'
 import recentlyViewedReducer from './recentlyViewedSlice'
 import savedCountriesReducer from './savedCountriesSlice'
+import tripPlansReducer from './tripPlansSlice'
 import { loadPersistedState, savePersistedState } from './persistence'
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     countryInsights: countryInsightsReducer,
     preferences: preferencesReducer,
     savedCountries: savedCountriesReducer,
+    tripPlans: tripPlansReducer,
     recentlyViewed: recentlyViewedReducer,
   },
   preloadedState: loadPersistedState(),

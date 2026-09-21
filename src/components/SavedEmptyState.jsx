@@ -14,11 +14,11 @@ function SavedEmptyState() {
       </div>
 
       <div className="saved-empty-state__copy">
-        <p className="eyebrow">My Atlas</p>
-        <h2 id="saved-empty-title">Your atlas is waiting.</h2>
+        <p className="eyebrow">Saved countries</p>
+        <h2 id="saved-empty-title">Your saved list is waiting.</h2>
         <p>
-          Save countries while exploring and they will appear here as your
-          own shortlist of routes to revisit.
+          Save countries while exploring and they will appear here as a
+          shortlist you can return to anytime.
         </p>
         <Link className="primary-button" to="/countries">
           Explore countries

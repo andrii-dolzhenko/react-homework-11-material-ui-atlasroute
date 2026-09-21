@@ -29,8 +29,8 @@ function SaveCountryButton({ code, countryName, variant = 'card' }) {
   const dispatch = useDispatch()
   const saved = useSelector((state) => selectIsCountrySaved(state, code))
   const accessibleName = saved
-    ? `Remove ${countryName} from My Atlas`
-    : `Save ${countryName} to My Atlas`
+    ? `Remove ${countryName} from Saved`
+    : `Save ${countryName} to Saved`
 
   const handleClick = (event) => {
     event.stopPropagation()
@@ -49,7 +49,7 @@ function SaveCountryButton({ code, countryName, variant = 'card' }) {
       <HeartIcon filled={saved}></HeartIcon>
       {variant === 'hero' && (
         <span className="save-country-button__label">
-          {saved ? 'Saved to My Atlas' : 'Save to My Atlas'}
+          {saved ? 'Saved' : 'Save country'}
         </span>
       )}
     </button>
