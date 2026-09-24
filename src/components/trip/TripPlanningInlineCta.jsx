@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
+import { getSavedTripTarget } from '../../utils/tripPlan.js'
 import TripFlightAnimation from './TripFlightAnimation.jsx'
 
 export default function TripPlanningInlineCta({ country, tripPlans = [] }) {
   const ref = useRef(null)
   const [attention, setAttention] = useState(false)
   const planCount = tripPlans.length
-  const savedTarget = planCount === 1 ? `/saved/trips/${tripPlans[0].id}` : '/saved?tab=trips'
+  const savedTarget = getSavedTripTarget(tripPlans, country.code)
 
   useEffect(() => {
     const element = ref.current
@@ -45,7 +46,7 @@ export default function TripPlanningInlineCta({ country, tripPlans = [] }) {
         <span className="trip-inline-cta__actions">
           {planCount > 0 && (
             <Link className="trip-inline-cta__saved-link" to={savedTarget}>
-              View saved {planCount === 1 ? 'plan' : 'plans'}
+              {planCount === 1 ? 'View saved plan' : `View ${planCount} saved trips`}
             </Link>
           )}
           <a className="primary-button trip-inline-cta__action" href={`#trip-planning-${country.code}`}>

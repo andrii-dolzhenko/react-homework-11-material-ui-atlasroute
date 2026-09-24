@@ -6,6 +6,7 @@ import TravelerDetailsForm from '../components/trip/TravelerDetailsForm'
 import TravelEssentials from '../components/trip/TravelEssentials'
 import TripPlanSuccessModal from '../components/trip/TripPlanSuccessModal'
 import TripDuplicateModal from '../components/trip/TripDuplicateModal'
+import TravelerReductionModal from '../components/trip/TravelerReductionModal'
 import CountryDataLoader from '../components/CountryDataLoader'
 import CountryDataError from '../components/CountryDataError'
 import useTripCountryImage from '../hooks/useTripCountryImage.js'
@@ -25,19 +26,54 @@ import {
 } from '../redux/countryInsightsSlice.js'
 import { saveTripPlan, selectTripPlanById, selectTripPlans } from '../redux/tripPlansSlice.js'
 import { createTripPlanId, findMatchingTripPlan } from '../utils/tripPlan.js'
+import { addDaysToDateInput } from '../utils/dateInput.js'
 
-const emptyTraveler = {
+const emptyPrimaryTraveler = {
+  id: '',
+  role: 'primary',
   fullName: '',
   email: '',
   phone: '',
   departureCity: '',
 }
 
-const addDays = (value, amount) => {
-  const date = new Date(value)
-  date.setDate(date.getDate() + amount)
-  return date.toISOString().slice(0, 10)
+const emptyCompanionTraveler = {
+  id: '',
+  role: 'companion',
+  fullName: '',
+  email: '',
+  phone: '',
+  departureCity: '',
 }
+
+const buildTravelerDrafts = (plan) => {
+  if (!plan) return [{ ...emptyPrimaryTraveler }]
+
+  if (Array.isArray(plan.travelerRoster) && plan.travelerRoster.length) {
+    return plan.travelerRoster.map((traveler, index) => ({
+      ...(index === 0 ? emptyPrimaryTraveler : emptyCompanionTraveler),
+      ...traveler,
+      role: index === 0 ? 'primary' : 'companion',
+    }))
+  }
+
+  const count = Math.max(1, Number(plan.travelers) || 1)
+  return Array.from({ length: count }, (_, index) => ({
+    ...(index === 0 ? emptyPrimaryTraveler : emptyCompanionTraveler),
+    ...(index === 0 ? plan.traveler : null),
+    id: `${plan.id}-traveler-${index + 1}`,
+    role: index === 0 ? 'primary' : 'companion',
+  }))
+}
+
+const resizeTravelerDrafts = (travelers, count) => Array.from({ length: count }, (_, index) => ({
+  ...(index === 0 ? emptyPrimaryTraveler : emptyCompanionTraveler),
+  ...(travelers[index] || {}),
+  role: index === 0 ? 'primary' : 'companion',
+}))
+
+const travelerHasData = (traveler) => ['fullName', 'email', 'phone', 'departureCity']
+  .some((key) => String(traveler?.[key] || '').trim())
 
 const buildDefaultBasics = (plan) => {
   if (plan) {
@@ -53,11 +89,11 @@ const buildDefaultBasics = (plan) => {
     }
   }
 
-  const departure = addDays(new Date(), 30)
+  const departure = addDaysToDateInput(new Date(), 30)
   return {
     departureDate: departure,
-    returnDate: addDays(`${departure}T00:00:00`, 7),
-    travelers: 2,
+    returnDate: addDaysToDateInput(departure, 7),
+    travelers: 1,
     budgetAmount: '',
     homeCurrency: 'UAH',
     tripStyles: [],
@@ -86,7 +122,8 @@ export default function TripPlannerPage() {
   const [savedPlan, setSavedPlan] = useState(null)
   const [duplicatePlan, setDuplicatePlan] = useState(null)
   const [pendingPlan, setPendingPlan] = useState(null)
-  const [travelerDraft, setTravelerDraft] = useState(existingPlan?.traveler ? { ...emptyTraveler, ...existingPlan.traveler } : emptyTraveler)
+  const [pendingTravelerReduction, setPendingTravelerReduction] = useState(null)
+  const [travelerDrafts, setTravelerDrafts] = useState(() => buildTravelerDrafts(existingPlan))
 
   const routeCountryImage = typeof location.state?.countryImage === 'string'
     ? location.state.countryImage
@@ -113,7 +150,7 @@ export default function TripPlannerPage() {
   useEffect(() => {
     if (!existingPlan) return
     setTripBasics(buildDefaultBasics(existingPlan))
-    setTravelerDraft({ ...emptyTraveler, ...existingPlan.traveler })
+    setTravelerDrafts(buildTravelerDrafts(existingPlan))
   }, [existingPlan])
 
   const destinationCurrency = country?.currencies?.[0]?.code || ''
@@ -122,10 +159,9 @@ export default function TripPlannerPage() {
     ? Number(tripBasics.budgetAmount) * exchange.data.rate
     : 0
 
-  const travelerInitialValues = useMemo(
-    () => travelerDraft,
-    [travelerDraft],
-  )
+  const travelerInitialValues = useMemo(() => ({
+    travelers: resizeTravelerDrafts(travelerDrafts, Math.max(1, Number(tripBasics.travelers) || 1)),
+  }), [travelerDrafts, tripBasics.travelers])
 
   if (!country && (status === COUNTRY_REQUEST_STATUS.idle || status === COUNTRY_REQUEST_STATUS.loading)) {
     return (
@@ -157,15 +193,37 @@ export default function TripPlannerPage() {
     })
   }
 
-  const handleBasicsSubmit = (values, { setSubmitting }) => {
+  const applyBasics = (values) => {
+    const travelerCount = Math.max(1, Number(values.travelers) || 1)
+    setTravelerDrafts((current) => resizeTravelerDrafts(current, travelerCount))
     setTripBasics({
       ...values,
-      travelers: Number(values.travelers),
+      travelers: travelerCount,
       budgetAmount: Number(values.budgetAmount),
     })
+    setPendingTravelerReduction(null)
     setStep(2)
-    setSubmitting(false)
     scrollToTop()
+  }
+
+  const handleBasicsSubmit = (values, { setSubmitting }) => {
+    const travelerCount = Math.max(1, Number(values.travelers) || 1)
+    const removedTravelers = travelerDrafts.slice(travelerCount)
+    const shouldConfirmReduction = removedTravelers.length > 0
+      && (Boolean(existingPlan) || removedTravelers.some(travelerHasData))
+
+    if (shouldConfirmReduction) {
+      setPendingTravelerReduction({
+        travelers: removedTravelers,
+        nextCount: travelerCount,
+        values,
+      })
+      setSubmitting(false)
+      return
+    }
+
+    applyBasics(values)
+    setSubmitting(false)
   }
 
   const commitPlan = (plan) => {
@@ -175,11 +233,20 @@ export default function TripPlannerPage() {
     setSavedPlan(plan)
   }
 
-  const handleTravelerSubmit = (traveler) => {
-    setTravelerDraft(traveler)
+  const handleTravelerSubmit = (travelers) => {
+    setTravelerDrafts(travelers)
     const timestamp = new Date().toISOString()
+    const planId = existingPlan?.id || createTripPlanId(country.code)
+    const travelerRoster = travelers.map((traveler, index) => ({
+      id: traveler.id || `${planId}-traveler-${index + 1}`,
+      role: index === 0 ? 'primary' : 'companion',
+      fullName: traveler.fullName?.trim() || '',
+      email: traveler.email?.trim() || '',
+      phone: index === 0 ? traveler.phone?.trim() || '' : '',
+      departureCity: index === 0 ? traveler.departureCity?.trim() || '' : '',
+    }))
     const plan = {
-      id: existingPlan?.id || createTripPlanId(country.code),
+      id: planId,
       countryCode: country.code,
       countryName: country.name,
       countryFlagEmoji: country.flagEmoji,
@@ -189,7 +256,8 @@ export default function TripPlannerPage() {
       destinationCurrency,
       exchangeRate: exchange.data?.rate || 0,
       estimatedDestinationBudget,
-      traveler,
+      traveler: travelerRoster[0],
+      travelerRoster,
       createdAt: existingPlan?.createdAt || timestamp,
       updatedAt: timestamp,
     }
@@ -261,7 +329,14 @@ export default function TripPlannerPage() {
               initialValues={travelerInitialValues}
               destinationCurrency={destinationCurrency}
               estimatedDestinationBudget={estimatedDestinationBudget}
-              onBack={() => setStep(1)}
+              onBack={(travelers) => {
+                setTravelerDrafts(travelers)
+                setStep(1)
+              }}
+              onTravelersChange={(travelers) => {
+                setTravelerDrafts(travelers)
+                setTripBasics((current) => ({ ...current, travelers: travelers.length }))
+              }}
               onSubmit={handleTravelerSubmit}
             />
           )}
@@ -280,6 +355,12 @@ export default function TripPlannerPage() {
         )}
       </section>
 
+      <TravelerReductionModal
+        travelers={pendingTravelerReduction?.travelers}
+        nextCount={pendingTravelerReduction?.nextCount || 1}
+        onClose={() => setPendingTravelerReduction(null)}
+        onConfirm={() => pendingTravelerReduction && applyBasics(pendingTravelerReduction.values)}
+      />
       <TripDuplicateModal
         existingPlan={duplicatePlan}
         candidatePlan={pendingPlan}

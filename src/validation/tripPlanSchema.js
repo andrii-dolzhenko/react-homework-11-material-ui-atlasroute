@@ -1,22 +1,24 @@
 import * as Yup from 'yup'
+import { parseLocalDateInput, toLocalDateInputValue } from '../utils/dateInput.js'
 
-const todayInputValue = () => {
-  const now = new Date()
-  now.setHours(0, 0, 0, 0)
-  return now.toISOString().slice(0, 10)
-}
+const todayInputValue = () => toLocalDateInputValue(new Date())
+const isValidDateInput = (value) => !value || Boolean(parseLocalDateInput(value))
 
 export const tripBasicsSchema = Yup.object({
   departureDate: Yup.string()
     .required('Choose a departure date')
+    .test('valid-date', 'Choose a valid departure date', isValidDateInput)
     .test('not-in-past', 'Departure date cannot be in the past', (value) => (
-      !value || value >= todayInputValue()
+      !value || !parseLocalDateInput(value) || value >= todayInputValue()
     )),
   returnDate: Yup.string()
     .required('Choose a return date')
+    .test('valid-date', 'Choose a valid return date', isValidDateInput)
     .test('after-departure', 'Return date must be after departure', function validateReturn(value) {
       const { departureDate } = this.parent
-      return !value || !departureDate || value > departureDate
+      if (!value || !departureDate) return true
+      if (!parseLocalDateInput(value) || !parseLocalDateInput(departureDate)) return true
+      return value > departureDate
     }),
   travelers: Yup.number()
     .integer('Travelers must be a whole number')

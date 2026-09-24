@@ -36,7 +36,8 @@ export default function SavedCountriesPage() {
   const savedCount = useSelector(selectSavedCount)
   const tripPlans = useSelector(selectTripPlans)
   const tripPlanCount = useSelector(selectTripPlanCount)
-  const activeTab = searchParams.get('tab') === 'trips' ? 'trips' : 'countries'
+  const countryFilterCode = String(searchParams.get('country') || '').trim().toUpperCase()
+  const activeTab = searchParams.get('tab') === 'trips' || countryFilterCode ? 'trips' : 'countries'
   const totalSaved = savedCount + tripPlanCount
 
   useEffect(() => {
@@ -61,8 +62,18 @@ export default function SavedCountriesPage() {
     && countriesStatus === COUNTRY_REQUEST_STATUS.failed
 
   const selectTab = (tab) => {
-    if (tab === 'trips') setSearchParams({ tab: 'trips' })
-    else setSearchParams({})
+    if (tab === 'trips') {
+      setSearchParams(countryFilterCode ? { tab: 'trips', country: countryFilterCode } : { tab: 'trips' })
+    } else {
+      setSearchParams({})
+    }
+  }
+
+  const clearCountryFilter = () => {
+    const nextParams = new URLSearchParams(searchParams)
+    nextParams.set('tab', 'trips')
+    nextParams.delete('country')
+    setSearchParams(nextParams)
   }
 
   return (
@@ -151,7 +162,7 @@ export default function SavedCountriesPage() {
             </div>
             {tripPlanCount > 0 && (
               <button className="saved-clear-button" type="button" onClick={() => setClearTripsOpen(true)}>
-                Clear trip plans
+                {countryFilterCode ? 'Clear all trip plans' : 'Clear trip plans'}
               </button>
             )}
           </div>
@@ -159,7 +170,14 @@ export default function SavedCountriesPage() {
           {isLoading ? (
             <CountryGridSkeleton count={Math.min(Math.max(tripPlanCount, 1), 3)} />
           ) : (
-            <SavedTripPlans plans={tripPlans} countriesByCode={countryByCode} onDeletePlan={setDeleteTarget} />
+            <SavedTripPlans
+              plans={tripPlans}
+              countriesByCode={countryByCode}
+              onDeletePlan={setDeleteTarget}
+              countryFilterCode={countryFilterCode}
+              countryFilterName={countryByCode.get(countryFilterCode)?.name || tripPlans.find((plan) => plan.countryCode === countryFilterCode)?.countryName || countryFilterCode}
+              onClearCountryFilter={clearCountryFilter}
+            />
           )}
         </section>
       )}

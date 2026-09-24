@@ -1,132 +1,174 @@
-# AtlasRoute — Forms & Validation Travel Planner
+# AtlasRoute — Material UI Trip Readiness
 
-AtlasRoute HW10 extends the existing travel SPA with a validated **Trip Planner**. The homework focuses on practical form handling with **Formik + Yup** and **React Hook Form**, including inline validation, error states, successful submit handling, and local persistence of saved trip plans.
+AtlasRoute HW11 continues the existing travel SPA and integrates **Material UI** into a real product flow instead of building a separate demo screen.
+
+The main addition is **Trip Readiness**: a checklist attached to each saved trip. It tracks trip-level preparation and traveler-specific checks, keeps progress per trip, and works together with the existing planner, Redux state and local persistence.
 
 ## Homework Focus
 
-The Trip Planner is implemented as one two-step product flow with two separate form-state and validation approaches:
+Material UI is used as part of the existing AtlasRoute interface and adapted to the project’s visual system for both Light and Dark themes.
+
+The HW11 flow covers:
 
 ```text
 Country Details
       ↓
-Trip Planner
+Trip Readiness
       ↓
-Step 1 — Trip basics (Formik + Yup)
+Saved trip / traveler progress
       ↓
-Step 2 — Traveler details (React Hook Form)
+My Atlas
       ↓
-Validated trip plan
-      ↓
-Redux Toolkit + localStorage
-      ↓
-Saved Trip Plans
+Readiness modal + filters + sorting
 ```
 
-Each form owns its own form state and validation logic. The validated result of Step 1 is passed to Step 2 as trip-planning data, while React Hook Form manages the traveler form independently.
+The implementation keeps the existing AtlasRoute layout and styles intact. MUI is scoped to the new functionality through a dedicated `ThemeProvider`; no global `CssBaseline` reset is used.
 
-## Step 1 — Formik + Yup
+## Material UI Integration
 
-`TripBasicsForm` uses **Formik** for form state and **Yup** for schema validation.
+The project uses Material UI components where they add practical UI behavior:
 
-Validated fields:
+- `ThemeProvider` and `createTheme` for AtlasRoute Light/Dark integration;
+- `Accordion`, `AccordionSummary` and `AccordionDetails` for additional travelers;
+- `Dialog`, `DialogContent` and `IconButton` for the readiness modal;
+- `Checkbox` for readiness tasks;
+- `LinearProgress` for trip and traveler progress;
+- `Chip` for readiness and contextual country states;
+- `ToggleButtonGroup` for All / Upcoming / Past trip filters;
+- `Select` and `MenuItem` for readiness filters and sorting;
+- `Button`, `Stack`, `Typography`, `Box` and `Alert` inside the readiness UI.
 
-- departure date — required and cannot be in the past;
-- return date — required and must be after the departure date;
-- travelers — integer from `1` to `10`;
-- total budget — required, minimum `500`, maximum `100,000,000`;
-- home currency — required;
-- trip style — at least one option, maximum five;
-- preferred regions/cities — optional, maximum 160 characters;
-- notes — optional, maximum 500 characters.
+The components are styled to match the existing AtlasRoute spacing, typography, borders and responsive behavior.
 
-The selected country is inherited from the Country Details route and displayed as a locked destination.
+## Trip Readiness
 
-Formik validation is connected through `validationSchema`. Invalid fields receive visual error states with `aria-invalid`, and `ErrorMessage` renders the validation message next to the corresponding field.
+Each saved trip has its own readiness state. Trips to the same country do not share progress.
 
-## Step 2 — React Hook Form
+Readiness includes six trip-level checks:
 
-`TravelerDetailsForm` uses **React Hook Form** with `mode: 'onBlur'`.
+- travel dates;
+- accommodation;
+- budget and payment readiness;
+- transport / arrival plan;
+- places / itinerary;
+- packing list.
 
-Validated fields:
+Each traveler also has three personal checks:
 
-- full name — required, 2–50 characters;
-- email — required and validated by email pattern;
-- phone — optional, validated by phone pattern when provided;
-- departure city — required, 2–80 characters.
+- passport / travel document;
+- entry requirements;
+- travel insurance.
 
-The implementation demonstrates:
+The checklist supports these states:
 
-- `useForm`;
-- `register`;
-- `handleSubmit`;
-- `formState.errors`;
-- `isSubmitting`;
-- built-in validation rules;
-- pattern and custom validation;
-- `reset` when editing an existing plan.
+- **Not started** — no readiness action has been taken;
+- **Needs attention** — at least one critical check is still open;
+- **In progress** — critical checks are complete, but recommended checks remain;
+- **Ready** — all critical and recommended checks are complete;
+- **Complete** — every check, including optional items, is complete.
 
-Validation messages are displayed directly below the related fields, and invalid controls expose `aria-invalid`.
+Optional items do not block the `Ready` state. A fully completed checklist shows the success state and animation.
 
-## Submit and Data Flow
+## Traveler Roster
 
-Step 1 continues only after successful Yup validation. Step 2 is submitted through React Hook Form's `handleSubmit` and saves the completed plan only after its validation succeeds.
+The planner now starts with **1 traveler** by default and supports up to 10 travelers.
 
-The final plan is stored in the `tripPlans` Redux Toolkit slice and persisted in browser `localStorage` through the existing Redux persistence layer.
+The primary traveler keeps the full contact form. Additional travelers use compact MUI accordions with:
 
-Saved plans support:
+- required full name;
+- optional email with validation;
+- stable traveler IDs so readiness progress stays attached to the correct person after edits.
 
-- create;
-- edit;
-- view details;
-- delete one plan;
-- clear all plans;
-- duplicate country/date detection.
+Additional travelers can be removed individually. Reducing the traveler count or removing a saved traveler uses a confirmation dialog before their data and readiness progress are discarded.
 
-No backend or authentication is required for the homework flow. Traveler details remain in browser storage and are not sent to AtlasRoute.
+## Saved Trip Plans
+
+`My Atlas` includes trip filtering and sorting:
+
+- All / Upcoming / Past;
+- readiness status;
+- Recently updated;
+- Recently added;
+- trip date — soonest / latest;
+- destination — A to Z / Z to A.
+
+When a country has several saved trips, the Country Details page opens `My Atlas` with that country already selected. The contextual country chip can be removed without resetting the other filters.
+
+## Date Handling
+
+Date-only values for `<input type="date">` are generated from **local calendar fields** instead of `toISOString()` UTC slicing. This avoids the UTC+ timezone issue where a local date near midnight can become the previous calendar day.
+
+The project also keeps timestamp fields such as `createdAt` and `updatedAt` in ISO UTC format, where UTC timestamps are appropriate.
+
+## State and Persistence
+
+Saved trips and readiness data are stored in Redux Toolkit and persisted to browser `localStorage`.
+
+The normalization layer keeps backward compatibility with older AtlasRoute trip plans that do not yet contain:
+
+- readiness state;
+- traveler roster data;
+- stable traveler IDs.
+
+No backend or authentication is required for this homework. Traveler information stays in browser storage and is not sent to AtlasRoute.
 
 ## Relevant Routes
 
 | Route | Purpose |
 | --- | --- |
-| `/countries/:code` | Select a country and open the planning flow |
-| `/countries/:code/plan` | Create or edit a validated trip plan |
-| `/saved?tab=trips` | View saved trip plans |
-| `/saved/trips/:planId` | View a saved trip plan |
+| `/countries/:code` | Country details and Trip Readiness |
+| `/countries/:code/plan` | Create or edit a trip plan |
+| `/saved?tab=trips` | View all saved trip plans |
+| `/saved?tab=trips&country=AUS` | View saved trips for a selected country |
+| `/saved/trips/:planId` | View one saved trip plan |
 
-## Relevant Project Structure
+## Project Structure
 
 ```text
 src/
 ├── components/
 │   └── trip/
-│       ├── TripBasicsForm.jsx
+│       ├── AtlasMuiProvider.jsx
+│       ├── TripReadinessPanel.jsx
+│       ├── TripReadinessModal.jsx
+│       ├── ReadinessTaskRow.jsx
+│       ├── TravelerReadinessMatrix.jsx
 │       ├── TravelerDetailsForm.jsx
-│       ├── SavedTripPlans.jsx
-│       └── TripPlanSuccessModal.jsx
+│       ├── TravelerReductionModal.jsx
+│       └── SavedTripPlans.jsx
 ├── pages/
-│   ├── TripPlannerPage.jsx
-│   └── TripPlanDetailsPage.jsx
+│   ├── CountryDetailsPage.jsx
+│   ├── SavedCountriesPage.jsx
+│   └── TripPlannerPage.jsx
 ├── redux/
 │   └── tripPlansSlice.js
-├── validation/
-│   └── tripPlanSchema.js
-└── utils/
-    └── tripPlan.js
+├── utils/
+│   ├── dateInput.js
+│   ├── savedTripFilters.js
+│   ├── tripPlan.js
+│   └── tripReadiness.js
+└── validation/
+    └── tripPlanSchema.js
 
 test/
-└── trip-plans.test.js
+├── date-input.test.js
+├── saved-trip-filters.test.js
+├── trip-plans.test.js
+└── trip-readiness.test.js
 ```
 
-## Technologies Used for HW10
+## Technologies
 
 - React 19
 - Vite 7
-- Formik
-- Yup
-- React Hook Form
+- Material UI
+- Emotion
 - Redux Toolkit
 - React Redux
-- React Router 7
+- React Router
+- Formik + Yup
+- React Hook Form
+- Lottie React
 - JavaScript / JSX
 - CSS
 - Node.js built-in test runner
@@ -134,8 +176,8 @@ test/
 ## Installation and Local Run
 
 ```bash
-git clone https://github.com/andrii-dolzhenko/react-homework-10-forms-validation-atlasroute.git
-cd react-homework-10-forms-validation-atlasroute
+git clone https://github.com/andrii-dolzhenko/react-homework-11-material-ui-atlasroute
+cd react-homework-11-material-ui-atlasroute
 npm install
 ```
 
@@ -151,7 +193,7 @@ Add your own `VITE_PIXABAY_API_KEY` to `.env.local`, then start the project:
 npm run dev
 ```
 
-The application remains usable without a Pixabay key and falls back to country flags where photography is unavailable.
+The application remains usable without a Pixabay key and falls back to the existing country visuals where photography is unavailable.
 
 ## Available Scripts
 
@@ -163,9 +205,7 @@ npm run build
 npm run preview
 ```
 
-## Validation Checklist
-
-Before deployment:
+## Validation Before Submission
 
 ```bash
 npm run lint
@@ -173,28 +213,25 @@ npm test
 npm run build
 ```
 
-Manual homework QA:
+Manual QA covers:
 
-- submit Step 1 with empty/invalid values and verify Yup errors;
-- verify the return date cannot be earlier than or equal to the departure date;
-- verify travelers, budget, trip-style and text-length rules;
-- submit valid Step 1 data and continue to Step 2;
-- verify React Hook Form name, email, phone and departure-city validation;
-- verify errors appear next to the corresponding fields;
-- create a valid trip plan;
-- edit an existing trip plan;
-- verify saved-plan persistence after browser reload;
-- verify the planner on desktop, tablet and mobile layouts;
-- verify Light/Dark theme and keyboard/focus states.
+- Light and Dark themes;
+- desktop, tablet and mobile layouts;
+- one and multiple saved trips for the same country;
+- 1–10 travelers;
+- traveler validation and removal;
+- independent readiness state per trip;
+- Not started / Needs attention / In progress / Ready / Complete states;
+- saved-trip filtering and sorting;
+- local persistence after browser reload;
+- keyboard and modal close behavior.
 
-## Deployment
+## Links
 
-The repository is configured for **GitHub Pages** and **Vercel**.
+- **Repository:** `https://github.com/andrii-dolzhenko/react-homework-11-material-ui-atlasroute`
+- **Live demo:** `<DEMO_URL>`
 
-- **Live demo (Vercel):** https://react-homework-10-forms-validation.vercel.app/
-- **Repository:** https://github.com/andrii-dolzhenko/react-homework-10-forms-validation-atlasroute
-- GitHub Pages deploys from `main` through `.github/workflows/deploy-pages.yml`.
-- Vercel uses `vercel.json` to preserve SPA routing on direct route reloads.
+The repository also contains GitHub Pages and Vercel deployment configuration. Final links will be added after deployment.
 
 ---
 
