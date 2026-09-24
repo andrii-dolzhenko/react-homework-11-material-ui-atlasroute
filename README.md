@@ -228,10 +228,11 @@ Manual QA covers:
 
 ## Links
 
-- **Repository:** `https://github.com/andrii-dolzhenko/react-homework-11-material-ui-atlasroute`
-- **Live demo:** `<DEMO_URL>`
+- **Repository:** https://github.com/andrii-dolzhenko/react-homework-11-material-ui-atlasroute
+- **Vercel:** https://react-homework-11-material-ui-atlas.vercel.app/
+- **GitHub Pages:** https://andrii-dolzhenko.github.io/react-homework-11-material-ui-atlasroute
 
-The repository also contains GitHub Pages and Vercel deployment configuration. Final links will be added after deployment.
+The project is deployed to both Vercel and GitHub Pages.
 
 ---
 
