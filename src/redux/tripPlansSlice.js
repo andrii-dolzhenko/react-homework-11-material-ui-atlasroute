@@ -1,9 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { createTripReadiness, normalizeTripReadiness } from '../utils/tripReadiness.js'
 
 const normalizeText = (value) => (typeof value === 'string' ? value.trim() : '')
 const normalizeNumber = (value, fallback = 0) => {
   const parsed = Number(value)
   return Number.isFinite(parsed) ? parsed : fallback
+}
+
+
+const normalizeTraveler = (value, index, planId, fallbackPrimary = {}) => ({
+  id: normalizeText(value?.id) || `${planId}-traveler-${index + 1}`,
+  role: index === 0 ? 'primary' : 'companion',
+  fullName: normalizeText(value?.fullName) || (index === 0 ? normalizeText(fallbackPrimary.fullName) : ''),
+  email: normalizeText(value?.email) || (index === 0 ? normalizeText(fallbackPrimary.email) : ''),
+  phone: index === 0 ? normalizeText(value?.phone) || normalizeText(fallbackPrimary.phone) : '',
+  departureCity: index === 0 ? normalizeText(value?.departureCity) || normalizeText(fallbackPrimary.departureCity) : '',
+})
+
+const normalizeTravelerRoster = (value, count, planId, fallbackPrimary) => {
+  const source = Array.isArray(value) ? value : []
+  return Array.from({ length: count }, (_, index) => normalizeTraveler(source[index], index, planId, fallbackPrimary))
 }
 
 export const normalizeTripPlan = (value) => {
@@ -14,7 +30,16 @@ export const normalizeTripPlan = (value) => {
   const countryName = normalizeText(value.countryName)
   if (!id || !countryCode || !countryName) return null
 
-  return {
+  const travelerCount = Math.min(10, Math.max(1, Math.round(normalizeNumber(value.travelers, 1))))
+  const legacyTraveler = {
+    fullName: normalizeText(value.traveler?.fullName),
+    email: normalizeText(value.traveler?.email),
+    phone: normalizeText(value.traveler?.phone),
+    departureCity: normalizeText(value.traveler?.departureCity),
+  }
+  const travelerRoster = normalizeTravelerRoster(value.travelerRoster, travelerCount, id, legacyTraveler)
+
+  const plan = {
     id,
     countryCode,
     countryName,
@@ -23,7 +48,7 @@ export const normalizeTripPlan = (value) => {
     countryHeroImage: normalizeText(value.countryHeroImage),
     departureDate: normalizeText(value.departureDate),
     returnDate: normalizeText(value.returnDate),
-    travelers: Math.max(1, Math.round(normalizeNumber(value.travelers, 1))),
+    travelers: travelerRoster.length,
     budgetAmount: Math.max(0, normalizeNumber(value.budgetAmount)),
     homeCurrency: normalizeText(value.homeCurrency).toUpperCase() || 'UAH',
     destinationCurrency: normalizeText(value.destinationCurrency).toUpperCase(),
@@ -35,13 +60,19 @@ export const normalizeTripPlan = (value) => {
     preferredRegions: normalizeText(value.preferredRegions),
     notes: normalizeText(value.notes),
     traveler: {
-      fullName: normalizeText(value.traveler?.fullName),
-      email: normalizeText(value.traveler?.email),
-      phone: normalizeText(value.traveler?.phone),
-      departureCity: normalizeText(value.traveler?.departureCity),
+      fullName: travelerRoster[0].fullName,
+      email: travelerRoster[0].email,
+      phone: travelerRoster[0].phone,
+      departureCity: travelerRoster[0].departureCity,
     },
+    travelerRoster,
     createdAt: normalizeText(value.createdAt) || new Date(0).toISOString(),
     updatedAt: normalizeText(value.updatedAt) || normalizeText(value.createdAt) || new Date(0).toISOString(),
+  }
+
+  return {
+    ...plan,
+    readiness: normalizeTripReadiness(value.readiness, plan),
   }
 }
 
@@ -59,12 +90,31 @@ export const DEFAULT_TRIP_PLANS_STATE = Object.freeze({
   plans: Object.freeze([]),
 })
 
+const findPlan = (state, id) => state.plans.find((plan) => plan.id === normalizeText(id))
+
+const prepareReadiness = (plan) => {
+  plan.readiness = normalizeTripReadiness(plan.readiness, plan)
+  plan.readiness.started = true
+  plan.updatedAt = new Date().toISOString()
+  return plan.readiness
+}
+
 const tripPlansSlice = createSlice({
   name: 'tripPlans',
   initialState: DEFAULT_TRIP_PLANS_STATE,
   reducers: {
     saveTripPlan(state, action) {
-      const plan = normalizeTripPlan(action.payload)
+      const raw = action.payload
+      const existingId = normalizeText(raw?.id)
+      const existing = existingId ? findPlan(state, existingId) : null
+      const payload = existing && raw
+        ? {
+            ...raw,
+            readiness: raw.readiness === undefined ? existing.readiness : raw.readiness,
+            travelerRoster: raw.travelerRoster === undefined ? existing.travelerRoster : raw.travelerRoster,
+          }
+        : raw
+      const plan = normalizeTripPlan(payload)
       if (!plan) return
 
       const existingIndex = state.plans.findIndex((item) => item.id === plan.id)
@@ -78,10 +128,39 @@ const tripPlansSlice = createSlice({
     clearTripPlans(state) {
       state.plans = []
     },
+    setTripReadinessTask(state, action) {
+      const { planId, taskId, checked } = action.payload || {}
+      const plan = findPlan(state, planId)
+      if (!plan || !(taskId in plan.readiness.tripTasks)) return
+      const readiness = prepareReadiness(plan)
+      readiness.tripTasks[taskId] = checked === true
+    },
+    setTravelerReadinessTask(state, action) {
+      const { planId, travelerId, taskId, checked } = action.payload || {}
+      const plan = findPlan(state, planId)
+      if (!plan) return
+      const readiness = prepareReadiness(plan)
+      const traveler = readiness.travelers.find((item) => item.id === travelerId)
+      if (!traveler || !(taskId in traveler.tasks)) return
+      traveler.tasks[taskId] = checked === true
+    },
+    resetTripReadiness(state, action) {
+      const plan = findPlan(state, action.payload)
+      if (!plan) return
+      plan.readiness = createTripReadiness(plan)
+      plan.updatedAt = new Date().toISOString()
+    },
   },
 })
 
-export const { saveTripPlan, deleteTripPlan, clearTripPlans } = tripPlansSlice.actions
+export const {
+  saveTripPlan,
+  deleteTripPlan,
+  clearTripPlans,
+  setTripReadinessTask,
+  setTravelerReadinessTask,
+  resetTripReadiness,
+} = tripPlansSlice.actions
 
 export const selectTripPlans = (state) => state.tripPlans.plans
 export const selectTripPlanCount = (state) => state.tripPlans.plans.length

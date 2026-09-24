@@ -38,7 +38,7 @@ jobs:
 
       - name: Build for GitHub Pages
         env:
-          VITE_BASE_PATH: /react-homework-10-forms-validation-atlasroute/
+          VITE_BASE_PATH: /react-homework-11-material-ui-atlasroute/
           VITE_PIXABAY_API_KEY: ${{ secrets.VITE_PIXABAY_API_KEY }}
         run: |
           npm run build

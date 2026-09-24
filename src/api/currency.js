@@ -1,3 +1,5 @@
+import { toLocalDateInputValue } from '../utils/dateInput.js'
+
 const PRIMARY_API = 'https://latest.currency-api.pages.dev/v1/currencies'
 const FALLBACK_API = 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies'
 
@@ -21,7 +23,7 @@ export const fetchExchangeRate = async (fromCode, toCode, { signal } = {}) => {
   const from = normalizeCode(fromCode)
   const to = normalizeCode(toCode)
   if (!from || !to) throw new Error('Currency code unavailable')
-  if (from === to) return { rate: 1, date: new Date().toISOString().slice(0, 10) }
+  if (from === to) return { rate: 1, date: toLocalDateInputValue() }
 
   try {
     return await requestRate(PRIMARY_API, from, to, { signal })

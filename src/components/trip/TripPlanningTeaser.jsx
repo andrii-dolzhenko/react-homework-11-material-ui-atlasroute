@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { getSavedTripTarget } from '../../utils/tripPlan.js'
 import TripUiIcon from './TripUiIcon.jsx'
 import TripPassportAnimation from './TripPassportAnimation.jsx'
 
@@ -12,7 +13,7 @@ const items = [
 
 export default function TripPlanningTeaser({ country, countryImage = '', tripPlans = [] }) {
   const planCount = tripPlans.length
-  const savedTarget = planCount === 1 ? `/saved/trips/${tripPlans[0].id}` : '/saved?tab=trips'
+  const savedTarget = getSavedTripTarget(tripPlans, country.code)
 
   return (
     <section
@@ -48,7 +49,7 @@ export default function TripPlanningTeaser({ country, countryImage = '', tripPla
         <div className="trip-planning-teaser__actions">
           {planCount > 0 && (
             <Link className="secondary-button" to={savedTarget}>
-              View saved {planCount === 1 ? 'plan' : 'plans'}
+              {planCount === 1 ? 'View saved plan' : `View ${planCount} saved trips`}
             </Link>
           )}
           <Link

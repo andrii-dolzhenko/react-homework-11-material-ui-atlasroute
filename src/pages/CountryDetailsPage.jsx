@@ -11,6 +11,7 @@ import CountryInsights from '../components/CountryInsights'
 import InlineLoader from '../components/InlineLoader'
 import TripPlanningInlineCta from '../components/trip/TripPlanningInlineCta'
 import TripPlanningTeaser from '../components/trip/TripPlanningTeaser'
+import TripReadinessPanel from '../components/trip/TripReadinessPanel.jsx'
 import useCountryMedia from '../hooks/useCountryMedia'
 import { formatNumber, formatPopulation } from '../data/featured'
 import { addRecentlyViewed } from '../redux/recentlyViewedSlice'
@@ -207,6 +208,8 @@ export default function CountryDetailsPage() {
         loading={mediaLoading}
         error={mediaError}
       />
+
+      <TripReadinessPanel country={country} tripPlans={tripPlans} />
 
       <TripPlanningTeaser country={country} countryImage={dynamicHero || ''} tripPlans={tripPlans} />
 

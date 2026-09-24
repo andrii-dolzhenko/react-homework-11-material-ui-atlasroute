@@ -18,6 +18,17 @@ export const createTripPlanId = (countryCode, now = Date.now()) => (
 )
 
 
+
+export const getSavedTripTarget = (plans, countryCode = '') => {
+  const list = Array.isArray(plans) ? plans : []
+  if (list.length === 1 && list[0]?.id) return `/saved/trips/${list[0].id}`
+
+  const code = String(countryCode || list[0]?.countryCode || '').trim().toUpperCase()
+  const params = new URLSearchParams({ tab: 'trips' })
+  if (list.length > 1 && code) params.set('country', code)
+  return `/saved?${params.toString()}`
+}
+
 export const findMatchingTripPlan = (plans, candidate, excludeId = '') => {
   if (!Array.isArray(plans) || !candidate) return null
   const countryCode = String(candidate.countryCode || '').toUpperCase()
